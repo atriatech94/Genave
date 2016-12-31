@@ -1,0 +1,29 @@
+<ons-navigator ons-postpush="push()" var="myNavigator" page="page1.html"></ons-navigator>
+
+<ons-template id="page1.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="right"><ons-toolbar-button ng-click="toggle()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
+            <div class="center">دسته بندی ها</div>
+        </ons-toolbar>
+        <div class="main">  
+            <ons-row>
+                <ons-col ng-repeat="category in categories"  width="33.334%">
+                    <div ng-click="myNavigator.pushPage('page2.html', {data: {id:1, cat_id:category.id, title:category.cat}})" class="job_cat"><img img-cache ic-src="{{image_url + category.pic_name}}"><p>{{category.cat}}</p></div>
+                </ons-col>
+            </ons-row>
+        </div>  
+    </ons-page>
+</ons-template> 
+<!--=======cat secondary===========-->
+<ons-template id="page2.html" >
+    <div ng-include="'page/search/cat_secondary.html'"></div>
+</ons-template>
+<!--=======business===========-->
+<ons-template id="page3.html" >
+    <div ng-include="'page/search/business.html'"></div>
+</ons-template>
+<!--=======business===========-->
+<ons-template id="page4.html" >
+    <div ng-include="'page/home/job_detail.html'" ng-controller="jobdetail" ></div>
+</ons-template>

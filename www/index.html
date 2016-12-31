@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+</html>
+<html lang="fa" ng-app="myapp">
+<head> 
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+    <!-----===========  =============== -->
+    <link rel="stylesheet" href="node_modules/onsenui/css/onsenui.css"/>
+    <link rel="stylesheet" href="node_modules/onsenui/css/onsen-css-components.css"/>
+    <link rel="stylesheet" href="node_modules/swiper/dist/css/swiper.min.css">
+    <link rel="stylesheet" href="file/font/iransans/style.css"/>
+    <link rel="stylesheet" href="file/css/onsen-rtl.css">
+    <link rel="stylesheet" href="file/css/style.css">
+    <!-----=========== scripts =============== -->
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize(); 
+        var base_url = "http://bazargenave.ir/bazar_genaveh/app_ios/";
+        var uploads_pic = "http://bazargenave.ir/bazar_genaveh/uploads/";
+        var logo_pic = "http://bazargenave.ir/bazar_genaveh/uploads/logo/";
+        var thumb_pic = "http://bazargenave.ir/bazar_genaveh/uploads/logo/thumb/";
+        var baner_pic = "http://bazargenave.ir/bazar_genaveh/uploads/baner/";
+        var baner_thumb_pic = "http://bazargenave.ir/bazar_genaveh/uploads/baner/thumb/";
+        var product_thumb = "http://bazargenave.ir/bazar_genaveh/uploads/thumb/";
+    </script>
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/onsenui/js/onsenui.js"></script>
+    <script src="node_modules/onsenui/js/angular-onsenui.js"></script>
+    <script src="node_modules/angular-animate/angular-animate.min.js"></script> 
+    <script src="node_modules/angular-resource/angular-resource.min.js"></script>
+    <script src="node_modules/angular-route/angular-route.min.js"></script>
+    <script src="node_modules/swiper/dist/js/swiper.js"></script>
+    <script src="node_modules/angular-swiper/dist/angular-swiper.js"></script> 
+    <script src="bower_components/imgcache.js/js/imgcache.js"></script>
+    <script src="bower_components/angular-imgcache/angular-imgcache.js"></script>
+    <!-----=========== library =============== -->
+    <script src="file/js/app/app.js"></script>
+    <script src="file/js/route/route.js"></script>
+    <!-----=========== controller ===============-->
+    <script src="file/js/controller/home-controller.js"></script>
+    <script src="file/js/controller/about-controller.js"></script>
+    <script src="file/js/controller/search-controller.js"></script>
+    <script src="file/js/controller/members-controller.js"></script>
+    <script src="file/js/controller/contact-controller.js"></script>
+    <script src="file/js/controller/about-controller.js"></script>
+    <script src="file/js/controller/myjob-controller.js"></script>
+    <script src="file/js/controller/job-controller.js"></script>
+    <script src="file/js/controller/msg-controller.js"></script>
+    <!-----=========== end directive ===============-->
+    <script src="file/js/directive/map-directive.js"></script>
+    <!-----=========== end script =============== -->
+</head>
+<body ng-controller="indexController">
+    <ons-sliding-menu var="menu" main-page="page.html" menu-page="menu.html" max-slide-distance="215px" type="overlay" side="right">
+    </ons-sliding-menu>
+    <ons-template id="page.html">
+        <div id="ng-view" ng-view></div>
+    </ons-template>
+   
+    <ons-template id="menu.html"  >
+        <ons-page class="menu_item" >
+            <ons-list>
+                <div class="menu_logo"> 
+                    <img src="file/img/logo.png" >
+                    <p>بازار گناوه</p>
+                </div>
+                <ons-list-item ng-click="go('')" tappable><i class="ion-home"></i> خانه</ons-list-item>
+                <ons-list-item ng-click="go('members/panel')" tappable><i class="ion-android-contact"></i> پنل کاربری</ons-list-item>
+                <ons-list-item ng-click="go('search')" tappable><i class="ion-ios-search-strong"></i> دسته بندی ها</ons-list-item>
+                <ons-list-item ng-click="go('contact')" tappable><i class="ion-iphone"></i> تماس با ما</ons-list-item>
+                <ons-list-item ng-click="go('about')" tappable><i class="ion-ios-information-outline"></i> درباه ما</ons-list-item>
+                <ons-list-item ng-click="conf('sepicaladds')" tappable><i class="ion-flag"></i> درخواست تبلیغات ویژه</ons-list-item>
+                <ons-list-item ng-click="go('msg')" tappable><i class="ion-ios-chatboxes"></i> ارتباط با مدیریت</ons-list-item>
+                <ons-list-item ng-click="go('members/login')" tappable><i class="ion-log-in"></i> ورود / عضویت</ons-list-item>
+            </ons-list> 
+        </ons-page>
+    </ons-template>
+    
+</body>
+</html>

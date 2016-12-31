@@ -1,0 +1,111 @@
+<ons-page>
+    <div class="main">
+        <ons-toolbar modifier="job_detail"> 
+        <div class="right"><ons-toolbar-button><ons-icon icon="ion-arrow-right-c" ng-click="myNavigator.popPage();jobBack();" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
+        <div  class="center"><span>{{myNavigator.topPage.data.title | limitTo : 32}}</span ng-if="myNavigator.topPage.data.title"><span ng-if="!myNavigator.topPage.data.title">{{place.title | limitTo : 32}}</span></div>
+     </ons-toolbar>
+        <ons-page modifier="shop-details">
+<div class="header_jobs">
+            <ons-carousel  style="height:180px;">
+                <ons-carousel-item style="height:180px;">
+                    <ks-swiper-container slides-per-view="1" slides-per-column="1" space-between="0" pagination-is-active="false" pagination-clickable="false" show-nav-buttons="false" loop="true" autoplay="5000" initial-slide="0" direction="horizontal">
+                        <ks-swiper-slide class="swiper-slide" ng-repeat="banner in place.banner">
+                            <img img-cache ic-src="{{logo_pic + banner}}">
+                        </ks-swiper-slide>
+                    </ks-swiper-container>
+                 </ons-carousel-item>
+            </ons-carousel>
+        </div>
+        <!--=========end logo================-->
+        <div class="job_logo">
+            <div ng-if="place.logo" class="logo_job_image"><img img-cache ic-src="{{logo_pic + place.logo}}"></div>
+            <div class="shr_des">
+                <h3 ng-if="myNavigator.topPage.data.title">{{myNavigator.topPage.data.title}}</h3>
+                <p ng-if="myNavigator.topPage.data.cat" class="cat fa-bookmark">{{myNavigator.topPage.data.cat}}</p>
+                <h3 ng-if="!myNavigator.topPage.data.title">{{place.title}}</h3>
+               
+            </div>
+            <div class="clearfix"></div>
+        </div>
+            <div class="clearfix"></div>
+        <!--=========end main================-->
+        <!-- segment control -->
+        <div class="tabs">
+            <div class="button-bar"  >
+                <div class="button-bar__item" ng-click="change(1)">
+                    <input  type="radio" name="navi-segment-a" checked>
+                    <div class="button-bar__button">توضیحات</div>
+                </div>
+                <div class="button-bar__item"  ng-click="change(2)">
+                    <input  type="radio" name="navi-segment-a" >
+                    <div class="button-bar__button">محصولات</div>
+                </div>
+                <div class="button-bar__item" ng-click="change(3)">
+                    <input  type="radio" name="navi-segment-a" >
+                    <div class="button-bar__button">اطلاعات تماس</div>
+                </div>
+            </div>
+        </div>
+        <div class="tabbar">
+            <div class="sub_tab p15bs" ng-show="tab === 1">
+                <h4> خدمات </h4>
+                <p> {{place.short_discription}} <i ng-if="!place.short_discription" class="fa fa-spinner fa-spin" aria-hidden="true"></i> </p>
+                <h4> توضیحات </h4>
+                <p> {{place.discription}} <i ng-if="!place.discription" class="fa fa-spinner fa-spin" aria-hidden="true"></i> </p>
+            </div>
+            <div class="sub_tab p15bs" ng-show="tab === 2">
+                <div class="job_gallery">
+                    <span  ng-repeat="product in products" ng-click="showDialog(d)" cancelable >
+                        <img img-cache ic-src="{{ product_thumb + product.pic_name}}" >
+                        <p>{{product.title}}</p>
+                    </span>
+                </div>
+            </div>
+            <div class="sub_tab " ng-show="tab === 3">
+                <div class="contact_info">
+                    <div class="address">
+                        <p>{{place.address}}</p>
+                        <a href="callto:{{place.tel}}">{{place.tel}}</a>
+                    </div>
+                    <div class="googlemap">
+                        <a target="_blank" href="https://www.google.com/maps/dir//{{place.latitude}},+{{place.longitude}}/"><img ng-src="{{map}}" alt="Google Map of {{place.latitude}}, {{place.longitude}}"></a>
+                    </div>
+                    <div class="social_media">
+                        <div class=""></div>
+                    </div>
+                    <ons-list>
+                       <ons-list-item ng-if="place.instagram" tappable>
+                            <div class="left"><i class="fa fa-instagram" ></i></div>
+                            <div class="center">{{place.instagram}}</div>
+                        </ons-list-item>
+                         <ons-list-item  ng-if="place.telegram" tappable>
+                            <div class="left"><i class="fa fa-telegram"></i></div>
+                            <div class="center">{{place.telegram}}</div>
+                        </ons-list-item>
+                         <ons-list-item ng-if="place.website" tappable>
+                            <div class="left"><i class="fa fa-globe" ></i></div>
+                            <div class="center">{{place.website}}</div>
+                        </ons-list-item>
+                         <ons-list-item ng-if="place.email" tappable>
+                            <div class="left"><i class="fa fa-envelope-o"></i></div>
+                            <div class="center">{{place.email}}</div>
+                        </ons-list-item>
+                    </ons-list>
+                </div>
+
+            </div>
+        </div>
+<!--=========end main================-->
+    </div>
+</ons-page>
+<ons-template id="dialog.html">
+    <ons-dialog id="gallery" cancelable>
+        <ks-swiper-container class="gallery_slider"  initial-slide="gallery_active" override-parameters="{'effect':'slide', 'zoom': 'true', 'pagination': '.swiper-pagination', 'nextButton': '.swiper-button-next', 'prevButton': '.swiper-button-prev'}">
+            <ks-swiper-slide class="swiper-slide1" ng-repeat="i in [1,2,3,4,5,6,7,8,9]">
+                <div class="swiper-zoom-container">
+                    <img src="file/img/test/product/{{i}}.jpg" />
+                </div>
+            </ks-swiper-slide>
+        </ks-swiper-container>
+    </ons-dialog>
+</ons-template>

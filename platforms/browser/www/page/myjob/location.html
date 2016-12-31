@@ -1,0 +1,33 @@
+<ons-page ng-controll="">
+    <ons-toolbar>
+        <div class="right"><ons-toolbar-button><ons-icon icon="ion-arrow-right-c" ng-click="myNavigator.popPage();menu.setSwipeable(true);" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
+      <div class="center"> موقعیت مکانی کسب و کار </div>
+    </ons-toolbar>
+    <!--========-->
+    <div class="main">
+        <div class="form-map">
+            <!--==================  =====================--->
+            <header class="section-title"><h5>مکان خود را بر روی نقشه مشخص کنید</h5></header>
+            <div class="input-field col s12" >
+                <input  type="text" class="text-input--underbar"  id="address_type" placeholder="محدوده  ی خود را تایپ کنید">
+            </div>                                     
+            <div class="lucent">
+                <p class="note">محدوده خود را جستجو کنید</p>
+            </div>
+                <!-- /.form-group -->
+            <div class="show_gmap header_jobs">
+                <div id="submit-map" lat="29.36" long="52.33" class="googleMap" style="height:300px"></div>
+                <div class="now_me"></div>
+            </div>
+            <div class="lucent">
+                <p class="note">می توانید با جا به جا کردن پوینتر مکان خود را تغییر دهید .</p>
+            </div>
+            <form>
+                <input type="text" class="form-control" ng-model="lat" id="latitude" name="latitude" readonly>
+                <input type="text" class="form-control" ng-model="lon" id="longitude" name="longitude" readonly> 
+            </form>
+            <div class="map_block"> <div class="vspc form-row"><ons-button ng-click="submit_map()" style="width:100%" modifier="material">افزودن آدرس جدید</ons-button> </div> </div>
+        </div>
+    </div>
+    <!--========-->
+</ons-page>

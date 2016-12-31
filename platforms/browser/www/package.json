@@ -1,0 +1,9 @@
+{
+  "name": "Myproject",
+  "version": "0.0.1",
+  "dependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-watch": "~1.0.0",
+    "matchdep":"~1.0.1"
+  }
+}

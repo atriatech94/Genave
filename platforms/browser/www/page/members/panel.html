@@ -1,0 +1,123 @@
+<ons-navigator var="myNavigator" page="page1.html"></ons-navigator>
+    <ons-template id="page1.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="right"><ons-toolbar-button ng-click="toggle()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
+        <div class="center">پنل کاربری</div>
+      </ons-toolbar>
+        <div class="main">
+            <div class="panel-img">
+                <div class="user-img"><img src="file/img/test/logo/2.jpg" ></div>
+                <div class="jobname">شرکت ایده پردازان آتریت سپهر آریا</div>
+            </div>
+            <!--=====list===-->
+            <div class="setting">
+                <ons-list>
+                    <ons-list-item ng-click="myNavigator.pushPage('page2.html')"  tappable modifier="longdivider">
+                        <ons-row >
+                            <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-edit"></ons-icon></ons-col>
+                            <ons-col >
+                                <h5 >ویرایش اطلاعات</h5>
+                                <p>تغییر نام ، ایمیل , آدرس و تصویر و...</p>
+                            </ons-col>
+                            <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item  ng-click="myNavigator.pushPage('page3.html')"  tappable modifier="longdivider">
+                        <ons-row >
+                            <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-lock-combination"></ons-icon></ons-col>
+                            <ons-col >
+                                <h5 >تغییر کلمه ی عبور</h5>
+                                <p>تغییر کلمه عبور اکانت شما </p>
+                            </ons-col>
+                            <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item ng-click="myNavigator.pushPage('page4.html')" tappable modifier="longdivider">
+                        <ons-row >
+                            <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-settings"></ons-icon></ons-col>
+                            <ons-col >
+                                <h5 >اطلاعات کسب و کار</h5>
+                                <p>اطلاعات کلی , شماره تماس , مکان روی نقشه و ...</p>
+                            </ons-col>
+                            <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item tappable ng-click="myNavigator.pushPage('page5.html')" modifier="longdivider">
+                        <ons-row >
+                            <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-cube"></ons-icon></ons-col>
+                            <ons-col >
+                                <h5 >تعریف کالا</h5>
+                                <p>معرفی کالا به همراه عنوان و تصویر و... </p>
+                            </ons-col>
+                            <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item tappable ng-click="myNavigator.pushPage('page6.html')" modifier="longdivider">
+                        <ons-row>
+                            <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-android-apps"></ons-icon></ons-col>
+                            <ons-col >
+                                <h5 >آرشیو کالا</h5>
+                                <p>ویرایش و حذف کالا ها در این قسمت است</p>
+                            </ons-col>
+                            <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item tappable  modifier="longdivider">
+                        <ons-row >
+                            <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-power"></ons-icon></ons-col>
+                            <ons-col >
+                                <h5 >خروج از حساب کاربری</h5>
+                                <p>خروج از اکانت نرم افزار گناوه</p>
+                            </ons-col>
+                            <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                </ons-list>
+            </div>
+            <!--=====list===-->
+        </div>
+        <!--=====main===-->
+    </ons-page>
+</ons-template>
+<!--=======edit info===========-->
+<ons-template id="page2.html" >
+    <div ng-include="'page/members/editinfo.html'" ng-controller="editinfo" ></div>
+</ons-template>
+<!--=======edit password===========-->
+<ons-template id="page3.html" >
+    <div ng-include="'page/members/changepass.html'"></div>
+</ons-template>
+<!--=======job list===========-->
+<ons-template id="page4.html"  >
+    <div ng-include="'page/members/joblist.html'"></div>
+</ons-template>
+<!--=======add product===========-->
+<ons-template id="page5.html" >
+    <div ng-include="'page/members/addproduct.html'" ng-controller="addproduct" ></div>
+</ons-template>
+<!--=======product archive===========-->
+<ons-template id="page6.html" >
+    <div ng-include="'page/members/product_archive.html'" ng-controller="productarchive" ></div>
+</ons-template>
+<!--=======product detail===========-->
+<ons-template id="product_detail.html" >
+    <div ng-include="'page/members/product_detail.html'" ng-controller="productdetail" ></div>
+</ons-template>
+<!--=======edit job info===========-->
+<ons-template id="job1.html" >
+    <div ng-include="'page/myjob/info.html'" ></div>
+</ons-template>
+<!--=======job location===========-->
+<ons-template id="job2.html" >
+    <div ng-include="'page/myjob/location.html'"  ng-controller="joblocation"></div>
+</ons-template>
+<!--=======add job image===========-->
+<ons-template id="job3.html" >
+    <div ng-include="'page/myjob/images.html'" ng-controller="uploadimage"></div>
+</ons-template>
+<!--=======add logo===========-->
+<ons-template id="job4.html" >
+    <div ng-include="'page/myjob/logo.html'" ng-controller="joblogo"></div>
+</ons-template>
