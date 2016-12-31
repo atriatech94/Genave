@@ -1,19 +1,72 @@
  angular.module('myapp')
- .controller('loginController', function() { 
-    
+ .controller('loginController', function($scope,$http,$httpParamSerializer,$location,$rootScope) { 
+     $scope.member = {
+            phone : "",
+            password : ""
+     };
+     $scope.submit = function(){
+         
+         if($scope.member.phone == "" || $scope.member.phone === undefined){
+               ons.notification.alert({
+                    title: 'خطا',
+                    buttonLabel:"بستن " ,
+                    message: 'شماره موبایل را وارد کنید'
+               }); 
+        }
+        else if($scope.member.password == "" || $scope.member.password === undefined){
+                ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'کلمه عبور را وارد کنید'
+                }); 
+        } 
+        else{
+            $scope.member.phone = Number($scope.member.phone); 
+            $http({
+                    method: 'POST',
+                    url: base_url+'login',
+                    data: $httpParamSerializer({phone: $scope.member.phone , password: $scope.member.password}),
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                }).then(function successCallback(response) {
+                    
+                    if(response.data.done == 0){
+                            ons.notification.alert({
+                                title: 'خطا',
+                                buttonLabel:"بستن " ,
+                                message: response.data.msg
+                            }); 
+                    }
+                    else if ( response.data.done == 1 )
+                    {
+                        localStorage.setItem("member_info",JSON.stringify(response.data.member_info));  
+                        $rootScope.is_login = 1;  
+                        $location.path('/members/panel');
+                    }
+                        
+                }, function errorCallback(response) {
+                            ons.notification.alert({
+                            title: 'خطا',
+                            buttonLabel:"بستن " ,
+                            message: 'خطا در برقراری ارتباط با سرور'
+                }); 
+            });
+
+        } 
+     }; 
 })
-.controller('registerController', function($scope,$http,$httpParamSerializer) { 
+.controller('registerController', function($scope,$http,$httpParamSerializer,$location,$rootScope) { 
    $scope.member = {
             fname : "",
             lname : "",
             phone : "",
             pass : "",
             repass : "",
-            type : "",
+            type : "", 
             visitor_code : ""
    };
   
    $scope.submit = function(){
+      $scope.member.phone = Number($scope.member.phone);
       if($scope.member.fname == "" || $scope.member.fname === undefined){
            ons.notification.alert({
                     title: 'خطا',
@@ -35,6 +88,25 @@
                     message: 'شماره تماس را وارد کنید'
             }); 
       }
+      else if(typeof ($scope.member.phone) != 'number' )
+             {
+                  ons.notification.alert({
+                     title: 'خطا',
+                     buttonLabel:"بستن " ,
+                     message: 'شماره تلفن وارد شده معتبر نیست !!'
+                });
+               
+             }
+         else if($scope.member.phone.toString().length != 10 )
+             {
+              
+                ons.notification.alert({
+                     title: 'خطا',
+                     buttonLabel:"بستن " ,
+                     message: 'شماره تلفن وارد شده معتبر نیست !!'
+                });
+                return false;
+             } 
        else if($scope.member.pass == "" || $scope.member.pass === undefined){
            ons.notification.alert({
                     title: 'خطا',
@@ -71,20 +143,33 @@
             }); 
       }
       else{
-        
+         
+         
          $http({
-            method: 'POST',
-            url: base_url+'home',
-            data : $httpParamSerializer({
-                info = JSON.stringify($scope.member)
-            }),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+                method: 'POST',
+                url: base_url+'add_user',
+                data: $httpParamSerializer({info : JSON.stringify($scope.member)}),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function successCallback(response) {
                 
-                //$scope.sliders = response.data.slider; 
-                // $scope.jobs = response.data.bottom;
-                // localStorage.setItem('jobs',JSON.stringify($scope.jobs)); 
-                // localStorage.setItem('sliders',JSON.stringify($scope.sliders));   
+                   if(response.data.done == 0){
+                        ons.notification.alert({
+                            title: 'خطا',
+                            buttonLabel:"بستن " ,
+                            message: response.data.msg
+                         }); 
+                   }
+                   else if ( response.data.done == 1 )
+                   {
+                        ons.notification.alert({
+                            title: 'پیام سیستم',
+                            buttonLabel:"بستن " ,
+                            message: 'ثبت نام با موفقیت انجام شد' 
+                         }); 
+                       localStorage.setItem("member_info",JSON.stringify(response.data.member_info));  
+                       $rootScope.is_login = 1;  
+                       $location.path('/members/panel');
+                   }
                     
             }, function errorCallback(response) {
                         ons.notification.alert({
@@ -97,11 +182,26 @@
      }     
   };
 })
-.controller('panelController', function() { 
+.controller('panelController', function($scope,$location,$rootScope) { 
+      if(localStorage.getItem('member_info') == null){
+         $rootScope.is_login = 0;
+         $location.path('/');
+      }
+      else
+      {
+         $scope.info = JSON.parse(localStorage.getItem('member_info'));
+      }
 
+       $scope.logout = function(){
+          localStorage.removeItem('member_info');
+          $rootScope.is_login = 0;
+          $location.path('/');
+      };
+      
 })
-.controller('editinfo', function() { 
-   
+.controller('editinfo', function($scope,$location) { 
+    $scope.info = JSON.parse(localStorage.getItem('member_info'));
+    
 })
 .controller('addproduct', function($scope,$timeout) { 
    

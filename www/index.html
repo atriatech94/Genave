@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="file/css/onsen-rtl.css">
     <link rel="stylesheet" href="file/css/style.css">
     <!-----=========== scripts =============== -->
-    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="cordova.js"></script> 
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
         app.initialize(); 
@@ -80,16 +80,18 @@
                     <p>بازار گناوه</p>
                 </div>
                 <ons-list-item ng-click="go('')" tappable><i class="ion-home"></i> خانه</ons-list-item>
-                <ons-list-item ng-click="go('members/panel')" tappable><i class="ion-android-contact"></i> پنل کاربری</ons-list-item>
+                <ons-list-item ng-if="is_login == 1" ng-click="go('members/panel')" tappable><i class="ion-android-contact"></i> پنل کاربری</ons-list-item>
                 <ons-list-item ng-click="go('search')" tappable><i class="ion-ios-search-strong"></i> دسته بندی ها</ons-list-item>
                 <ons-list-item ng-click="go('contact')" tappable><i class="ion-iphone"></i> تماس با ما</ons-list-item>
                 <ons-list-item ng-click="go('about')" tappable><i class="ion-ios-information-outline"></i> درباه ما</ons-list-item>
-                <ons-list-item ng-click="conf('sepicaladds')" tappable><i class="ion-flag"></i> درخواست تبلیغات ویژه</ons-list-item>
-                <ons-list-item ng-click="go('msg')" tappable><i class="ion-ios-chatboxes"></i> ارتباط با مدیریت</ons-list-item>
-                <ons-list-item ng-click="go('members/login')" tappable><i class="ion-log-in"></i> ورود / عضویت</ons-list-item>
+                <ons-list-item ng-if="is_login == 1" ng-click="conf('sepicaladds')" tappable><i class="ion-flag"></i> درخواست تبلیغات ویژه</ons-list-item>
+                <ons-list-item ng-if="is_login == 0" ng-click="go('members/login');specilal()" tappable><i class="ion-flag"></i> درخواست تبلیغات ویژه</ons-list-item>
+                <ons-list-item ng-if="is_login == 1"  ng-click="go('msg')" tappable><i class="ion-ios-chatboxes"></i> ارتباط با مدیریت</ons-list-item>
+                <ons-list-item ng-if="is_login == 0" ng-click="go('members/login')" tappable><i class="ion-log-in"></i> ورود / عضویت</ons-list-item>
+                <ons-list-item ng-if="is_login == 1" ng-click="logout_1()" tappable><i class="ion-log-out"></i>خروج از حساب کاربری </ons-list-item>
             </ons-list> 
         </ons-page>
     </ons-template>
-    
+  
 </body>
 </html>
