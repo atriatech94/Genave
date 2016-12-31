@@ -1,31 +1,31 @@
 <ons-page >
     <ons-toolbar>
         <div class="right"><ons-toolbar-button><ons-icon icon="ion-arrow-right-c" ng-click="myNavigator.popPage()" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
-      <div class="center">ویرایش اطلاعات کاربری</div>
+      <div class="center">ویرایش اطلاعات کاربری</div> 
     </ons-toolbar>
     <div class="main">
         <div class="formarea">
             <div class="form-row">
-                <input type="text" class="text-input--underbar " value="امین" placeholder="نام" value="">
+                <input type="text" class="text-input--underbar" ng-model="member.fname" placeholder="نام">
             </div>
             <div class="lucent">
                 <p class="note">نام</p>
             </div>
             <div class="form-row">
-                <input type="text" class="text-input--underbar" value="تکمیلی فرد" placeholder="نام خانوادگی" value="" style="border-width-left: 1px">
+                <input type="text" class="text-input--underbar" ng-model="member.lname"  placeholder="نام خانوادگی">
             </div>
             <div class="lucent">
                 <p class="note">نام خانوادگی</p>
             </div>
             <div class="form-row">
-                <input type="number" class="text-input--underbar width-full" value="09173052209"  placeholder="شماره تماس" value="">
+                <input type="number" class="text-input--underbar width-full" ng-model="member.phone"  placeholder="شماره تماس">
             </div>
             <div class="lucent">
                 <p class="note">شماره تماس</p>
             </div>
             <br>
             <div class="vspc form-row">
-                <ons-button modifier="large--cta"><ons-icon class="ml5" icon="ion-edit"></ons-icon> ویرایش اطلاعات</ons-button>
+                <ons-button ng-click="submit()" modifier="large--cta"><ons-icon class="ml5" icon="ion-edit"></ons-icon> ویرایش اطلاعات</ons-button>
             </div>
         </div>
     </div>

@@ -14,12 +14,11 @@
             <form autocomplete="off">
                 <input style="display:none" type="text" name="username">
                 <input style="display:none" type="password" name="password">
-                <p><ons-input id="username" modifier="underbar" placeholder="نام کاربری"  ng-model="username"></ons-input></p>
-                <p><ons-input id="password" modifier="underbar" type="password" placeholder="کلمه ی عبور"  ng-model="password"></ons-input></p>
-                <ons-button modifier="large" class="login-button">ورود</ons-button>
+                <p><ons-input id="username" modifier="underbar" type="number" placeholder="شماره موبایل"  ng-model="member.phone"></ons-input></p>
+                <p><ons-input id="password" modifier="underbar" type="password" placeholder="کلمه ی عبور"  ng-model="member.password"></ons-input></p>
+                <ons-button modifier="large" ng-click="submit()" class="login-button">ورود</ons-button>
                 <br>
             </form>
-            <ons-button modifier="quiet" class="forgot-password">رمز عبور خود را فراموش کرداید ؟</ons-button>
         </div>
     </ons-page>
 </ons-template> 

@@ -1,4 +1,4 @@
-<ons-navigator var="myNavigator" page="page1.html"></ons-navigator>
+<ons-navigator ons-prepop="pop()" var="myNavigator" page="page1.html"></ons-navigator>
     <ons-template id="page1.html">
     <ons-page>
       <ons-toolbar>
@@ -8,7 +8,7 @@
         <div class="main">
             <div class="panel-img">
                 <div class="user-img"><img src="file/img/test/logo/2.jpg" ></div>
-                <div class="jobname">شرکت ایده پردازان آتریت سپهر آریا</div>
+                <div class="jobname">{{info.fname+" "+info.lname}}</div>
             </div>
             <!--=====list===-->
             <div class="setting">
@@ -66,7 +66,7 @@
                     <ons-list-item tappable  modifier="longdivider">
                         <ons-row >
                             <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-power"></ons-icon></ons-col>
-                            <ons-col >
+                            <ons-col ng-click="logout()" >
                                 <h5 >خروج از حساب کاربری</h5>
                                 <p>خروج از اکانت نرم افزار گناوه</p>
                             </ons-col>
@@ -87,7 +87,7 @@
 </ons-template>
 <!--=======edit password===========-->
 <ons-template id="page3.html" >
-    <div ng-include="'page/members/changepass.html'"></div>
+    <div ng-include="'page/members/changepass.html'" ng-controller="changepass"></div>
 </ons-template>
 <!--=======job list===========-->
 <ons-template id="page4.html"  >
@@ -107,7 +107,7 @@
 </ons-template>
 <!--=======edit job info===========-->
 <ons-template id="job1.html" >
-    <div ng-include="'page/myjob/info.html'" ></div>
+    <div ng-include="'page/myjob/info.html'" ng-controller="jobInfo" ></div>
 </ons-template>
 <!--=======job location===========-->
 <ons-template id="job2.html" >

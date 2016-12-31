@@ -1,15 +1,35 @@
  angular.module('myapp')
- .controller('indexController', function($scope,$location) { 
+ .controller('indexController', function($scope,$location,$rootScope) { 
      
      $scope.go = function(data){
          $location.path(data);
          if($scope.menu.isMenuOpened()){
              $scope.menu.toggleMenu();
          }
-         
+     };
+     
+     $scope.specilal = function(){
+         ons.notification.alert({
+                    title: 'پیام',
+                    buttonLabel:"بستن " ,
+                    message: 'برای در خواست تبلیغات ویژه ابتدا عضو شوید'
+                }); 
+     };
+      $scope.logout_1 = function(){
+          localStorage.removeItem('member_info');
+          $rootScope.is_login = 0;
+          $location.path('/');
+          $scope.menu.toggleMenu();
+      };
+
+     if(localStorage.getItem('member_info') == null){
+         $rootScope.is_login = 0;
      }
-     
-     
+     else
+     {
+         $rootScope.is_login = 1; 
+     }
+    
      $scope.toggle = function() {
          $scope.menu.toggleMenu();
      };
@@ -55,7 +75,7 @@
                     title: 'خطا',
                     buttonLabel:"بستن " ,
                     message: 'خطا در برقراری ارتباط با سرور'
-            }); 
+                }); 
        }); 
 
        

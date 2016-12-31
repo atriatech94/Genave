@@ -1,4 +1,4 @@
-<ons-navigator var="myNavigator" page="page1.html"></ons-navigator>
+<ons-navigator ons-prepop="pop()" var="myNavigator" page="page1.html"></ons-navigator>
     <ons-template id="page1.html">
     <ons-page>
       <ons-toolbar>
@@ -87,7 +87,7 @@
 </ons-template>
 <!--=======edit password===========-->
 <ons-template id="page3.html" >
-    <div ng-include="'page/members/changepass.html'"></div>
+    <div ng-include="'page/members/changepass.html'" ng-controller="changepass"></div>
 </ons-template>
 <!--=======job list===========-->
 <ons-template id="page4.html"  >
@@ -107,7 +107,7 @@
 </ons-template>
 <!--=======edit job info===========-->
 <ons-template id="job1.html" >
-    <div ng-include="'page/myjob/info.html'" ></div>
+    <div ng-include="'page/myjob/info.html'" ng-controller="jobInfo" ></div>
 </ons-template>
 <!--=======job location===========-->
 <ons-template id="job2.html" >

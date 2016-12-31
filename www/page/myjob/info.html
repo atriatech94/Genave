@@ -7,29 +7,26 @@
     <div class="main">
         <div class="formarea" style="margin-top:10px;">
             <div class="form-row">
-                <select name="">
-                    <option disabled selected>دسته بندی شغل خود را مشخص کنید</option>
-                    <option>لوازم خانگی</option>
-                    <option>لوازم خانگی</option>
+                <select ng-change="change(job.cat)" ng-model="job.cat">
+                    <option value="">دسته بندی شغل خود را مشخص کنید</option>
+                    <option ng-repeat="category in categories" value="{{category.id}}" > {{category.cat}}</option>
                 </select>
             </div>
             <div class="form-row">
-                <select name="">
-                    <option disabled selected>زیر دسته ی  شغل خود را مشخص کنید</option>
-                    <option>لوازم خانگی</option>
-                    <option>لوازم خانگی</option>
+                <select ng-model="job.subcat">
+                    <option value="">زیر دسته ی  شغل خود را مشخص کنید</option>
+                    <option ng-repeat="category in subcategories" value="{{category.id}}" > {{category.cat}}</option>
                 </select>
-            </div>           
-            <div class="form-row"><input type="text" class="text-input--underbar" placeholder="عنوان کسب کار" ></div>           
-            <div class="form-row"><input type="text" class="text-input--underbar" placeholder="عنوان کسب کار" ></div>           
-            <div class="form-row"><textarea type="text" class="text-input--underbar" placeholder="توضیحات مربوط به کسب کار" ></textarea></div>
-            <div class="form-row"><textarea type="text" class="text-input--underbar" placeholder="لیست خدمات قابل ارائه" ></textarea></div>
-            <div class="form-row"><input type="text" class="text-input--underbar"  placeholder="نشانی محل کسب کار"></div>
-            <div class="form-row"><input type="text" class="text-input--underbar"  placeholder="شماره تماس مربوط"></div>
-            <div class="form-row"><input type="text" class="text-input--underbar"  placeholder="آدرس تلگرام"></div>
-            <div class="form-row"><input type="text" class="text-input--underbar"  placeholder="آدرس اینستاگرام"></div>
-            <div class="form-row"><input type="text" class="text-input--underbar"  placeholder="وب سایت"></div>
-            <div class="form-row"><input type="text" class="text-input--underbar"  placeholder="پست الکترونیک"></div>
+            </div>            
+            <div class="form-row"><input ng-model="job.title" type="text" class="text-input--underbar" placeholder="عنوان کسب کار" ></div>           
+            <div class="form-row"><textarea ng-model="job.description" type="text" class="text-input--underbar" placeholder="توضیحات مربوط به کسب کار" ></textarea></div>
+            <div class="form-row"><textarea ng-model="job.service" type="text" class="text-input--underbar" placeholder="لیست خدمات قابل ارائه" ></textarea></div>
+            <div class="form-row"><input ng-model="job.adrress" type="text" class="text-input--underbar"  placeholder="نشانی محل کسب کار"></div>
+            <div class="form-row"><input ng-model="job.phone" type="number" class="text-input--underbar"  placeholder="شماره تماس مربوط"></div>
+            <div class="form-row"><input ng-model="job.telegram" type="text" class="text-input--underbar"  placeholder="آدرس تلگرام"></div>
+            <div class="form-row"><input ng-model="job.instagram" type="text" class="text-input--underbar"  placeholder="آدرس اینستاگرام"></div>
+            <div class="form-row"><input ng-model="job.website" type="text" class="text-input--underbar"  placeholder="وب سایت"></div>
+            <div class="form-row"><input ng-model="job.email" type="text" class="text-input--underbar"  placeholder="پست الکترونیک"></div>
             <div class="vspc form-row">
                  <ons-button modifier="large--cta"><ons-icon class="ml5" icon="ion-edit"></ons-icon>ویرایش اطلاعات کسب کار</ons-button>
             </div>
