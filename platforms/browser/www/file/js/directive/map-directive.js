@@ -17,9 +17,9 @@ app.service('loadGoogleMapAPI', ['$window', '$q', function ( $window, $q ) {
 
         loadScript();
 
-        return deferred.promise;
+        return deferred.promise; 
 }])
-.directive('googleMap',  function( $rootScope, loadGoogleMapAPI , $http , $location ) {  
+.directive('googleMap',  function( $rootScope, loadGoogleMapAPI , $http , $location , $httpParamSerializer ) {  
 
         return {
             restrict: 'C', // restrict by class name
@@ -39,10 +39,9 @@ app.service('loadGoogleMapAPI', ['$window', '$q', function ( $window, $q ) {
                 var geocoder,geocoder2;
                 
                 var is_click = 1 ; 
-                
-                
-                var _latitude = 29.624698;
-                var _longitude = 52.530859;
+                scope.job_info = JSON.parse(localStorage.getItem('job_info')); 
+                var _latitude = scope.job_info[0].latitude;
+                var _longitude = scope.job_info[0].longitude;
                 var gpss ;
                 /*get geo */
                 setInterval(function(){ navigator.geolocation.getCurrentPosition(onSuccessw,onErrorw,{timeout:10000}); },500);
@@ -62,7 +61,7 @@ app.service('loadGoogleMapAPI', ['$window', '$q', function ( $window, $q ) {
                    
                     user_pos.lat = location.coords.latitude;
                     user_pos.lon = location.coords.longitude;
-                }
+                } 
                 
                 // Check if latitude and longitude are specified
                 if ( angular.isDefined(scope.lat) && angular.isDefined(scope.long) ) 
@@ -77,7 +76,7 @@ app.service('loadGoogleMapAPI', ['$window', '$q', function ( $window, $q ) {
                         
                         var mapCenter = new google.maps.LatLng(_latitude,_longitude);
                         var mapOptions = {
-                            zoom: 13,
+                            zoom: 14,
                             center: mapCenter,
                             disableDefaultUI: false,
                             //scrollwheel: false,
@@ -102,7 +101,6 @@ app.service('loadGoogleMapAPI', ['$window', '$q', function ( $window, $q ) {
                         google.maps.event.addListener(marker, "mouseup", function (event) {
                             var latitude = this.position.lat();
                             var longitude = this.position.lng();
-                            console.log(latitude,longitude);
                             document.getElementById('latitude').value = latitude;
                             document.getElementById('longitude').value = longitude;
                             //$('#latitude').val( latitude );
@@ -187,8 +185,7 @@ app.service('loadGoogleMapAPI', ['$window', '$q', function ( $window, $q ) {
                         
                         /*========================= new code start ===================================*/
                         $rootScope.submit_map = function(){
-                   
-                            var user_latlng = new Array();
+                           var user_latlng = new Array();
                                 
                             /*send tu data base*/
                               
@@ -200,40 +197,39 @@ app.service('loadGoogleMapAPI', ['$window', '$q', function ( $window, $q ) {
                             },function(responses, status){
                                 if (status === google.maps.GeocoderStatus.OK)
                                 {
-                                    if (responses[0]){
-                                        var address = responses[0].formatted_address;
-                                        $http({
+                                     if(document.getElementById('latitude').value == "" || document.getElementById('longitude').value == ""){
+                                          ons.notification.alert({
+                                                    title: 'خطا',
+                                                    buttonLabel:"بستن " ,
+                                                    message: 'مکان را روی نقشه انتخاب کنید'
+                                         });
+                                         return false;
+                                     }
+                                     scope.info = JSON.parse(localStorage.getItem('member_info'));
+                                     document.getElementById('loading').removeAttribute('style'); 
+                                      $http({
                                             method: 'POST',
-                                            url: base_url+'map_address/HamiDaMin23QZYTRRE782',
-                                            data: $.param({ 
-                                                user_id : localStorage.getItem('user_id'),
-                                                lat : user_latlng[0].lat,
-                                                lon : user_latlng[0].lng,
-                                                address : address,
-                                                branch_id : scope.branch_map
+                                            url: base_url+'update_location',
+                                            data: $httpParamSerializer({ 
+                                                user_id : scope.info.id,
+                                                lat : document.getElementById('latitude').value,
+                                                lon : document.getElementById('longitude').value
                                             }),
                                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                                         }).then(function successCallback(response) {
                                             document.getElementById('loading').setAttribute('style','display:none;'); 
-                                            if(response.data != 0)
+                                            if(response.data.done == 1)
                                             {
-                                                var addresses = JSON.parse(localStorage.getItem('address'));
-                                                addresses.push({id: JSON.parse(response.data)  , address : address, type : 2 , branch_id : scope.branch_map});
-                                                localStorage.setItem('address',JSON.stringify(addresses));
+                                                scope.job_info[0].latitude = document.getElementById('latitude').value;
+                                                scope.job_info[0].longitude = document.getElementById('longitude').value;
+                                                localStorage.setItem('job_info',JSON.stringify(scope.job_info));
+                                                 
                                                 ons.notification.alert({
-                                                    title: 'پیام',
-                                                    buttonLabel:"بستن" ,
-                                                    message: 'آدرس با موفقیت ثبت شد'
+                                                     title: 'پیام',
+                                                     buttonLabel:"بستن" ,
+                                                     message: 'مکان روی نقشه با موفقیت ثبت شد'
                                                 });
-                                                if(localStorage.getItem('addr_add_check')){
-                                                    var addr_add_branch = +localStorage.getItem('addr_add_branch');
-                                                    localStorage.removeItem('addr_add_branch');
-                                                    localStorage.removeItem('addr_add_check');
-                                                    $location.path('/checkout/'+addr_add_branch);   
-                                                }
-                                                else{
-                                                    $location.path('/myprofile/address');     
-                                                }   
+                                                myNavigator.popPage();
                                             }
                                             else
                                             {
@@ -254,14 +250,7 @@ app.service('loadGoogleMapAPI', ['$window', '$q', function ( $window, $q ) {
                                             });
                                             return false;
                                         }); 
-                                              
-                                    }else{
-                                        ons.notification.alert({
-                                            title: 'خطا',
-                                            buttonLabel:"بستن " ,
-                                            message: 'خطا در برقراری ارتباط'
-                                        });
-                                    } 
+                                     
                                 }
                             });   
                                /*--==========================---*/

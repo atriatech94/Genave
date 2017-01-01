@@ -1,7 +1,7 @@
 <ons-page>
     <ons-toolbar>
         <div class="right"><ons-toolbar-button><ons-icon icon="ion-arrow-right-c" ng-click="myNavigator.popPage()" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
-      <div class="center"> اطلاعات کسب کار </div>
+      <div class="center"> اطلاعات کسب و کار </div>
     </ons-toolbar>
     <!--========-->
     <div class="main">
@@ -22,13 +22,14 @@
             <div class="form-row"><textarea ng-model="job.description" type="text" class="text-input--underbar" placeholder="توضیحات مربوط به کسب کار" ></textarea></div>
             <div class="form-row"><textarea ng-model="job.service" type="text" class="text-input--underbar" placeholder="لیست خدمات قابل ارائه" ></textarea></div>
             <div class="form-row"><input ng-model="job.adrress" type="text" class="text-input--underbar"  placeholder="نشانی محل کسب کار"></div>
-            <div class="form-row"><input ng-model="job.phone" type="number" class="text-input--underbar"  placeholder="شماره تماس مربوط"></div>
+            <div class="form-row"><input ng-model="job.phone" type="text" class="text-input--underbar"  placeholder="شماره تماس مربوط"></div>
             <div class="form-row"><input ng-model="job.telegram" type="text" class="text-input--underbar"  placeholder="آدرس تلگرام"></div>
             <div class="form-row"><input ng-model="job.instagram" type="text" class="text-input--underbar"  placeholder="آدرس اینستاگرام"></div>
             <div class="form-row"><input ng-model="job.website" type="text" class="text-input--underbar"  placeholder="وب سایت"></div>
             <div class="form-row"><input ng-model="job.email" type="text" class="text-input--underbar"  placeholder="پست الکترونیک"></div>
             <div class="vspc form-row">
-                 <ons-button modifier="large--cta"><ons-icon class="ml5" icon="ion-edit"></ons-icon>ویرایش اطلاعات کسب کار</ons-button>
+                 <ons-button ng-if="jobStatus == 1" ng-click="submit()" modifier="large--cta"><ons-icon class="ml5" icon="ion-edit"></ons-icon>ویرایش اطلاعات کسب کار</ons-button>
+                 <ons-button ng-if="jobStatus == 0" ng-click="submit()" modifier="large--cta"><ons-icon class="ml5" icon="ion-edit"></ons-icon>ثبت اطلاعات کسب کار</ons-button>
             </div>
         </div>
     </div>

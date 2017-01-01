@@ -5,18 +5,19 @@
     </ons-toolbar>
     <!--========-->
     <div class="main">
-        <div class="form-map">
-            <!--==================  =====================--->
+        <div class="form-map"> 
+           
             <header class="section-title"><h5>مکان خود را بر روی نقشه مشخص کنید</h5></header>
-            <div class="input-field col s12" >
+          
+            <div class="input-field col s12" style="display:none" >
                 <input  type="text" class="text-input--underbar"  id="address_type" placeholder="محدوده  ی خود را تایپ کنید">
             </div>                                     
-            <div class="lucent">
+            <div class="lucent" style="display:none">
                 <p class="note">محدوده خود را جستجو کنید</p>
             </div>
-                <!-- /.form-group -->
-            <div class="show_gmap header_jobs">
-                <div id="submit-map" lat="29.36" long="52.33" class="googleMap" style="height:300px"></div>
+           
+            <div class="show_gmap header_jobs" >
+                <div id="submit-map" lat="" long="" class="googleMap" style="height:310px"></div>
                 <div class="now_me"></div>
             </div>
             <div class="lucent">
@@ -26,7 +27,7 @@
                 <input type="text" class="form-control" ng-model="lat" id="latitude" name="latitude" readonly>
                 <input type="text" class="form-control" ng-model="lon" id="longitude" name="longitude" readonly> 
             </form>
-            <div class="map_block"> <div class="vspc form-row"><ons-button ng-click="submit_map()" style="width:100%" modifier="material">افزودن آدرس جدید</ons-button> </div> </div>
+            <div class="map_block"> <div class="vspc form-row"><ons-button ng-click="submit_map()" style="width:100%" modifier="material">ثبت مکان</ons-button> </div> </div>
         </div>
     </div>
     <!--========-->

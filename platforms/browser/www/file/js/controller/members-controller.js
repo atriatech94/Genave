@@ -40,7 +40,15 @@
                     }
                     else if ( response.data.done == 1 )
                     {
+                        console.log(response.data);
                         localStorage.setItem("member_info",JSON.stringify(response.data.member_info));  
+                        if(response.data.has_job == 1){
+                           localStorage.setItem("has_job",1);
+                           localStorage.setItem("job_info",JSON.stringify(response.data.job_info));
+                        }
+                        else{
+                          localStorage.setItem("has_job",0);  
+                        }
                         $rootScope.is_login = 1;  
                         $location.path('/members/panel');
                     }
@@ -170,7 +178,8 @@
                             buttonLabel:"بستن " ,
                             message: 'ثبت نام با موفقیت انجام شد' 
                          }); 
-                       localStorage.setItem("member_info",JSON.stringify(response.data.member_info));  
+                       localStorage.setItem("member_info",JSON.stringify(response.data.member_info)); 
+                       localStorage.setItem("has_job",0);  
                        $rootScope.is_login = 1;  
                        $location.path('/members/panel');
                    }
@@ -195,18 +204,21 @@
       else
       {
          $scope.info = JSON.parse(localStorage.getItem('member_info'));
+         $rootScope.jobStatus1 = localStorage.getItem('has_job');
       }
 
        $scope.logout = function(){
           localStorage.removeItem('member_info');
+          localStorage.removeItem('job_info');
+          localStorage.removeItem('has_job');
           $rootScope.is_login = 0;
           $location.path('/');
       };
 
        $scope.pop = function(){
           $scope.info = JSON.parse(localStorage.getItem('member_info'));
-       };
-      
+        };
+     
 })
 .controller('changepass', function($http,$httpParamSerializer,$scope,$location,$rootScope) { 
      $scope.password =  {
@@ -380,6 +392,55 @@
   };
     
 })
+.controller('joblist', function($scope,$rootScope) { 
+   if($rootScope.jobStatus1 != null)
+     $scope.jobStatus = $rootScope.jobStatus1;
+   else {
+       $rootScope.jobStatus1 = localStorage.getItem('has_job');
+   }  
+   $scope.job2 = function(){
+     if($rootScope.jobStatus1 == 1){
+          myNavigator.pushPage('job2.html')
+     }
+     else{
+            ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'ابتدا اطلاعات اولیه شغلی خود را ثبت کنید'
+              }); 
+     }
+      
+   };
+
+   $scope.job3 = function(){
+     if($rootScope.jobStatus1 == 1){
+          myNavigator.pushPage('job3.html')
+     }
+     else{
+            ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'ابتدا اطلاعات اولیه شغلی خود را ثبت کنید'
+              }); 
+     }
+      
+   };
+
+   $scope.job4 = function(){
+     if($rootScope.jobStatus1 == 1){
+          myNavigator.pushPage('job4.html')
+     }
+     else{
+            ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'ابتدا اطلاعات اولیه شغلی خود را ثبت کنید'
+              }); 
+     }
+      
+   };
+
+})
 .controller('addproduct', function($scope,$timeout) { 
    
     $scope.showModal = function(){$scope.modalshow = 1;}
@@ -444,9 +505,11 @@ function openFilePicker(selection) {
 .controller('productdetail', function() { 
    
 })
-.controller('jobInfo', function($scope,$http) { 
-   
+.controller('jobInfo', function($scope,$http,$httpParamSerializer,$location,$rootScope) { 
+    
+   $scope.info = JSON.parse(localStorage.getItem('member_info'));
     $scope.job = {
+        user_id : $scope.info.id,
         title : "",
         description : "",
         service : "",
@@ -459,12 +522,110 @@ function openFilePicker(selection) {
         cat : "",
         subcat : ""
     };
+
+    $scope.jobStatus = localStorage.getItem('has_job');
+    
+
+     $scope.submit = function(){
+       if($scope.job.cat == "" || $scope.job.cat === undefined){
+            ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'دسته بندی شغل خود را انتخاب کنید'
+                }); 
+        }
+        else if($scope.job.subcat == "" || $scope.job.subcat === undefined){
+            ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'زیر دسته شغل خود را انتخاب کنید'
+                }); 
+        }
+        else if($scope.job.title == "" || $scope.job.title === undefined){
+            ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'عنوان کسب و کار خود را وارد کنید'
+                }); 
+        }
+        else if($scope.job.description == "" || $scope.job.description === undefined){
+            ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: ' توضیحات را وارد کنید'
+                }); 
+        }
+        else if($scope.job.service == "" || $scope.job.service === undefined){
+            ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'خدمات را وارد کنید'
+                }); 
+        }
+        else if($scope.job.adrress == "" || $scope.job.adrress === undefined){
+            ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: ' آدرس را وارد کنید'
+                }); 
+        }
+       else if($scope.job.phone == "" || $scope.job.phone === undefined){
+           ons.notification.alert({
+                    title: 'خطا',
+                    buttonLabel:"بستن " ,
+                    message: 'شماره تماس را وارد کنید'
+            }); 
+      }
+    
+      else{
+         
+         document.getElementById('loading').removeAttribute('style'); 
+         $http({
+                method: 'POST',
+                url: base_url+'update_job',
+                data: $httpParamSerializer({info : JSON.stringify($scope.job)}),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function successCallback(response) {
+                   document.getElementById('loading').setAttribute('style','display:none;'); 
+                   if(response.data.done == 0){
+                        ons.notification.alert({
+                            title: 'خطا',
+                            buttonLabel:"بستن " ,
+                            message: response.data.msg
+                         }); 
+                   }
+                   else if ( response.data.done == 1 )
+                   {
+                        ons.notification.alert({
+                            title: 'پیام سیستم',
+                            buttonLabel:"بستن " ,
+                            message: response.data.msg 
+                         }); 
+                        localStorage.setItem("has_job",1);
+                        localStorage.setItem("job_info",JSON.stringify(response.data.job_info));
+                        $rootScope.jobStatus1 = 1;
+                        myNavigator.popPage();
+                       
+                   }
+                    
+            }, function errorCallback(response) {
+                        document.getElementById('loading').setAttribute('style','display:none;'); 
+                        ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'خطا در برقراری ارتباط با سرور'
+              }); 
+        });
+
+     }     
+  };
+
    
     $scope.change = function(cat){
         document.getElementById('loading').removeAttribute('style');     
         $http({
                 method: 'GET',
-                url: base_url+'get_cat_ios/cat', 
+                url: base_url+'get_cat_ios/'+cat, 
                 headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
             }).then(function successCallback(response) {
                     document.getElementById('loading').setAttribute('style','display:none;'); 
@@ -485,7 +646,25 @@ function openFilePicker(selection) {
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
         }).then(function successCallback(response) {
                 document.getElementById('loading').setAttribute('style','display:none;'); 
-               $scope.categories = response.data.category; 
+               $scope.categories = response.data.category;
+               if($scope.jobStatus == 1){
+                    $scope.job_info = JSON.parse(localStorage.getItem('job_info'));
+                    console.log($scope.job_info);
+                    $scope.job.title = $scope.job_info[0].title;
+                    $scope.job.description = $scope.job_info[0].discription;
+                    $scope.job.service = $scope.job_info[0].short_discription;
+                    $scope.job.adrress = $scope.job_info[0].address;
+                    $scope.job.phone = $scope.job_info[0].tel;
+                    $scope.job.telegram = $scope.job_info[0].telegram;
+                    $scope.job.instagram = $scope.job_info[0].instagram;
+                    $scope.job.website = $scope.job_info[0].website;
+                    $scope.job.cat = $scope.job_info[0].cat;
+                    $scope.job.subcat = $scope.job_info[0].cat_id;
+                    $scope.job.email = $scope.job_info[0].email;
+                    $scope.change($scope.job.cat);
+                    console.log( $scope.job);
+
+                } 
         }, function errorCallback(response) {
                     document.getElementById('loading').setAttribute('style','display:none;'); 
                     ons.notification.alert({
@@ -494,4 +673,102 @@ function openFilePicker(selection) {
                       message: 'خطا در برقراری ارتباط با سرور'
             }); 
           }); 
+
+
+    
+
+})
+.controller('uploadImage', function($scope,$http,$httpParamSerializer,$location) { 
+    
+        $scope.showModal = function(){$scope.modalshow = 1;}
+        $scope.hideModal = function(){$scope.modalshow = 0;}
+        $scope.gallery = function(){
+            $scope.hideModal();
+            openFilePicker();
+        };
+        $scope.camera = function(){         
+            $scope.hideModal();
+            openCamera();
+        };
+
+        function setOptions(srcType) {
+            var options = {
+                // Some common settings are 20, 50, and 100
+                quality: 50,
+                destinationType: Camera.DestinationType.FILE_URI,
+                // In this app, dynamically set the picture source, Camera or photo gallery
+                sourceType: srcType,
+                encodingType: Camera.EncodingType.JPEG,
+                mediaType: Camera.MediaType.PICTURE,
+                allowEdit: true,
+                correctOrientation: true  //Corrects Android orientation quirks
+            }
+            return options;
+        }
+
+        function openCamera(selection) {
+
+            var srcType = Camera.PictureSourceType.CAMERA;
+            var options = setOptions(srcType);
+            
+
+            navigator.camera.getPicture(function cameraSuccess(imageUri) {
+                   document.getElementById('loading').removeAttribute('style'); 
+                    $http({
+                            method: 'POST',
+                            url: base_url+'test',
+                            data: $httpParamSerializer({info : imageUri}),
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                        }).then(function successCallback(response) {
+                            document.getElementById('loading').setAttribute('style','display:none;'); 
+                            if(response.data.done == 0){
+                                    ons.notification.alert({
+                                        title: 'خطا',
+                                        buttonLabel:"بستن " ,
+                                        message: response.data.msg
+                                    }); 
+                            }
+                            else if ( response.data.done == 1 )
+                            {
+                                    ons.notification.alert({
+                                        title: 'پیام سیستم',
+                                        buttonLabel:"بستن " ,
+                                        message: response.data.msg 
+                                    }); 
+                                    localStorage.setItem("has_job",1);
+                                    localStorage.setItem("job_info",JSON.stringify(response.data.job_info));
+                                    $rootScope.jobStatus1 = 1;
+                                    myNavigator.popPage();
+                                
+                            }
+                                
+                        }, function errorCallback(response) {
+                                    document.getElementById('loading').setAttribute('style','display:none;'); 
+                                    ons.notification.alert({
+                                    title: 'خطا',
+                                    buttonLabel:"بستن " ,
+                                    message: 'خطا در برقراری ارتباط با سرور'
+                        }); 
+                    });
+            
+            }, function cameraError(error) {
+                console.debug("Unable to obtain picture: " + error, "app");
+
+            }, options);
+        }
+
+        function openFilePicker(selection) {
+
+            var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
+            var options = setOptions(srcType);
+            
+            navigator.camera.getPicture(function cameraSuccess(imageUri) {
+                    console.log(imageUri);
+
+            }, function cameraError(error) { 
+                console.debug("Unable to obtain picture: " + error, "app");
+
+            }, options); 
+        }
+
 });
