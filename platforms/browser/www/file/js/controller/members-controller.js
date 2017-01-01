@@ -681,9 +681,29 @@ function openFilePicker(selection) {
 .controller('uploadImage', function($scope,$http,$httpParamSerializer,$location,$timeout) { 
         $scope.info = JSON.parse(localStorage.getItem('member_info'));
         $scope.images = [];
-         $scope.image_url = uploads_pic;
-        $scope.remove = function(id,image){
-            alert(id);
+        $scope.image_url = uploads_pic;
+        $scope.remove = function (id,image) {
+          ons.notification.confirm({
+                    title : "پیام",
+                    message: 'برای حذف تصویر اطمینان دارید ؟',
+                    buttonLabels : ['خیر','بلی'],
+                        callback: function(idx) {
+                            switch (idx) {
+                                case 0:
+                                       
+                                    break;
+                                case 1:
+                                   $scope.Doremove(id,image);
+                                   break;
+                        }
+                    }
+           });
+         
+       };  
+        
+        
+        $scope.Doremove = function(id,image){
+            alert(id,image);
         };
 
 
