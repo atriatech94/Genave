@@ -55,6 +55,10 @@
       if(localStorage.getItem('jobs') != null){
         $scope.jobs = JSON.parse(localStorage.getItem('jobs'));
       }
+      else
+      {
+        document.getElementById('loading').removeAttribute('style'); 
+      }
       if(localStorage.getItem('sliders') != null){
         $scope.sliders = JSON.parse(localStorage.getItem('sliders'));
       }
@@ -63,6 +67,7 @@
             url: base_url+'home', 
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
         }).then(function successCallback(response) {
+               document.getElementById('loading').setAttribute('style','display:none;'); 
                $scope.sliders = response.data.slider; 
                $scope.jobs = response.data.bottom;
                localStorage.setItem('jobs',JSON.stringify($scope.jobs)); 
@@ -73,6 +78,7 @@
                         headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
                     }); 
         }, function errorCallback(response) {
+                     document.getElementById('loading').setAttribute('style','display:none;'); 
                     ons.notification.alert({
                     title: 'خطا',
                     buttonLabel:"بستن " ,
@@ -86,16 +92,18 @@
              $scope.logo_pic = uploads_pic;
              $scope.product_thumb = product_thumb;
              let id = myNavigator.topPage.data.id; 
-              $http({
+            document.getElementById('loading').removeAttribute('style'); 
+            $http({
             method: 'GET', 
             url: base_url+'banner_ios/'+id, 
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
            }).then(function successCallback(response) {
-                console.log(response.data);
+                document.getElementById('loading').setAttribute('style','display:none;'); 
                 $scope.place = response.data.place; 
                 $scope.products = response.data.products;  
             
            }, function errorCallback(response) {
+                    document.getElementById('loading').setAttribute('style','display:none;'); 
                     ons.notification.alert({
                     title: 'خطا',
                     buttonLabel:"بستن " ,
