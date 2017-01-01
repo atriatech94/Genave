@@ -3,6 +3,7 @@ var app = angular.module('myapp', [
     'ksSwiper',
     'ngRoute',
     'ngResource',
-    'ImgCache'
+    'ImgCache',
+    'imageupload'
 
 ]);

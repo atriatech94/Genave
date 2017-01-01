@@ -678,10 +678,53 @@ function openFilePicker(selection) {
     
 
 })
-.controller('uploadImage', function($scope,$http,$httpParamSerializer,$location) { 
-    
-        $scope.showModal = function(){$scope.modalshow = 1;}
-        $scope.hideModal = function(){$scope.modalshow = 0;}
+.controller('uploadImage', function($scope,$http,$httpParamSerializer,$location,$timeout) { 
+        $scope.info = JSON.parse(localStorage.getItem('member_info'));
+        $scope.images = [];
+         $scope.image_url = uploads_pic;
+        $scope.remove = function(id,image){
+            alert(id);
+        };
+
+
+     document.getElementById('loading').removeAttribute('style');     
+     $http({
+            method: 'GET',
+            url: base_url+'get_user_banner/'+$scope.info.id, 
+            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+        }).then(function successCallback(response) {
+               
+                document.getElementById('loading').setAttribute('style','display:none;'); 
+                $scope.images = response.data.banners;
+      
+     }, function errorCallback(response) {
+                    document.getElementById('loading').setAttribute('style','display:none;'); 
+                    ons.notification.alert({
+                      title: 'خطا',
+                      buttonLabel:"بستن " ,
+                      message: 'خطا در برقراری ارتباط با سرور'
+            }); 
+          }); 
+
+
+
+
+
+        $scope.showModal = function(){
+          if($scope.images.length >= 4){
+              ons.notification.alert({
+                      title: 'خطا',
+                      buttonLabel:"بستن " ,
+                      message: 'شما به حداکثر تعداد تصویر خود رسیده اید'
+               }); 
+               return false;
+
+          } 
+          $scope.modalshow = 1;
+        }
+        $scope.hideModal = function(){
+            $scope.modalshow = 0;
+        }
         $scope.gallery = function(){
             $scope.hideModal();
             openFilePicker();
@@ -696,6 +739,7 @@ function openFilePicker(selection) {
                 // Some common settings are 20, 50, and 100
                 quality: 50,
                 destinationType: Camera.DestinationType.FILE_URI,
+                targetWidth : 500,
                 // In this app, dynamically set the picture source, Camera or photo gallery
                 sourceType: srcType,
                 encodingType: Camera.EncodingType.JPEG,
@@ -704,71 +748,144 @@ function openFilePicker(selection) {
                 correctOrientation: true  //Corrects Android orientation quirks
             }
             return options;
-        }
+        } 
 
+       
+       
         function openCamera(selection) {
 
             var srcType = Camera.PictureSourceType.CAMERA;
             var options = setOptions(srcType);
-            
-
             navigator.camera.getPicture(function cameraSuccess(imageUri) {
-                   document.getElementById('loading').removeAttribute('style'); 
-                    $http({
-                            method: 'POST',
-                            url: base_url+'test',
-                            data: $httpParamSerializer({info : imageUri}),
-                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                        }).then(function successCallback(response) {
-                            document.getElementById('loading').setAttribute('style','display:none;'); 
-                            if(response.data.done == 0){
-                                    ons.notification.alert({
-                                        title: 'خطا',
-                                        buttonLabel:"بستن " ,
-                                        message: response.data.msg
-                                    }); 
-                            }
-                            else if ( response.data.done == 1 )
-                            {
-                                    ons.notification.alert({
-                                        title: 'پیام سیستم',
-                                        buttonLabel:"بستن " ,
-                                        message: response.data.msg 
-                                    }); 
-                                    localStorage.setItem("has_job",1);
-                                    localStorage.setItem("job_info",JSON.stringify(response.data.job_info));
-                                    $rootScope.jobStatus1 = 1;
-                                    myNavigator.popPage();
-                                
-                            }
-                                
-                        }, function errorCallback(response) {
-                                    document.getElementById('loading').setAttribute('style','display:none;'); 
-                                    ons.notification.alert({
-                                    title: 'خطا',
-                                    buttonLabel:"بستن " ,
-                                    message: 'خطا در برقراری ارتباط با سرور'
-                        }); 
-                    });
-            
-            }, function cameraError(error) {
-                console.debug("Unable to obtain picture: " + error, "app");
+                 $timeout(function(){  
+                      getFileEntry(imageUri);
+                      document.getElementById('loading').removeAttribute('style');     
+                 },0); 
+                
+                 function getFileEntry(imgUri) {
+                    window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
+                        var UploadUrl = base_url+"upload_banner";
+                        ft.upload(fileEntry.nativeURL, encodeURI(UploadUrl), win, fail , options);
+                      });
+                }
+                
+                 var ft = new FileTransfer();
+                 var win = function (r) { 
+                     document.getElementById('loading').setAttribute('style','display:none;'); 
+                     r.response = JSON.parse(r.response);
+                     if(r.response.error == false)
+                     {
+                         ons.notification.alert({
+                            title: 'پیام سیستم',
+                            buttonLabel:"بستن " ,
+                            message: r.response.data
+                         });
+                         $scope.images.unshift(r.response.filename);
+                         $scope.$apply();
+                     }
+                     else
+                     {
+                         ons.notification.alert({
+                            title: 'خطا',
+                            buttonLabel:"بستن " ,
+                            message: r.response.data
+                         });
+                     }
+                }
 
+                var fail = function (error) {
+                     document.getElementById('loading').setAttribute('style','display:none;'); 
+                     ons.notification.alert({
+                         title: 'خطا',
+                         buttonLabel:"بستن " ,
+                         message: 'خطا در انتخاب تصویر دوباره تلاش کنید'
+                      }); 
+                }
+                 var params = {};
+                    params.user_id = $scope.info.id;
+               
+                var options = new FileUploadOptions();
+                    options.fileKey = "file";
+                    options.fileName = imageUri.substr(imageUri.lastIndexOf('/') + 1);
+                    options.mimeType = "image/jpeg";
+                    options.httpMethod = "POST";
+                    options.params = params;
+                    options.chunkedMode = false;     
+         
+           }, function cameraError(error) {
+                   
             }, options);
         }
-
+       
+       
+       
         function openFilePicker(selection) {
 
             var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
             var options = setOptions(srcType);
             
             navigator.camera.getPicture(function cameraSuccess(imageUri) {
-                    console.log(imageUri);
+                     $timeout(function(){  
+                      getFileEntry(imageUri);
+                      document.getElementById('loading').removeAttribute('style');     
+                 },0); 
+                
+                 function getFileEntry(imgUri) {
+                    window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
+                        var UploadUrl = base_url+"upload_banner";
+                        ft.upload(fileEntry.nativeURL, encodeURI(UploadUrl), win, fail , options);
+                      });
+                }
+                
+                 var ft = new FileTransfer();
+                 var win = function (r) { 
+                     document.getElementById('loading').setAttribute('style','display:none;'); 
+                     r.response = JSON.parse(r.response);
+                     if(r.response.error == false)
+                     {
+                         ons.notification.alert({
+                            title: 'پیام سیستم',
+                            buttonLabel:"بستن " ,
+                            message: r.response.data
+                         });
+                         $scope.images.unshift(r.response.filename);
+                         $scope.$apply();
+                     }
+                     else
+                     {
+                         ons.notification.alert({
+                            title: 'خطا',
+                            buttonLabel:"بستن " ,
+                            message: r.response.data
+                         });
+                     }
+                }
+
+                var fail = function (error) {
+                     document.getElementById('loading').setAttribute('style','display:none;'); 
+                     ons.notification.alert({
+                         title: 'خطا',
+                         buttonLabel:"بستن " ,
+                         message: 'خطا در انتخاب تصویر دوباره تلاش کنید'
+                      }); 
+                }
+                 var params = {};
+                    params.user_id = $scope.info.id;
+               
+                var options = new FileUploadOptions();
+                    options.fileKey = "file";
+                    options.fileName = imageUri.substr(imageUri.lastIndexOf('/') + 1);
+                    options.mimeType = "image/jpeg";
+                    options.httpMethod = "POST";
+                    options.params = params;
+                    options.chunkedMode = false;
 
             }, function cameraError(error) { 
-                console.debug("Unable to obtain picture: " + error, "app");
+                 
 
             }, options); 
         }
+
+                
 
 });

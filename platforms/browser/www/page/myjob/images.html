@@ -6,7 +6,7 @@
  
     <div class="main"  >
         <div class="p15bs">
-            <p class="h6">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. </p>
+            <p class="h6"> تصاویر کاور صفحه کسب و کار خود را انتخاب کنید (حداکثر 4 تصویر) </p>
             <div class="vspc form-row">
                 <ons-button modifier="large--cta" ng-click="showModal();"><ons-icon class="ml5 v-middle" icon="fa-picture-o" ></ons-icon> انتخاب عکس </ons-button>
             </div>
@@ -16,15 +16,15 @@
         </form>
         <div class="content-block-title">آرشیو تصاویر</div>
         <div class="job_image_list">
-            <div class="card" ng-repeat="n in [1,2,3,4]">
-                <img class="job_img_file" src="file/img/test/t{{n}}.jpg" >
-                <div class="card-footer"><a class="h6"><ons-icon class="ml5" icon="ion-trash-a"></ons-icon>حذف تصویر</a></div>
+            <div class="card" ng-repeat="image in images">
+                <img class="job_img_file" img-cache ic-src="{{image_url+image}}" >
+                <div ng-click="remove($index,image)" class="card-footer"><a class="h6"><ons-icon class="ml5" icon="ion-trash-a"></ons-icon>حذف تصویر</a></div>
             </div>
         </div>
     </div>
     
     
-</ons-page>
+</ons-page> 
 <div ng-show="modalshow" class="mymodal" var="myModal" direction="up" align="bottom" >
     <div class="modal_content">
         <div class="box-animation">
