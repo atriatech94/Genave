@@ -4,34 +4,20 @@
       <div class="center">آرشیو محصولات</div>
     </ons-toolbar>
     <div class="main">
-        <p class="h7 p15bs" >آرشیو محصولات</p>
+        <p class="h7 p15bs" >آرشیو محصولات</p> 
         <div class="product_arc">
-            <!--============product one==================-->
-           <!-- <div class="card"  ng-click="myNavigator.pushPage('product_detail.html',{data:{product_id:'1',title:'یخچال ال جی مدل k265'}})" tappable ng-repeat="n in [1,2,3,4,5]" >
-                <div class="pro_img">
-                    <img src="file/img/test/t{{n}}.jpg">
-                    <p>یخچال الجی مدل 275</p>
-                </div>
-                <p class="cost">قیمت 700000 تومان</p>
-                <p class="desc"> لورم اپسوم متنی است ساختگی با مفهوم و هزار تا قرو فر دیگر لورم اپسوم متنی است ساختگی با مفهوم و هزار تا قرو فر دیگر </p>
-                <div class="card-footer">
-                        <a class="h6"><ons-icon class="ml5" icon="ion-edit"></ons-icon> ویرایش</a>
-                    <a class="h6"><ons-icon class="ml5" icon="ion-trash-b"></ons-icon> حذف</a>
-                </div>
-            </div>
-        </div> -->
-        <div class="card product_archive">
+         <div class="card product_archive">
             <ons-list-item modifier="chevron"
-                           ng-click="myNavigator.pushPage('product_detail.html',{data:{product_id:'1',title:'یخچال ال جی مدل k265'}})"
-                tappable ng-repeat="n in [1,2,3,4,5]">
-                <div class="left"><img class="list__item__thumbnail" src="file/img/test/t{{n}}.jpg"></div>
+                ng-click="myNavigator.pushPage('product_detail.html',{data: {pic_name : product.pic_name, title: product.title,price: product.price, id: product.id, description: product.discription}})"
+                tappable ng-repeat="product in products">
+                <div class="left"><img class="list__item__thumbnail" img-cache ic-src="{{product_thumb + product.pic_name}}"></div>
                 <div class="center">
-                    <span class="list__item__title">گاز رو کار مدل 71</span>
-                    <span class="list__item__subtitle">70.000 تومان</span>
+                    <span class="list__item__title">{{product.title}}</span>
+                    <span class="list__item__subtitle">{{product.price | currency : '' : 0 }} تومان</span>
                 </div>
-            </ons-list-item>
-        </div>
-    </div>
+             </ons-list-item>
+         </div>
+      </div>
 </ons-page>
 
 

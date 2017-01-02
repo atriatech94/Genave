@@ -441,70 +441,6 @@
    };
 
 })
-.controller('addproduct', function($scope,$timeout) { 
-   
-    $scope.showModal = function(){$scope.modalshow = 1;}
-    $scope.hideModal = function(){$scope.modalshow = 0;}
-    $scope.gallery = function(){
-          $scope.hideModal();
-         openFilePicker();
-    };
-     $scope.camera = function(){         
-           $scope.hideModal();
-           openCamera();
-    };
-
- function setOptions(srcType) {
-    var options = {
-        // Some common settings are 20, 50, and 100
-        quality: 50,
-        destinationType: Camera.DestinationType.FILE_URI,
-        // In this app, dynamically set the picture source, Camera or photo gallery
-        sourceType: srcType,
-        encodingType: Camera.EncodingType.JPEG,
-        mediaType: Camera.MediaType.PICTURE,
-        allowEdit: true,
-        correctOrientation: true  //Corrects Android orientation quirks
-    }
-    return options;
-  }
-
-  function openCamera(selection) {
-
-    var srcType = Camera.PictureSourceType.CAMERA;
-    var options = setOptions(srcType);
-    
-
-    navigator.camera.getPicture(function cameraSuccess(imageUri) {
-         console.log(imgUri);
-    
-    }, function cameraError(error) {
-        console.debug("Unable to obtain picture: " + error, "app");
-
-    }, options);
-}
-
-function openFilePicker(selection) {
-
-    var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
-    var options = setOptions(srcType);
-    
-    navigator.camera.getPicture(function cameraSuccess(imageUri) {
-             console.log(imageUri);
-
-    }, function cameraError(error) { 
-        console.debug("Unable to obtain picture: " + error, "app");
-
-    }, options); 
-}
-      
-})
-.controller('productarchive', function() { 
-   
-})
-.controller('productdetail', function() { 
-   
-})
 .controller('jobInfo', function($scope,$http,$httpParamSerializer,$location,$rootScope) { 
     
    $scope.info = JSON.parse(localStorage.getItem('member_info'));
@@ -702,8 +638,23 @@ function openFilePicker(selection) {
        };  
         
         
-        $scope.Doremove = function(id,image){
-            alert(id,image);
+        $scope.Doremove = function(id,image){ 
+            $scope.images.splice(id, 1); 
+            $http({
+                method: 'POST',
+                url: base_url+'remove_banner',
+                data: $httpParamSerializer({user_id : $scope.info.id, file_name : image }),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function successCallback(response) {
+                
+            }, function errorCallback(response) {
+                       ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'خطا در برقراری ارتباط با سرور'
+                   }); 
+           });
+            
         };
 
 
@@ -726,7 +677,7 @@ function openFilePicker(selection) {
             }); 
           }); 
 
-
+       
 
 
 
@@ -908,4 +859,313 @@ function openFilePicker(selection) {
 
                 
 
+})
+.controller('addproduct', function($scope,$timeout) { 
+    $scope.info = JSON.parse(localStorage.getItem('member_info'));
+    $scope.product = {
+       title : "",
+       price : "",
+       description : "",
+       photo : ""
+    };
+   
+    $scope.submit = function(){
+       if($scope.product.title == "" || $scope.product.title === undefined){
+            ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'عنوان  را وارد کنید'
+                }); 
+        }
+        else if($scope.product.photo == "" || $scope.product.photo === undefined){
+            ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'تصویر را انتخاب کنید'
+                }); 
+        }
+        else{
+         
+         document.getElementById('loading').removeAttribute('style'); 
+         params.price = $scope.product.price;
+         params.title = $scope.product.title;
+         params.description = $scope.product.description;
+         options.fileName = $scope.product.photo.substr($scope.product.photo.lastIndexOf('/') + 1);
+         getFileEntry($scope.product.photo);
+         
+
+     }     
+  };
+
+  $scope.remove = function(){
+      $scope.product.photo = "";
+  };
+
+    $scope.showModal = function(){$scope.modalshow = 1;}
+    $scope.hideModal = function(){$scope.modalshow = 0;}
+    $scope.gallery = function(){
+          $scope.hideModal();
+           openFilePicker();
+    };
+     $scope.camera = function(){         
+           $scope.hideModal();
+           openCamera();
+    };
+   
+   function getFileEntry(imgUri) {
+          window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
+                 var UploadUrl = base_url+"add_product";
+                 ft.upload(fileEntry.nativeURL, encodeURI(UploadUrl), win, fail , options);
+            });
+    }
+
+      var ft = new FileTransfer();
+      var win = function (r) { 
+            document.getElementById('loading').setAttribute('style','display:none;'); 
+            r.response = JSON.parse(r.response);
+            if(r.response.error == false)
+            {
+                ons.notification.alert({
+                    title: 'پیام سیستم',
+                    buttonLabel:"بستن " ,
+                    message: r.response.data
+                });
+                $scope.product.title = "";
+                $scope.product.price = "";
+                $scope.product.description = "";
+                $scope.product.photo = "";
+                $scope.$apply();
+            }
+            else
+            {
+                ons.notification.alert({
+                title: 'خطا',
+                buttonLabel:"بستن " ,
+                message: r.response.data
+                });
+            }
+    }
+
+    var fail = function (error) {
+           document.getElementById('loading').setAttribute('style','display:none;'); 
+            ons.notification.alert({
+                title: 'خطا',
+                buttonLabel:"بستن " ,
+                message: 'خطا در انتخاب تصویر دوباره تلاش کنید'
+            }); 
+    }
+        var params = {};
+        params.user_id = $scope.info.id;
+        params.price = $scope.product.price;
+        params.title = $scope.product.title;
+        params.description = $scope.product.description;
+    
+    var options = new FileUploadOptions();
+        options.fileKey = "file";
+        options.mimeType = "image/jpeg";
+        options.httpMethod = "POST";
+        options.params = params;
+        options.chunkedMode = false;   
+
+
+   function setOptions(srcType) {
+            var options = {
+                quality: 50,
+                destinationType: Camera.DestinationType.FILE_URI,
+                targetWidth : 500,
+                sourceType: srcType,
+                encodingType: Camera.EncodingType.JPEG,
+                mediaType: Camera.MediaType.PICTURE,
+                allowEdit: true,
+                correctOrientation: true
+            }
+            return options;
+        } 
+
+        function openCamera(selection) {
+
+            var srcType = Camera.PictureSourceType.CAMERA;
+            var options = setOptions(srcType);
+            navigator.camera.getPicture(function cameraSuccess(imageUri) {
+                 $timeout(function(){  
+                     $scope.product.photo = imageUri;
+                     $scope.$apply();
+                 },0); 
+            
+           }, function cameraError(error) {
+                   
+            }, options);
+        }
+       
+       
+       
+        function openFilePicker(selection) {
+
+            var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
+            var options = setOptions(srcType);
+            
+            navigator.camera.getPicture(function cameraSuccess(imageUri) {
+                     $timeout(function(){ 
+                        $scope.product.photo = imageUri;
+                        $scope.$apply();
+                    },0); 
+              
+            }, function cameraError(error) { 
+                 
+
+            }, options); 
+        }
+
+      
+})
+.controller('productarchive', function($scope,$http) { 
+     $scope.info = JSON.parse(localStorage.getItem('member_info'));
+    
+     $scope.product_thumb = product_thumb;
+     document.getElementById('loading').removeAttribute('style');     
+        $http({
+                method: 'GET',
+                url: base_url+'get_product/'+$scope.info.id, 
+                headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+            }).then(function successCallback(response) {
+                    document.getElementById('loading').setAttribute('style','display:none;'); 
+                    $scope.products = response.data.products; 
+                    console.log($scope.products);
+            }, function errorCallback(response) {
+                        document.getElementById('loading').setAttribute('style','display:none;'); 
+                        ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'خطا در برقراری ارتباط با سرور'
+                }); 
+            });
+})
+.controller('productdetail', function($scope,$timeout,$http,$httpParamSerializer) { 
+    $scope.img_url = uploads_pic;
+    $scope.product = {
+       id : myNavigator.topPage.data.id, 
+       title : myNavigator.topPage.data.title,
+       price : Number(myNavigator.topPage.data.price),
+       description : myNavigator.topPage.data.description,
+       photo : myNavigator.topPage.data.pic_name
+    };
+
+    $scope.showModal = function(){$scope.modalshow = 1;}
+    $scope.hideModal = function(){$scope.modalshow = 0;}
+    
+     $scope.hideModal = function(){
+            $scope.modalshow = 0;
+     }
+       
+        $scope.gallery = function(){
+            $scope.hideModal();
+            openFilePicker();
+     };
+       
+        $scope.camera = function(){         
+            $scope.hideModal();
+            openCamera();
+     };
+
+       function setOptions(srcType) {
+            var options = {
+                // Some common settings are 20, 50, and 100
+                quality: 50,
+                destinationType: Camera.DestinationType.FILE_URI,
+                targetWidth : 500,
+                // In this app, dynamically set the picture source, Camera or photo gallery
+                sourceType: srcType,
+                encodingType: Camera.EncodingType.JPEG,
+                mediaType: Camera.MediaType.PICTURE,
+                allowEdit: true,
+                correctOrientation: true  //Corrects Android orientation quirks
+            }
+            return options;
+        } 
+
+                  var ft = new FileTransfer();
+                  var win = function (r) { 
+                     document.getElementById('loading').setAttribute('style','display:none;'); 
+                     r.response = JSON.parse(r.response);
+                     if(r.response.error == false)
+                     {
+                         $scope.product.photo = r.response.filename;
+                         $scope.$apply();
+                     }
+                     else
+                     {
+                         ons.notification.alert({
+                            title: 'خطا',
+                            buttonLabel:"بستن " ,
+                            message: r.response.data
+                         });
+                     }
+                }
+
+                var fail = function (error) {
+                        document.getElementById('loading').setAttribute('style','display:none;'); 
+                        ons.notification.alert({
+                            title: 'خطا',
+                            buttonLabel:"بستن " ,
+                            message: 'خطا در انتخاب تصویر دوباره تلاش کنید'
+                        }); 
+                }
+                 var params = {};
+                    params.id = $scope.product.id;
+               
+                var options = new FileUploadOptions();
+                    options.fileKey = "file";
+                    options.mimeType = "image/jpeg";
+                    options.httpMethod = "POST";
+                    options.params = params;
+                    options.chunkedMode = false;
+      
+        function getFileEntry(imgUri) {
+                    window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
+                        var UploadUrl = base_url+"edit_product_pic";
+                        ft.upload(fileEntry.nativeURL, encodeURI(UploadUrl), win, fail , options);
+                      });
+                }
+        
+        
+         function openFilePicker(selection) {
+            var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
+            var options = setOptions(srcType);
+            navigator.camera.getPicture(function cameraSuccess(imageUri) {
+                $timeout(function(){  
+                      params.filename = $scope.product.photo;
+                      options.fileName = imageUri.substr(imageUri.lastIndexOf('/') + 1);
+                      getFileEntry(imageUri);
+                      document.getElementById('loading').removeAttribute('style');     
+                      
+                 },0); 
+             }, function cameraError(error) { 
+                 
+
+            }, options); 
+        }
+       
+       
+       
+        function openCamera(selection) {
+
+            var srcType = Camera.PictureSourceType.CAMERA;
+            var options = setOptions(srcType);
+            navigator.camera.getPicture(function cameraSuccess(imageUri) {
+                 $timeout(function(){  
+                      params.filename = $scope.product.photo;
+                      options.fileName = imageUri.substr(imageUri.lastIndexOf('/') + 1);
+                      getFileEntry(imageUri);
+                      document.getElementById('loading').removeAttribute('style');     
+                 },0); 
+              
+           }, function cameraError(error) {
+                   
+            }, options);
+        }
+       
+       
+       
+      
+    
 });
