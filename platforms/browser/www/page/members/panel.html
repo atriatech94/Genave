@@ -1,4 +1,4 @@
-<ons-navigator ons-prepop="pop()" var="myNavigator" page="page1.html"></ons-navigator>
+<ons-navigator  var="panelnav" ons-prepop="pop()"  page="page1.html"></ons-navigator>
     <ons-template id="page1.html">
     <ons-page>
       <ons-toolbar>
@@ -13,7 +13,7 @@
             <!--=====list===-->
             <div class="setting">
                 <ons-list>
-                    <ons-list-item ng-click="myNavigator.pushPage('page2.html')"  tappable modifier="longdivider">
+                    <ons-list-item ng-click="panelnav.pushPage('page2.html')"  tappable modifier="longdivider">
                         <ons-row >
                             <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-edit"></ons-icon></ons-col>
                             <ons-col >
@@ -23,7 +23,7 @@
                             <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
                         </ons-row>
                     </ons-list-item>
-                    <ons-list-item  ng-click="myNavigator.pushPage('page3.html')"  tappable modifier="longdivider">
+                    <ons-list-item  ng-click="panelnav.pushPage('page3.html')"  tappable modifier="longdivider">
                         <ons-row >
                             <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-lock-combination"></ons-icon></ons-col>
                             <ons-col >
@@ -33,7 +33,7 @@
                             <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
                         </ons-row>
                     </ons-list-item>
-                    <ons-list-item ng-click="myNavigator.pushPage('page4.html')" tappable modifier="longdivider">
+                    <ons-list-item ng-click="panelnav.pushPage('page4.html')" tappable modifier="longdivider">
                         <ons-row >
                             <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-settings"></ons-icon></ons-col>
                             <ons-col >
@@ -43,7 +43,7 @@
                             <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
                         </ons-row>
                     </ons-list-item>
-                    <ons-list-item tappable ng-click="myNavigator.pushPage('page5.html')" modifier="longdivider">
+                    <ons-list-item tappable ng-click="push_kala()" modifier="longdivider">
                         <ons-row >
                             <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-cube"></ons-icon></ons-col>
                             <ons-col >
@@ -53,12 +53,22 @@
                             <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
                         </ons-row>
                     </ons-list-item>
-                    <ons-list-item tappable ng-click="myNavigator.pushPage('page6.html')" modifier="longdivider">
+                    <ons-list-item tappable ng-click="push_archive()"  modifier="longdivider">
                         <ons-row>
                             <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-android-apps"></ons-icon></ons-col>
                             <ons-col >
                                 <h5 >آرشیو کالاها و خدمات</h5>
                                 <p>ویرایش و حذف کالا ها و خدمات</p>
+                            </ons-col>
+                            <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item tappable  modifier="longdivider">
+                        <ons-row >
+                            <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-ios-chatbubble"></ons-icon></ons-col>
+                            <ons-col tappable ng-click="panelnav.pushPage('admintiket.html')" >
+                                <h5 >ارتباط با مدیریت</h5>
+                                <p>ارسال دریافت پیام به مدیریت</p>
                             </ons-col>
                             <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
                         </ons-row>
@@ -73,6 +83,7 @@
                             <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
                         </ons-row>
                     </ons-list-item>
+                    
 
                 </ons-list>
             </div>
@@ -100,6 +111,10 @@
 <!--=======product archive===========-->
 <ons-template id="page6.html" > 
     <div ng-include="'page/members/product_archive.html'" ng-controller="productarchive" ></div>
+</ons-template>
+<!--=======admin ticket===========-->
+<ons-template id="admintiket.html" > 
+    <div ng-include="'page/msg/msg.html'" ng-controller="msgController" ></div>
 </ons-template>
 <!--=======product detail===========-->
 <ons-template id="product_detail.html" >

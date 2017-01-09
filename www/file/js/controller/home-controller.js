@@ -44,12 +44,6 @@
  })
  .controller('homeController', function($scope,$http) { 
       
-        $scope.jobBack = function(){
-            $scope.place = ""; 
-            $scope.products = "";  
-         };
- 
-     
       $scope.img_url = baner_pic;
       $scope.job_url = baner_thumb_pic;
       if(localStorage.getItem('jobs') != null){
@@ -87,32 +81,6 @@
        }); 
 
        
-        $scope.push = function(){
-         if(myNavigator.topPage.data.id !== undefined){
-             $scope.logo_pic = uploads_pic;
-             $scope.product_thumb = product_thumb;
-             let id = myNavigator.topPage.data.id; 
-            document.getElementById('loading').removeAttribute('style'); 
-            $http({
-            method: 'GET', 
-            url: base_url+'banner_ios/'+id, 
-            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
-           }).then(function successCallback(response) {
-                document.getElementById('loading').setAttribute('style','display:none;'); 
-                $scope.place = response.data.place; 
-                $scope.products = response.data.products;  
-            
-           }, function errorCallback(response) {
-                    document.getElementById('loading').setAttribute('style','display:none;'); 
-                    ons.notification.alert({
-                    title: 'خطا',
-                    buttonLabel:"بستن " ,
-                    message: 'خطا در برقراری ارتباط با سرور'
-             });
-           });
-
-         }
-            
-       }   
+      
     
  })

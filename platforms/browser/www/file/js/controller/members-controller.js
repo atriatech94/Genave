@@ -1,5 +1,5 @@
  angular.module('myapp')
- .controller('loginController', function($scope,$http,$httpParamSerializer,$location,$rootScope) { 
+ .controller('loginController', function($scope,$http,$timeout,$httpParamSerializer,$location,$rootScope) { 
      $scope.member = {
             phone : "",
             password : ""
@@ -49,8 +49,14 @@
                         else{
                           localStorage.setItem("has_job",0);  
                         }
-                        $rootScope.is_login = 1;  
-                        $location.path('/members/panel');
+                        
+                        $rootScope.is_login = 1; 
+                        //footerTab.loadPage('tab-home.html');
+                        
+                        $timeout(function(){
+                            footerTab.setActiveTab(3);
+                        },0)
+
                     }
                         
                 }, function errorCallback(response) {
@@ -66,7 +72,7 @@
         } 
      }; 
 })
-.controller('registerController', function($scope,$http,$httpParamSerializer,$location,$rootScope) { 
+.controller('registerController', function($scope,$timeout,$http,$httpParamSerializer,$location,$rootScope) { 
    $scope.member = {
             fname : "",
             lname : "",
@@ -178,10 +184,12 @@
                             buttonLabel:"بستن " ,
                             message: 'ثبت نام با موفقیت انجام شد' 
                          }); 
-                       localStorage.setItem("member_info",JSON.stringify(response.data.member_info)); 
-                       localStorage.setItem("has_job",0);  
-                       $rootScope.is_login = 1;  
-                       $location.path('/members/panel');
+                        localStorage.setItem("member_info",JSON.stringify(response.data.member_info)); 
+                        localStorage.setItem("has_job",0);  
+                        $rootScope.is_login = 1;  
+                        $timeout(function(){
+                            footerTab.setActiveTab(3);
+                        },0)
                    }
                     
             }, function errorCallback(response) {
@@ -197,9 +205,9 @@
   };
 })
 .controller('panelController', function($scope,$location,$rootScope) { 
-      if(localStorage.getItem('member_info') == null){
+     if(localStorage.getItem('member_info') == null){
          $rootScope.is_login = 0;
-         $location.path('/');
+         footerTab.setActiveTab(0);
       }
       else
       {
@@ -208,16 +216,47 @@
       }
 
        $scope.logout = function(){
+           $rootScope.is_login = 0;
           localStorage.removeItem('member_info');
           localStorage.removeItem('job_info');
           localStorage.removeItem('has_job');
-          $rootScope.is_login = 0;
-          $location.path('/');
+          footerTab.setActiveTab(0);
       };
 
-       $scope.pop = function(){
+        $scope.pop = function(){
           $scope.info = JSON.parse(localStorage.getItem('member_info'));
         };
+        
+        $scope.push_kala = function(){
+           
+        if($rootScope.jobStatus1 == 1){
+           panelnav.pushPage('page5.html');
+       }
+       else{
+            ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'ابتدا اطلاعات اولیه شغلی خود را ثبت کنید'
+              }); 
+          }
+        };
+
+     $scope.push_archive = function(){
+           
+      if($rootScope.jobStatus1 == 1){
+          panelnav.pushPage('page6.html');
+       }
+       else{
+            ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'ابتدا اطلاعات اولیه شغلی خود را ثبت کنید'
+              }); 
+          }
+        };
+
+        
+       
      
 })
 .controller('changepass', function($http,$httpParamSerializer,$scope,$location,$rootScope) { 
@@ -281,7 +320,7 @@
                             buttonLabel:"بستن " ,
                             message: response.data.msg 
                          }); 
-                         myNavigator.popPage();
+                         panelnav.popPage();
                    }
                     
             }, function errorCallback(response) {
@@ -376,7 +415,7 @@
                             message: response.data.msg 
                          }); 
                        localStorage.setItem("member_info",JSON.stringify($scope.member));  
-                       myNavigator.popPage();
+                       panelnav.popPage();
                    }
                     
             }, function errorCallback(response) {
@@ -400,7 +439,7 @@
    }  
    $scope.job2 = function(){
      if($rootScope.jobStatus1 == 1){
-          myNavigator.pushPage('job2.html')
+          panelnav.pushPage('job2.html');
      }
      else{
             ons.notification.alert({
@@ -414,7 +453,7 @@
 
    $scope.job3 = function(){
      if($rootScope.jobStatus1 == 1){
-          myNavigator.pushPage('job3.html')
+          panelnav.pushPage('job3.html');
      }
      else{
             ons.notification.alert({
@@ -428,7 +467,7 @@
 
    $scope.job4 = function(){
      if($rootScope.jobStatus1 == 1){
-          myNavigator.pushPage('job4.html')
+          panelnav.pushPage('job4.html');
      }
      else{
             ons.notification.alert({
@@ -540,7 +579,7 @@
                         localStorage.setItem("has_job",1);
                         localStorage.setItem("job_info",JSON.stringify(response.data.job_info));
                         $rootScope.jobStatus1 = 1;
-                        myNavigator.popPage();
+                        panelnav.popPage();
                        
                    }
                     
@@ -1043,11 +1082,11 @@
 .controller('productdetail', function($scope,$timeout,$http,$httpParamSerializer) { 
     $scope.img_url = uploads_pic;
     $scope.product = {
-       id : myNavigator.topPage.data.id, 
-       title : myNavigator.topPage.data.title,
-       price : Number(myNavigator.topPage.data.price),
-       description : myNavigator.topPage.data.description,
-       photo : myNavigator.topPage.data.pic_name
+       id : panelnav.topPage.data.id, 
+       title : panelnav.topPage.data.title,
+       price : Number(panelnav.topPage.data.price),
+       description : panelnav.topPage.data.description,
+       photo : panelnav.topPage.data.pic_name
     };
 
     $scope.showModal = function(){$scope.modalshow = 1;}

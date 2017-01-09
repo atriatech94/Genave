@@ -1,0 +1,37 @@
+<ons-page>
+    <ons-toolbar>
+        <div class="right">
+            <ons-toolbar-button ng-click="toggle()">
+                <ons-icon icon="md-menu"></ons-icon>
+            </ons-toolbar-button>
+        </div>
+        <div class="center">خانه</div>
+    </ons-toolbar>
+    <div class="main">
+        <!--=============== home slider =========================-->
+        <div class="home_slider">
+            <ons-carousel var="carousel" initial-index="1" auto-scroll-ratio="0" auto-refresh in ons-postchange="console.log('Changed to ' + $event.activeIndex)" item-height="250px" item-height="10%%"  swipeable auto-scroll overscrollable>
+                <ons-carousel-item ng-repeat="slider in sliders">
+                    <div ng-click="homenav.pushPage('page2.html',{data: {id:slider.id}})" class="slider_item"><div class="slider_item"><img img-cache ic-src="{{img_url + slider.image_address}}"></div></div>
+                </ons-carousel-item>
+            </ons-carousel>  
+        </div>
+         <!--=============== home adds =========================-->
+        <div class="special_adds">
+           <ons-list ng-repeat="job in jobs">
+               <ons-list-item ng-click="homenav.pushPage('page2.html',{data: {title: job.title,cat :job.cat,id:job.id}})" modifier="chevron" class="list-item-container">
+                   <ons-row>
+                       <ons-col width="110px"><img img-cache ic-src="{{job_url + job.image_address}}" class="thumbnail"></ons-col>
+                       <ons-col>
+                           <div class="name">{{job.title}}</div>
+                           <div class="cat">{{job.cat}}</div>
+                           <div class="location"><i class="fa fa-map-marker"></i>{{job.address | limitTo : 28}} ...</div>
+                           <div class="phone"><i class="fa fa-phone" aria-hidden="true"></i>{{job.tel}}</div>
+                       </ons-col>
+                       <ons-col width="40px"></ons-col>
+                   </ons-row>
+               </ons-list-item>
+           </ons-list>
+        </div>
+    </div>
+</ons-page>

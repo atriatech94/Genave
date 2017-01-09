@@ -1,14 +1,11 @@
-<ons-tabbar>
-  <ons-tab label="ورود" icon="fa-sign-in" ng-click="go('members/login')" ></ons-tab>
-  <ons-tab label="عضویت" icon="fa-registered" page="tab2.html"  active></ons-tab>
-</ons-tabbar>
+<ons-navigator animation="lift" var="register" page="loginview.html"></ons-navigator>
 
-<ons-template id="tab2.html">
+<ons-template id="regview.html">
     <ons-page>
       <ons-toolbar>
         <div class="right"><ons-toolbar-button ng-click="toggle()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
         <div class="center">عضویت</div>
-      </ons-toolbar> 
+      </ons-toolbar>  
         
             <form autocomplete="off" >
                 <div class="register-form">
@@ -39,6 +36,8 @@
                 <div class="register-form">
                     <ons-button modifier="large" ng-click="submit()" class="login-button">عضویت</ons-button>
                 </div>
+                <ons-button ng-click="register.popPage()"  modifier="large--quiet">قبلا ثبت نام کرده ام ، ورود</ons-button>
+               
             </form>
         </div>
         <div class="p15bs">
@@ -58,4 +57,7 @@
         </div>
         <br>
     </ons-page>
+</ons-template>
+<ons-template id="loginview.html" >
+    <div ng-include="'page/members/login.html'" ng-controller="loginController"></div>
 </ons-template>

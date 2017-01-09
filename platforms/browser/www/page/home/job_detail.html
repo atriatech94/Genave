@@ -1,18 +1,31 @@
+<ons-navigator var="jobdetails"  animation="lift" page="jobs_detail.html"></ons-navigator>
+<ons-template id="jobs_detail.html">
 <ons-page>
     <div class="main">
         <ons-toolbar modifier="job_detail"> 
-        <div class="right"><ons-toolbar-button><ons-icon icon="ion-arrow-right-c" ng-click="myNavigator.popPage();jobBack();" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
-        <div  class="center"><span>{{myNavigator.topPage.data.title | limitTo : 32}}</span ng-if="myNavigator.topPage.data.title"><span ng-if="!myNavigator.topPage.data.title">{{place.title | limitTo : 32}}</span></div>
+        <div class="right"><ons-toolbar-button><ons-icon icon="ion-arrow-right-c" ng-click="homenav.popPage();menu.setSwipeable(true);" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
+        <div  class="center"><span ng-if="homenav.topPage.data.title">{{homenav.topPage.data.title | limitTo : 32}}</span ><span ng-if="!homenav.topPage.data.title">{{place.title | limitTo : 32}}</span></div>
      </ons-toolbar>
-        <ons-page modifier="shop-details">
-<div class="header_jobs">
-            <ons-carousel  style="height:180px;">
-                <ons-carousel-item style="height:180px;">
-                    <ks-swiper-container slides-per-view="1" slides-per-column="1" space-between="0" pagination-is-active="false" pagination-clickable="false" show-nav-buttons="false" loop="true" autoplay="5000" initial-slide="0" direction="horizontal">
-                        <ks-swiper-slide class="swiper-slide" ng-repeat="banner in place.banner">
-                            <img img-cache ic-src="{{logo_pic + banner}}">
-                        </ks-swiper-slide>
-                    </ks-swiper-container>
+
+            <!--<ks-swiper-container style="height:180px;"  override-parameters="{'effect':'slide'}">
+					<ks-swiper-slide class="swiper-slide" ng-repeat="banner in place.banner">
+						<img img-cache ic-src="{{logo_pic + banner}}">
+					</ks-swiper-slide>
+				</ks-swiper-container>
+        <div style="direction:ltr">
+            <ks-swiper-container slides-per-view="3" direction="horizontal">
+                <ks-swiper-slide class="swiper-slide1" ng-repeat="banner in place.banner">
+                     <div class="swiper-slide"><img ng-src="{{logo_pic + banner}}"></div>
+                </ks-swiper-slide>
+            </ks-swiper-container>
+        </div>
+-->
+     
+       
+        <div class="header_jobs">
+            <ons-carousel id="home_slider" style="height:220px;"  swipeable auto-scroll auto-scroll-ratio="0"  auto-refresh initial-index="{{place.banner.length}}">
+                <ons-carousel-item ng-repeat="banner in place.banner" style="height:220px;">
+                    <img ng-src="{{logo_pic + banner}}">
                  </ons-carousel-item>
             </ons-carousel>
         </div>
@@ -20,9 +33,9 @@
         <div class="job_logo">
             <div ng-if="place.logo" class="logo_job_image"><img img-cache ic-src="{{logo_pic + place.logo}}"></div>
             <div class="shr_des">
-                <h3 ng-if="myNavigator.topPage.data.title">{{myNavigator.topPage.data.title}}</h3>
-                <p ng-if="myNavigator.topPage.data.cat" class="cat fa-bookmark">{{myNavigator.topPage.data.cat}}</p>
-                <h3 ng-if="!myNavigator.topPage.data.title">{{place.title}}</h3>
+                <h3 ng-if="homenav.topPage.data.title">{{homenav.topPage.data.title}}</h3>
+                <p ng-if="homenav.topPage.data.cat" class="cat fa-bookmark">{{homenav.topPage.data.cat}}</p>
+                <h3 ng-if="!homenav.topPage.data.title">{{place.title}}</h3>
                
             </div>
             <div class="clearfix"></div>
@@ -55,7 +68,7 @@
             </div>
             <div class="sub_tab p15bs" ng-show="tab === 2">
                 <div class="job_gallery">
-                    <span  ng-repeat="product in products" ng-click="showDialog(d)" cancelable >
+                    <span  ng-repeat="product in products" ng-click="homenav.pushPage('jobs_gallery.html', {data: {id:d }})"  >
                         <img img-cache ic-src="{{ product_thumb + product.pic_name}}" >
                         <p>{{product.title}}</p>
                     </span>
@@ -68,7 +81,9 @@
                         <a href="callto:{{place.tel}}">{{place.tel}}</a>
                     </div>
                     <div class="googlemap">
-                        <a target="_blank" href="https://www.google.com/maps/dir//{{place.latitude}},+{{place.longitude}}/"><img ng-src="{{map}}" alt="Google Map of {{place.latitude}}, {{place.longitude}}"></a>
+                        <a target="_blank" href="https://www.google.com/maps/dir//{{place.latitude}},+{{place.longitude}}/">
+                            <img ng-src="http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyAgsQ1ds-j3GBd4Yz07dHlMiiD33h1r1Jk&center={{place.latitude}},+{{place.longitude}}&zoom=16&scale=false&size=600x300&maptype=roadmap&format=jpg&visual_refresh=true&markers=size:mid%7Ccolor:0xf40b6f%7Clabel:%7C{{place.latitude}},+{{place.longitude}}" alt="Google Map of {{place.latitude}},+{{place.longitude}}">
+                        </a>
                     </div>
                     <div class="social_media">
                         <div class=""></div>
@@ -98,14 +113,27 @@
 <!--=========end main================-->
     </div>
 </ons-page>
-<ons-template id="dialog.html">
-    <ons-dialog id="gallery" cancelable>
-        <ks-swiper-container class="gallery_slider"  initial-slide="gallery_active" override-parameters="{'effect':'slide', 'zoom': 'true', 'pagination': '.swiper-pagination', 'nextButton': '.swiper-button-next', 'prevButton': '.swiper-button-prev'}">
-            <ks-swiper-slide class="swiper-slide1" ng-repeat="i in [1,2,3,4,5,6,7,8,9]">
-                <div class="swiper-zoom-container">
-                    <img src="file/img/test/product/{{i}}.jpg" />
-                </div>
-            </ks-swiper-slide>
-        </ks-swiper-container>
-    </ons-dialog>
+</ons-template>
+<ons-template id="jobs_gallery.html">
+    <ons-page >
+        <div class="close_page" id="gallery_nav">
+            <ons-toolbar modifier="job_detail">
+                <div class="left"><ons-toolbar-button><ons-icon icon="ion-android-share-alt" style="color: white"></ons-icon></ons-toolbar-button></div>
+                <div class="right"><ons-toolbar-button><ons-icon icon="ion-android-close" ng-click="homenav.popPage();" style="color: white; font-size: 26px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
+            </ons-toolbar>
+        </div>
+          <ks-swiper-container class="gallery_slider"  initial-slide="parseInt(homenav.topPage.data.id)-1" override-parameters="{'effect':'slide', 'zoom': 'true', 'pagination': '.swiper-pagination', 'nextButton': '.swiper-button-next', 'prevButton': '.swiper-button-prev'}">
+                <ks-swiper-slide class="swiper-slide1" ng-repeat="product in products">
+                    <div class="swiper-zoom-container">
+                        <img img-cache ic-src="{{ product_thumb + product.pic_name}}" />
+                    </div>
+                    <div class="gallery_info">
+                        <h4 class="name">{{product.title}}</h4>
+                        <p class="desc">{{product.description}}</p>
+                        <p class="cost">{{product.price}} تومان</p>
+                    </div>
+                </ks-swiper-slide>
+            </ks-swiper-container>
+
+    </ons-page>
 </ons-template>

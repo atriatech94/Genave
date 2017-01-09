@@ -40,6 +40,7 @@ app.service('loadGoogleMapAPI', ['$window', '$q', function ( $window, $q ) {
                 
                 var is_click = 1 ; 
                 scope.job_info = JSON.parse(localStorage.getItem('job_info')); 
+                console.log(scope.job_info)
                 var _latitude = scope.job_info[0].latitude;
                 var _longitude = scope.job_info[0].longitude;
                 var gpss ;

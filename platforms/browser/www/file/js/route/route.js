@@ -51,38 +51,14 @@ angular.module('myapp')
     //$locationProvider.html5Mode(true);
 }])
 
-/*
+
 .run(function($rootScope, $window){
     $rootScope.$on("$routeChangeStart", function(event, next, current){
-        if((next.templateUrl === "pages/select/index.html") || 
-           (next.templateUrl === "pages/login/index.html")){
-            if(localStorage.getItem('user_id')){
-                
-                $window.location.assign("#/wall");
-                $window.location.reload();
-                // $window.path("/wall");
-            }
-        }else if((next.templateUrl === 'pages/register/register_one.html') || 
-           (next.templateUrl === 'pages/register/register_two.html') ||
-           (next.templateUrl === 'pages/register/register_three.html')){
-           if(localStorage.getItem('user_id')){
-                
-                $window.location.assign("#/wall");
-                $window.location.reload();
-                // $window.path("/wall");
-            }
-        }else{
-            if(!localStorage.getItem('user_id')){
-                if((next.templateUrl === 'pages/forget_pass/index.html')){
-                    $window.location.assign("#/forget_pass");
-                }else{
-                    $window.location.assign("#/select");
-                    $window.location.reload();
-                }
-               
-                // $window.path("/wall");
-            }
-        }
+        console.log(next.templateUrl);
+        //if((next.templateUrl === "pages/select/index.html") || 
+          // (next.templateUrl === "pages/login/index.html"))
+            
+            
+          
     });
 });
-*/

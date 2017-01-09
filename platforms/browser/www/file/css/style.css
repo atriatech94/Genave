@@ -188,19 +188,10 @@ ons-splitter-side .page__content .list{
 }
 /*======== job detail ========*/
 .header_jobs .swiper-slide{
-    height: 300px;
-    touch-action: pan-y;
-    -webkit-user-drag: none;
+    height: 180px;
 }
 .header_jobs {
-    touch-action: pan-y;
-    -webkit-user-drag: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
+   
 }
 .header_jobs .swiper-slide img{
     width: 100%;
@@ -210,15 +201,7 @@ ons-splitter-side .page__content .list{
      -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
     filter: grayscale(100%);
 }
-.header_jobs .swiper-slide:after{
-    background-color: rgba(147, 18, 67, 0.73);
-    content: "";
-    width: 100%;
-    height: 100%;
-    top:0;
-    right: 0;
-    position: absolute;
-}
+
 .swiper-slide{
     z-index: 0;
 }
@@ -353,7 +336,7 @@ ons-splitter-side .page__content .list{
     width: 100%;
     height: 400px;
     object-fit: contain;
-    object-position: 0 81%;
+    object-position: center;
 }
 .gallery_slider .swiper-slide1{
     width: 100% !important;
@@ -823,6 +806,72 @@ ons-splitter-side .page__content .list{
         border: 1px solid #e6e6e6;
 }
 /*========  ========*/
+#gallery_nav .navigation-bar{
+    background: none !important;
+    background-color: #000 !important;
+}
+.gallery_info{
+    position: absolute;
+    z-index: 21;
+    color: #fff;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding-bottom: 40px
+}
+.gallery_info .name{
+    margin: 0px;
+    font-size: 15px;
+}
+.gallery_info .desc{
+    margin: 0px;
+    font-size: 13px;
+}
+.gallery_info .cost{
+    font-size: 13px;
+    margin: 0px;
+
+}
+.gallery_slider .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    border-radius: 100%;
+    background: #b5b5b5;
+    opacity: .2;
+}
+.gallery_slider .swiper-pagination-bullet-active {
+    opacity: 1;
+    background: #d92cbd;
+}
+.header_jobs{
+    margin-top:42px;
+}
+.gallery_slider .swiper-slide1 {
+    width: 100% !important;
+    height: 100vh;
+    background: #000;
+}
+
+
+.header_jobs .swiper-container{
+    z-index: 0 !important;
+}
+.header_jobs ons-carousel-item img{
+    width: 100%;
+    height:220px;
+    object-fit: cover;
+    object-position: center;
+}
+.contact-image{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
 /*========  ========*/
 /*========  ========*/
 /*========  ========*/

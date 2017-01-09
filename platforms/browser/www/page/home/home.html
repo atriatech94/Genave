@@ -1,5 +1,7 @@
-<ons-navigator ons-postpush="push()"  animation="slide" var="myNavigator" page="page1.html"></ons-navigator>
-<ons-template id="page1.html">
+
+
+<ons-navigator  animation="slide" var="homenav" page="home_one_list.html"></ons-navigator>
+<ons-template id="home_one_list.html">
     <ons-page>
         <ons-toolbar>
             <div class="right">
@@ -12,16 +14,16 @@
         <div class="main">
             <!--=============== home slider =========================-->
             <div class="home_slider">
-                <ons-carousel var="carousel" initial-index="1" in ons-postchange="console.log('Changed to ' + $event.activeIndex)" item-height="250px" item-height="10%%"  swipeable auto-scroll overscrollable>
+                <ons-carousel var="carousel" initial-index="1" auto-scroll-ratio="0" auto-refresh in ons-postchange="console.log('Changed to ' + $event.activeIndex)" item-height="250px" item-height="10%%"  swipeable auto-scroll overscrollable>
                     <ons-carousel-item ng-repeat="slider in sliders">
-                        <div ng-click="myNavigator.pushPage('page2.html',{data: {id:slider.id}})" class="slider_item"><div class="slider_item"><img img-cache ic-src="{{img_url + slider.image_address}}"></div></div>
+                        <div ng-click="homenav.pushPage('home_job_detail.html',{data: {id:slider.id}})" class="slider_item"><div class="slider_item"><img img-cache ic-src="{{img_url + slider.image_address}}"></div></div>
                     </ons-carousel-item>
                 </ons-carousel>  
             </div>
              <!--=============== home adds =========================-->
             <div class="special_adds">
                <ons-list ng-repeat="job in jobs">
-                   <ons-list-item ng-click="myNavigator.pushPage('page2.html',{data: {title: job.title,cat :job.cat,id:job.id}})" modifier="chevron" class="list-item-container">
+                   <ons-list-item ng-click="homenav.pushPage('home_job_detail.html',{data: {title: job.title,cat :job.cat,id:job.id}})" modifier="chevron" class="list-item-container">
                        <ons-row>
                            <ons-col width="110px"><img img-cache ic-src="{{job_url + job.image_address}}" class="thumbnail"></ons-col>
                            <ons-col>
@@ -38,7 +40,7 @@
         </div>
     </ons-page>
 </ons-template>
-<ons-template id="page2.html">
+<ons-template id="home_job_detail.html">
      <div ng-include="'page/home/job_detail.html'" ng-controller="jobdetail" ></div>
 </ons-template>
 
