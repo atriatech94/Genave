@@ -8,7 +8,7 @@
         <div class="product_arc">
          <div class="card product_archive">
             <ons-list-item modifier="chevron"
-                ng-click="myNavigator.pushPage('product_detail.html',{data: {pic_name : product.pic_name, title: product.title,price: product.price, id: product.id, description: product.discription}})"
+                ng-click="panelnav.pushPage('product_detail.html',{data: {pic_name : product.pic_name, title: product.title,price: product.price, id: product.id, description: product.discription}})"
                 tappable ng-repeat="product in products">
                 <div class="left"><img class="list__item__thumbnail" img-cache ic-src="{{product_thumb + product.pic_name}}"></div>
                 <div class="center">

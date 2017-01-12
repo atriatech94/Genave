@@ -40,7 +40,6 @@
                     }
                     else if ( response.data.done == 1 )
                     {
-                        console.log(response.data);
                         localStorage.setItem("member_info",JSON.stringify(response.data.member_info));  
                         if(response.data.has_job == 1){
                            localStorage.setItem("has_job",1);
@@ -624,8 +623,7 @@
                $scope.categories = response.data.category;
                if($scope.jobStatus == 1){
                     $scope.job_info = JSON.parse(localStorage.getItem('job_info'));
-                    console.log($scope.job_info);
-                    $scope.job.title = $scope.job_info[0].title;
+                     $scope.job.title = $scope.job_info[0].title;
                     $scope.job.description = $scope.job_info[0].discription;
                     $scope.job.service = $scope.job_info[0].short_discription;
                     $scope.job.adrress = $scope.job_info[0].address;
@@ -637,7 +635,7 @@
                     $scope.job.subcat = $scope.job_info[0].cat_id;
                     $scope.job.email = $scope.job_info[0].email;
                     $scope.change($scope.job.cat);
-                    console.log( $scope.job);
+                    ;
 
                 } 
         }, function errorCallback(response) {
@@ -704,9 +702,9 @@
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
         }).then(function successCallback(response) {
                
-                document.getElementById('loading').setAttribute('style','display:none;'); 
+                document.getElementById('loading').setAttribute('style','display:none;');  
                 $scope.images = response.data.banners;
-      
+          
      }, function errorCallback(response) {
                     document.getElementById('loading').setAttribute('style','display:none;'); 
                     ons.notification.alert({
@@ -1057,7 +1055,7 @@
 
       
 })
-.controller('productarchive', function($scope,$http) { 
+.controller('productarchive', function($scope,$http,$rootScope) { 
      $scope.info = JSON.parse(localStorage.getItem('member_info'));
     
      $scope.product_thumb = product_thumb;
@@ -1068,8 +1066,7 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
             }).then(function successCallback(response) {
                     document.getElementById('loading').setAttribute('style','display:none;'); 
-                    $scope.products = response.data.products; 
-                    console.log($scope.products);
+                    $rootScope.products = response.data.products; 
             }, function errorCallback(response) {
                         document.getElementById('loading').setAttribute('style','display:none;'); 
                         ons.notification.alert({
@@ -1079,7 +1076,7 @@
                 }); 
             });
 })
-.controller('productdetail', function($scope,$timeout,$http,$httpParamSerializer) { 
+.controller('productdetail', function($scope,$timeout,$http,$httpParamSerializer,$rootScope) { 
     $scope.img_url = uploads_pic;
     $scope.product = {
        id : panelnav.topPage.data.id, 
@@ -1087,6 +1084,55 @@
        price : Number(panelnav.topPage.data.price),
        description : panelnav.topPage.data.description,
        photo : panelnav.topPage.data.pic_name
+    };
+
+    $scope.submit = function(){
+        document.getElementById('loading').removeAttribute('style'); 
+         $http({
+                method: 'POST',
+                url: base_url+'update_product',
+                data: $httpParamSerializer({
+                    id : $scope.product.id,
+                    title :  $scope.product.title,
+                    price :  $scope.product.price,
+                    description :  $scope.product.description,
+                }),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function successCallback(response) {
+                  
+                   document.getElementById('loading').setAttribute('style','display:none;'); 
+                   if(response.data.done == 0){
+                        ons.notification.alert({
+                            title: 'خطا',
+                            buttonLabel:"بستن " ,
+                            message: response.data.msg
+                         }); 
+                   }
+                   else if ( response.data.done == 1 )
+                   {
+                        ons.notification.alert({
+                            title: 'پیام سیستم',
+                            buttonLabel:"بستن " ,
+                            message: response.data.msg 
+                         }); 
+                         for(let i=0 ; i<$rootScope.products.length ; i++){
+                            if($rootScope.products[i].id == $scope.product.id){
+                                $rootScope.products[i].title = $scope.product.title;
+                                $rootScope.products[i].price = $scope.product.price;
+                                $rootScope.products[i].description = $scope.product.description;
+                                break;
+                            }
+                        }
+                    }
+                    
+            }, function errorCallback(response) {
+                        document.getElementById('loading').setAttribute('style','display:none;'); 
+                        ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'خطا در برقراری ارتباط با سرور'
+              }); 
+        });
     };
 
     $scope.showModal = function(){$scope.modalshow = 1;}
@@ -1129,6 +1175,12 @@
                      if(r.response.error == false)
                      {
                          $scope.product.photo = r.response.filename;
+                          for(let i=0 ; i<$rootScope.products.length ; i++){
+                            if($rootScope.products[i].id == $scope.product.id){
+                                $rootScope.products[i].pic_name = $scope.product.photo;
+                                break;
+                            }
+                         } 
                          $scope.$apply();
                      }
                      else

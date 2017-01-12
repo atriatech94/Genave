@@ -16,7 +16,7 @@
                 }); 
      };
       $scope.logout_1 = function(){
-          localStorage.removeItem('member_info');
+          localStorage.removeItem('member_info'); 
           localStorage.removeItem('job_info');
           localStorage.removeItem('has_job');
           $rootScope.is_login = 0;

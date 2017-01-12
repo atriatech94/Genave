@@ -1,25 +1,39 @@
 <ons-page>
     <ons-toolbar>
         <div class="right"><ons-toolbar-button><ons-icon icon="ion-arrow-right-c" ng-click="panelnav.popPage()" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
-      <div class="center"> لگو کسب کار </div>
+      <div class="center"> لوگو کسب کار </div>
     </ons-toolbar>
     <!--========-->
     <div class="main p15bs">
-        <p class="text-center">لگو ، آرم یا نشانه شغل خود را آپلود کنید .</p>
+        <p class="text-center">لوگو ، آرم یا نشانه شغل خود را آپلود کنید .</p>
         <form class="upload_logo">
             <!--========برای حالتی که لگو نیست است ===============-->
-            <label class="card" ng-click="inputopen();" ><i class="ion-android-upload" ></i><p>انتخاب فایل</p></label>
+            <label ng-if="job_info[0].logo == '' " class="card" ng-click="showModal();" ><i class="ion-android-upload" ></i><p>انتخاب فایل</p></label>
             <br>
             <!--======== برای حالتی که لگو موجود است ===============-->
-            <!--<label class="card hasimage" >
-                <img class="img-responsive" src="file/img/test/logo/4.jpg">
-                 <div class="card-footer">
-                     <a class="h6"><ons-icon class="ml5" icon="ion-shuffle"></ons-icon> تغییر تصویر</a>
-                </div>
-            </label>-->
-            <input type="file" name="logo" class="logo" id="logo" >
+            <label  ng-if="job_info[0].logo != '' " class="card" >
+                    <img class="job_img_file" ng-src="{{base_img + job_info[0].logo}}" >
+                    <div class="card-footer">
+                          <a ng-click="showModal()" class="h6"><ons-icon class="ml5" icon="ion-edit"></ons-icon>ویرایش</a>
+                          <a ng-click="remove()" class="h6"><ons-icon class="ml5" icon="ion-trash-a"></ons-icon>حذف</a>
+                     </div>
+            </label>
         </form>
         
     </div>
     <!--========-->
 </ons-page>
+<div ng-show="modalshow" class="mymodal" var="myModal" direction="up" align="bottom" >
+    <div class="modal_content">
+        <div class="box-animation">
+            <div class="modal-box">
+                 <p class="header">انتخاب تصویر</p>
+                 <ons-button modifier="large--quiet" class="border-top red" ng-click="gallery()">آپلود از گالری</ons-button>
+                 <ons-button  class="border-top" ng-click="camera()" modifier="large--quiet">گرفتن تصویر جدید با دوربین</ons-button>
+            </div>
+            <div class="modal-box">
+                <ons-button ng-click="hideModal();"  modifier="large--quiet">بی خیال شو</ons-button>
+            </div>
+        </div>
+    </div>
+</div>
