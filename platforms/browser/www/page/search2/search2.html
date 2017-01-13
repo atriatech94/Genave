@@ -8,27 +8,29 @@
         <div class="main"> 
             <ons-list>
             <ons-list-header>انتخاب دسته بندی</ons-list-header>
-            <ons-list-item ng-repeat="n in [1,2,3,4,5,6,7,8,9,11,12,13,14,15]" ng-click="searchNav.pushPage('searchCattwo.html', {data: {id: n , title:'انتخاب زیر دسته'}})" modifier="chevron tappable">دسته شماره {{n}}</ons-list-item>
+            <ons-list-item ng-repeat="category in categories" ng-click="searchNav.pushPage('searchCattwo.html', {data: {cat_id: category.id ,title1: category.cat}})" modifier="chevron tappable">{{category.cat}}</ons-list-item>
           </ons-list>
         </div>
     </ons-page>
 </ons-template>
 <ons-template id="searchCattwo.html">
-    <ons-toolbar>
+  <div ng-controller="search2ControllerCat"> 
+   <ons-toolbar>
             <div class="right"><ons-toolbar-button><ons-icon icon="ion-arrow-right-c" ng-click="searchNav.popPage();" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
-            <div class="center">{{searchNav.topPage.data.title}}</div>
+            <div class="center">{{subcategory_t}}</div>
         </ons-toolbar>
         <div class="main"> 
             <ons-list>
             <ons-list-header>انتخاب زیر دسته</ons-list-header>
 
-            <ons-list-item ng-repeat="n in [1,2,3,4,5,6,7,8,9,11,12,13,14,15]"  ng-click="searchNav.pushPage('search2detail.html', {data: {id: n }})" modifier="chevron tappable">زیر دسته {{n}}</ons-list-item>
+            <ons-list-item ng-repeat="subcategory in subcategories"  ng-click="searchNav.pushPage('search2detail.html',{data: {cat_id: subcategory.id ,title2: subcategory.cat}})" modifier="chevron tappable">{{subcategory.cat}}</ons-list-item>
           </ons-list>
         </div>
+  </div>     
 </ons-template>
 <ons-template id="search2detail.html">
     <div ng-include="'page/search2/detail.html'" ng-controller="search2detail" ></div>
 </ons-template>
 <ons-template id="search2detailjob.html">
-    <div ng-include="'page/search2/detailjob.html'" ng-controller="search2detail" ></div>
+    <div ng-include="'page/search2/detailjob.html'" ng-controller="search2detailjob" ></div>
 </ons-template>

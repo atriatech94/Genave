@@ -9,7 +9,7 @@
                <ons-list-item ng-repeat="job in jobs" ng-click="searchone.pushPage('searchdetailthree.html',{data: {id:4,title3: job.title,cat :job.cat,job_id:job.id}})" modifier="chevron" class="list-item-container">
                    <ons-row>
                        <ons-col width="110px">
-                            <img ng-if="job.logo" img-cache ic-src="{{img_url + job.logo}}" class="thumbnail">
+                            <img ng-if="job.logo" src="processing.gif" lazy-img="{{img_url + job.logo}}" class="thumbnail">
                                <img ng-if="!job.logo" ng-src="file/img/no_image.jpg" class="thumbnail">
                        </ons-col>
                        <ons-col>
