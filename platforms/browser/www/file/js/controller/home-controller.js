@@ -14,16 +14,9 @@
                     buttonLabel:"بستن " ,
                     message: 'برای در خواست تبلیغات ویژه ابتدا عضو شوید'
                 }); 
+                footerTab.setActiveTab(3);
      };
-      $scope.logout_1 = function(){
-          $rootScope.is_login = 0;
-          localStorage.removeItem('member_info');
-          localStorage.removeItem('job_info');
-          localStorage.removeItem('has_job');
-          footerTab.setActiveTab(0);
-          $scope.menu.toggleMenu();
-      };
-
+     
      if(localStorage.getItem('member_info') == null){
          $rootScope.is_login = 0;
      }
