@@ -15,7 +15,6 @@
         }).then(function successCallback(response) {
                document.getElementById('loading').setAttribute('style','display:none;'); 
                $scope.about_us = response.data.about; 
-               console.log($scope.about_us);
                localStorage.setItem('about_us',JSON.stringify($scope.about_us)); 
          }, function errorCallback(response) {
                     document.getElementById('loading').setAttribute('style','display:none;'); 
