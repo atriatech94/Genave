@@ -17,7 +17,7 @@
         <div class="content-block-title">آرشیو تصاویر</div>
         <div class="job_image_list">
             <div class="card" ng-repeat="image in images">
-                <img class="job_img_file" img-cache ic-src="{{image_url+image}}" >
+                <img class="job_img_file" src="processing.gif" lazy-img="{{image_url+image}}" >
                 <div ng-click="remove($index,image)" class="card-footer"><a class="h6"><ons-icon class="ml5" icon="ion-trash-a"></ons-icon>حذف تصویر</a></div>
             </div>
         </div>

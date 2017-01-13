@@ -4,64 +4,30 @@
       <div class="center">ارسال پیام به مدیریت</div>
   </ons-toolbar>
     <div class="msg">
-        <div class="msg-list">
+        <div id="msg" class="msg-list">
             <!--==============msg======================-->
             <!--admin msg-->
-            <div class="message admin">
+         <div ng-repeat="message in messages">    
+            <div ng-if="message.reply" class="message admin">
                 <p class="name">مدیریت سایت</p>
-                <p class="text">  لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک  </p>
+                <p class="text"> {{message.reply}} </p>
             </div>
             <!--usermsg-->
-            <div class="message user">
-                <p class="name">شما</p>
-                <p class="text">  شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا  </p>
+            <div ng-if="message.text" class="message user">
+                <p class="name">{{info.fname+" "+info.lname}}</p>
+                <p class="text"> {{message.text}} </p>
             </div>
-            <!--usermsg-->
-            <div class="message user">
-                <p class="name">شما</p>
-                <p class="text">  شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا  </p>
-            </div>
-            <!--usermsg-->
-            <div class="message user">
-                <p class="name">شما</p>
-                <p class="text">  شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا  </p>
-            </div>
-            <!--admin msg-->
-            <div class="message admin">
-                <p class="name">مدیریت سایت</p>
-                <p class="text">  لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک  </p>
-            </div>
-            <!--admin msg-->
-            <div class="message admin">
-                <p class="name">مدیریت سایت</p>
-                <p class="text">  لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک  </p>
-            </div>
-             <!--usermsg-->
-            <div class="message user">
-                <p class="name">شما</p>
-                <p class="text">  شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا  </p>
-            </div>
-            <!--usermsg-->
-            <div class="message user">
-                <p class="name">شما</p>
-                <p class="text">  شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا  </p>
-            </div>
-             <!--usermsg-->
-            <div class="message user">
-                <p class="name">شما</p>
-                <p class="text">  شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا  </p>
-            </div>
-            <!--usermsg-->
-            <div class="message user">
-                <p class="name">شما</p>
-                <p class="text">  شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا  </p>
-            </div>
-            <!--================end ms=====================-->
-        </div>
+         </div>
+         <br>
+         <br>
+         <br>  
+         <div id="bottom"></div>
+        </div> 
+       
         <div class="inputs">
             <ons-row >
-                <ons-col><textarea placeholder="پیام خود را بگزارید" ></textarea></ons-col>
-                <ons-col  class="text-center msg-button" width="120px" ><ons-button ripple modifier="quiet"><i class="ion-paper-airplane"></i> ارسال پیام </ons-button></ons-col>
+                <ons-col><textarea ng-model="msg_user.text1" placeholder="پیام خود را بگزارید" ></textarea></ons-col>
+                <ons-col  class="text-center msg-button" width="120px" ><ons-button ng-click="send_msg()" ripple modifier="quiet"><i class="ion-paper-airplane"></i> ارسال پیام </ons-button></ons-col>
             </ons-row>
         </div>
     </div>

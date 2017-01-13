@@ -4,6 +4,7 @@ var app = angular.module('myapp', [
     'ngRoute',
     'ngResource',
     'ImgCache',
+    'angularLazyImg',
     'ngMap'
  
 ]);

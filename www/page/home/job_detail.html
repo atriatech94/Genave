@@ -22,13 +22,13 @@
 -->
      
        
-        <div class="header_jobs">
-            <ons-carousel id="home_slider" style="height:220px;"  swipeable auto-scroll auto-scroll-ratio="0"  auto-refresh initial-index="{{place.banner.length}}">
+        <div class="header_jobs" >
+            <ons-carousel ng-if="place.banner.length != 0 && place.banner != '' " id="home_slider" style="height:220px;"  swipeable auto-scroll auto-scroll-ratio="0"  auto-refresh initial-index="{{place.banner.length}}">
                 <ons-carousel-item ng-repeat="banner in place.banner" style="height:220px;">
-                    <img ng-src="{{logo_pic + banner}}">
+                    <img img-cache ic-src="{{logo_pic + banner}}">
                  </ons-carousel-item>
             </ons-carousel>
-        </div>
+        </div> 
         <!--=========end logo================-->
         <div class="job_logo">
             <div ng-if="place.logo" class="logo_job_image"><img img-cache ic-src="{{logo_pic + place.logo}}"></div>
@@ -69,7 +69,7 @@
             <div class="sub_tab p15bs" ng-show="tab === 2">
                 <div class="job_gallery">
                     <span  ng-repeat="product in products" ng-click="homenav.pushPage('jobs_gallery.html', {data: {id:d }})"  >
-                        <img img-cache ic-src="{{ product_thumb + product.pic_name}}" >
+                        <img src="processing.gif" lazy-img="{{ product_thumb + product.pic_name}}" >
                         <p>{{product.title}}</p>
                     </span>
                 </div>
@@ -78,7 +78,7 @@
                 <div class="contact_info">
                     <div class="address">
                         <p>{{place.address}}</p>
-                        <a href="callto:{{place.tel}}">{{place.tel}}</a>
+                        <a ng-click="tel(place.tel)" >{{place.tel}}</a>
                     </div>
                     <div class="googlemap">
                         <a target="_blank" href="https://www.google.com/maps/dir//{{place.latitude}},+{{place.longitude}}/">
@@ -122,10 +122,11 @@
                 <div class="right"><ons-toolbar-button><ons-icon icon="ion-android-close" ng-click="homenav.popPage();" style="color: white; font-size: 26px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
             </ons-toolbar>
         </div>
+        
           <ks-swiper-container class="gallery_slider"  initial-slide="parseInt(homenav.topPage.data.id)-1" override-parameters="{'effect':'slide', 'zoom': 'true', 'pagination': '.swiper-pagination', 'nextButton': '.swiper-button-next', 'prevButton': '.swiper-button-prev'}">
                 <ks-swiper-slide class="swiper-slide1" ng-repeat="product in products">
                     <div class="swiper-zoom-container">
-                        <img img-cache ic-src="{{ product_thumb + product.pic_name}}" />
+                       <img img-cache ic-src="{{ product_thumb + product.pic_name}}" />
                     </div>
                     <div class="gallery_info">
                         <h4 class="name">{{product.title}}</h4>

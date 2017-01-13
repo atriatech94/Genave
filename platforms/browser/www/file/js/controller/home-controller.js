@@ -16,11 +16,11 @@
                 }); 
      };
       $scope.logout_1 = function(){
-          localStorage.removeItem('member_info'); 
+          $rootScope.is_login = 0;
+          localStorage.removeItem('member_info');
           localStorage.removeItem('job_info');
           localStorage.removeItem('has_job');
-          $rootScope.is_login = 0;
-          $location.path('/');
+          footerTab.setActiveTab(0);
           $scope.menu.toggleMenu();
       };
 
@@ -42,7 +42,7 @@
      }
      
  })
- .controller('homeController', function($scope,$http) { 
+ .controller('homeController', function($scope,$http,$timeout) { 
       
       $scope.img_url = baner_pic;
       $scope.job_url = baner_thumb_pic;
@@ -54,7 +54,7 @@
         document.getElementById('loading').removeAttribute('style'); 
       }
       if(localStorage.getItem('sliders') != null){
-        $scope.sliders = JSON.parse(localStorage.getItem('sliders'));
+        $scope.sliders = JSON.parse(localStorage.getItem('sliders')); 
       }
       $http({
             method: 'GET',
@@ -64,6 +64,7 @@
                document.getElementById('loading').setAttribute('style','display:none;'); 
                $scope.sliders = response.data.slider; 
                $scope.jobs = response.data.bottom;
+               $scope.slider_change();
                localStorage.setItem('jobs',JSON.stringify($scope.jobs)); 
                localStorage.setItem('sliders',JSON.stringify($scope.sliders));   
                 $http({
@@ -80,7 +81,18 @@
                 }); 
        }); 
 
-       
-      
+  $scope.slider_change = function(){
+    $timeout(function(){
+      if(carousel2.getActiveIndex() == 0){
+         carousel2.last();
+      }
+      else
+      {
+         carousel2.prev();
+      }  
+       $scope.slider_change();
+      },3800);
+ }; 
+     
     
- })
+ });

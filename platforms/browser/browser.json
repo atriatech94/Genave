@@ -87,6 +87,9 @@
         },
         "cordova-plugin-imagepicker": {
             "PACKAGE_NAME": "ir.atriatech.genave"
+        },
+        "call-number": {
+            "PACKAGE_NAME": "ir.atriatech.genave"
         }
     },
     "dependent_plugins": {},
@@ -701,6 +704,14 @@
             "clobbers": [
                 "plugins.imagePicker"
             ]
+        },
+        {
+            "file": "plugins/call-number/www/CallNumber.js",
+            "id": "call-number.CallNumber",
+            "pluginId": "call-number",
+            "clobbers": [
+                "call"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -725,6 +736,7 @@
         "cordova-plugin-statusbar": "2.1.3",
         "cordova-plugin-vibration": "2.1.3",
         "cordova-plugin-whitelist": "1.2.2",
-        "cordova-plugin-imagepicker": "1.1.0"
+        "cordova-plugin-imagepicker": "1.1.0",
+        "call-number": "0.0.2"
     }
 }

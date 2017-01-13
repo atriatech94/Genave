@@ -66,6 +66,9 @@
         },
         "cordova-plugin-imagepicker": {
             "PACKAGE_NAME": "ir.atriatech.genave"
+        },
+        "call-number": {
+            "PACKAGE_NAME": "ir.atriatech.genave"
         }
     },
     "dependent_plugins": {

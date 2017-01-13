@@ -610,6 +610,14 @@ module.exports = [
         "clobbers": [
             "plugins.imagePicker"
         ]
+    },
+    {
+        "file": "plugins/call-number/www/CallNumber.js",
+        "id": "call-number.CallNumber",
+        "pluginId": "call-number",
+        "clobbers": [
+            "call"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -636,7 +644,8 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.1.3",
     "cordova-plugin-vibration": "2.1.3",
     "cordova-plugin-whitelist": "1.2.2",
-    "cordova-plugin-imagepicker": "1.1.0"
+    "cordova-plugin-imagepicker": "1.1.0",
+    "call-number": "0.0.2"
 }
 // BOTTOM OF METADATA
 });

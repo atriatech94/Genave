@@ -1086,6 +1086,50 @@
        photo : panelnav.topPage.data.pic_name
     };
 
+     $scope.romove_product = function(id){
+          ons.notification.confirm({
+                    title : "پیام",
+                    message: 'برای حذف محصول اطمینان دارید ؟',
+                    buttonLabels : ['خیر','بلی'],
+                        callback: function(idx) {
+                            switch (idx) {
+                                case 0:
+                                       
+                                    break;
+                                case 1:
+                                   $scope.Doremove(id);
+                                   break;
+                        }
+                    }
+           });
+     };
+         
+        $scope.Doremove = function(id){ 
+           
+            for(let i=0 ; i < $rootScope.products.length ; i++){
+                if($rootScope.products[i].id == id){
+                    $rootScope.products.splice(i, 1); 
+                    break;
+                }
+             }
+             panelnav.popPage();
+              $http({
+                method: 'POST',
+                url: base_url+'delete_product',
+                data: $httpParamSerializer({id : id }),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function successCallback(response) {
+                
+            }, function errorCallback(response) {
+                       ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'خطا در برقراری ارتباط با سرور'
+                   }); 
+           });
+            
+        };
+
     $scope.submit = function(){
         document.getElementById('loading').removeAttribute('style'); 
          $http({
@@ -1256,7 +1300,48 @@
         }
        
        
-       
-      
-    
+})       
+.controller('msgController', function($scope,$http,$httpParamSerializer,$location, $anchorScroll,$timeout) {       
+         $scope.info = JSON.parse(localStorage.getItem('member_info'));
+         $scope.msg_user = {
+              text1 : ""
+            };
+         $http({
+                method: 'POST',
+                url: base_url+'get_message',
+                data: $httpParamSerializer({ user_id : $scope.info.id }),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function successCallback(response) {
+                $scope.messages = response.data.msg;
+               $timeout(function(){  
+                 $location.hash('bottom');
+                 $anchorScroll();
+              },0);  
+             
+           },function errorCallback(response) {
+                       ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'خطا در برقراری ارتباط با سرور'
+                   }); 
+           });
+
+
+      $scope.send_msg = function(){
+           $scope.messages.push({id : 9000, reply : "", text : $scope.msg_user.text1});
+           $scope.msg_user.text2 = $scope.msg_user.text1;
+           $scope.msg_user.text1 = "";
+           $location.hash('bottom');
+           $anchorScroll();
+           $http({
+                method: 'POST',
+                url: base_url+'save_message',
+                data: $httpParamSerializer({ user_id : $scope.info.id , text : $scope.msg_user.text2}),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+           
+      }     
+
+
+
 });

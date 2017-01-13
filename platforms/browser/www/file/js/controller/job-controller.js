@@ -1,11 +1,24 @@
 app.controller('jobdetail', function($scope,$http) { 
     
+     $scope.tel = function(tel){
+         window.plugins.CallNumber.callNumber(onSuccess, onError, tel);
+         function onSuccess(result){
+            console.log("Success:"+result);
+         }
+
+            function onError(result) {
+            console.log("Error:"+result);
+        }
+     }; 
+
     $scope.tab = 1; 
     $scope.gallery_active = 0;
      menu.setSwipeable(false);
      $scope.change = function(tab){
         $scope.tab = tab; 
-         console.log(tab);
+        if(tab == 2){
+            $scope.products =  $scope.products1;
+        }
      }
 
      $scope.showDialog = function(gallery_active) {
@@ -45,7 +58,7 @@ app.controller('jobdetail', function($scope,$http) {
     }).then(function successCallback(response) {
         document.getElementById('loading').setAttribute('style','display:none;'); 
         $scope.place = response.data.place; 
-        $scope.products = response.data.products;  
+        $scope.products1 = response.data.products;  
             
            }, function errorCallback(response) {
                     document.getElementById('loading').setAttribute('style','display:none;'); 
