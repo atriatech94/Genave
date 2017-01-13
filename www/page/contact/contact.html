@@ -26,9 +26,9 @@
                     <div class="left"><i class="fa fa-telegram"></i></div>
                     <div class="center">{{contact_us.telegram}}</div>
                 </ons-list-item>
-                 <ons-list-item tappable>
+                 <ons-list-item ng-click="mailto(contact_us.email)" tappable>
                     <div class="left"><i class="fa fa-envelope-o"></i></div>
-                    <a href="mailto:{{contact_us.email}}" class="center">{{contact_us.email}}</a>
+                    <div class="center">{{contact_us.email}}</div>
                 </ons-list-item>
             </ons-list>
         </div>

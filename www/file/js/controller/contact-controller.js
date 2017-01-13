@@ -1,4 +1,9 @@
 app.controller('contactController', function($scope,$http) { 
+     
+     $scope.mailto = function(mail){
+       window.location.href = "mailto:"+mail;
+     };
+
      $scope.base_img = uploads_pic;
       if(localStorage.getItem('contact_us') != null){
          $scope.contact_us = JSON.parse(localStorage.getItem('contact_us'));
