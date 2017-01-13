@@ -1,6 +1,25 @@
 app.controller('jobdetail', function($scope,$http) { 
     
+     
      $scope.tel = function(tel){
+        ons.notification.confirm({
+                    title : "پیام",
+                    message: 'تماس با '+tel,
+                    buttonLabels : ['لغو','تماس'],
+                        callback: function(idx) {
+                            switch (idx) {
+                                case 0:
+                                   break;
+                                case 1:
+                                   $scope.tel1(tel);
+                                   break;
+                        }
+                    }
+           });
+      
+     };
+     
+     $scope.tel1 = function(tel){
          window.plugins.CallNumber.callNumber(onSuccess, onError, tel);
          function onSuccess(result){
             console.log("Success:"+result);

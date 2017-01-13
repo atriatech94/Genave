@@ -1,5 +1,5 @@
  angular.module('myapp')
- .controller('indexController', function($scope,$location,$rootScope) { 
+ .controller('indexController', function($scope,$location,$rootScope,$http,$httpParamSerializer) { 
      
      $scope.go = function(data){
          $location.path(data);
@@ -12,7 +12,7 @@
          ons.notification.alert({
                     title: 'پیام',
                     buttonLabel:"بستن " ,
-                    message: 'برای در خواست تبلیغات ویژه ابتدا عضو شوید'
+                    message: 'برای در خواست تبلیغات ویژه به حساب کاربری خود وارد شوید یا عضو گردید'
                 }); 
                 footerTab.setActiveTab(3);
      };
@@ -28,11 +28,62 @@
      $scope.toggle = function() {
          $scope.menu.toggleMenu();
      };
-     //var options = new Object;
-     //options.buttonLabels =["Cancel2", "OK2"] ;
      $scope.conf = function(){
-         ons.notification.confirm({message: 'ارسال درخواست ویژه' , buttonLabels:["لغو", "ارسال درخواست"] , title : "پیام"} );
-     }
+        $scope.info_u = JSON.parse(localStorage.getItem('member_info'));  
+        $scope.menu.toggleMenu();
+        ons.notification.confirm({
+                    title : "پیام",
+                    message: 'برای ارسال درخواست تبلیغات ویژه اطمینان دارید ؟',
+                    buttonLabels : ['لغو','ارسال درخواست'],
+                        callback: function(idx) {
+                            switch (idx) {
+                                case 0:
+                                   break;
+                                case 1:
+                                   $scope.send_msg_a($scope.info_u.id);
+                                   break;
+                        }
+                    }
+           });
+      
+     };
+
+      $scope.send_msg_a = function(id){ 
+           document.getElementById('loading').removeAttribute('style'); 
+           $http({
+                method: 'POST',
+                url: base_url+'request_advs',
+                data: $httpParamSerializer({user_id : id }),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function successCallback(response) {
+                document.getElementById('loading').setAttribute('style','display:none;'); 
+                 if(response.data.done == 1){
+                       ons.notification.alert({
+                         title: 'پیام سیستم',
+                         buttonLabel:"بستن " ,
+                         message: response.data.msg
+                   }); 
+                 }
+                 else
+                 { 
+                       ons.notification.alert({
+                         title: 'خطا',
+                         buttonLabel:"بستن " ,
+                         message: response.data.msg
+                      }); 
+
+                 }
+
+            }, function errorCallback(response) {
+                document.getElementById('loading').setAttribute('style','display:none;'); 
+                       ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'خطا در برقراری ارتباط با سرور'
+                   }); 
+           });
+            
+        };
      
  })
  .controller('homeController', function($scope,$http,$timeout) { 
