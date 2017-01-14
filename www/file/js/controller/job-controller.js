@@ -9,7 +9,15 @@ app.controller('jobdetail', function($scope,$http) {
      $scope.save = function(){
          let a = $scope.swiper.activeIndex;
          let src = $scope.swiper.slides[a].querySelector("img[src]").getAttribute("src");
-         
+         window.plugins.socialsharing.saveToPhotoAlbum(
+            ['https://www.google.nl/images/srpr/logo4w.png','www/image.gif'],
+            onSuccess, // optional success function
+            onError    // optional error function
+          );
+
+           const onSuccess = function(result) {
+              alert(saved);
+           }
      };
 
      $scope.tel = function(tel){
