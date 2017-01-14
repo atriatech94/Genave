@@ -39,15 +39,19 @@ app.controller('jobdetail', function($scope,$http) {
             $scope.products =  $scope.products1;
         }
      }
-
-     $scope.showDialog = function(gallery_active) {
-        
-         $scope.gallery_active = parseInt(gallery_active) - 1;
+     $scope.active_swiper =  function(gallery_active) {
+       
+         $scope.gallery_active = parseInt(gallery_active);
+     }
+     $scope.onReadySwiper = function(swiper){
          console.log($scope.gallery_active);
+         swiper.slideTo($scope.gallery_active);
+     }
+     $scope.showDialog = function(gallery_active) {
          if ($scope.dialog) {
              $scope.dialog.show();
          } else {
-             ons.createDialog('dialog.html', { parentScope: $scope,cancelable :true })
+             ons.createDialog('jobs_gallery.html', { parentScope: $scope,cancelable :true })
              .then(function(dialog) {
                  $scope.dialog = dialog;
                  dialog.show();

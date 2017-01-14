@@ -39,15 +39,19 @@ app.controller('jobdetail', function($scope,$http) {
             $scope.products =  $scope.products1;
         }
      }
-
-     $scope.showDialog = function(gallery_active) {
-        
-         $scope.gallery_active = parseInt(gallery_active) - 1;
+     $scope.active_swiper =  function(gallery_active) {
+       
+         $scope.gallery_active = parseInt(gallery_active);
+     }
+     $scope.onReadySwiper = function(swiper){
          console.log($scope.gallery_active);
+         swiper.slideTo($scope.gallery_active);
+     }
+     $scope.showDialog = function(gallery_active) {
          if ($scope.dialog) {
              $scope.dialog.show();
          } else {
-             ons.createDialog('dialog.html', { parentScope: $scope,cancelable :true })
+             ons.createDialog('jobs_gallery.html', { parentScope: $scope,cancelable :true })
              .then(function(dialog) {
                  $scope.dialog = dialog;
                  dialog.show();
@@ -57,14 +61,7 @@ app.controller('jobdetail', function($scope,$http) {
      
      /* AIzaSyDy_NYhiPZ0A6jAN9t54X4IM7No7gM3uyo */
     $scope.map = "http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyAgsQ1ds-j3GBd4Yz07dHlMiiD33h1r1Jk&center=29.5838591,50.5062979&zoom=16&scale=false&size=600x300&maptype=roadmap&format=jpg&visual_refresh=true&markers=size:mid%7Ccolor:0xf40b6f%7Clabel:%7C29.5838591,50.5062979" ;
-    $scope.onReadySwiper = function (swiper) {
-       
-         swiper.on('slideChangeStart', function() {
-             swiper.update();	
-         });
-        
-
-    };
+    
 
     $scope.logo_pic = uploads_pic;
     $scope.product_thumb = product_thumb;

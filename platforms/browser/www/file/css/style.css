@@ -10,6 +10,9 @@ ons-splitter-mask {
 .page__background{
     background-color:#EFEFF4  ;
 }
+#dialog-3 .dialog{
+    width: 100%;
+}
 /*======== menu - nav spliter ========*/
 .loading{
     position: fixed;
@@ -819,19 +822,23 @@ ons-splitter-side .page__content .list{
     padding: 15px;
     box-sizing: border-box;
     background-color: rgba(0, 0, 0, 0.6);
-    padding-bottom: 40px
+    padding-bottom: 40px;
+    font-family:iransans;
 }
 .gallery_info .name{
     margin: 0px;
     font-size: 15px;
+    text-align: right;
 }
 .gallery_info .desc{
     margin: 0px;
     font-size: 13px;
+    text-align: right;
 }
 .gallery_info .cost{
     font-size: 13px;
     margin: 0px;
+    text-align: right;
 
 }
 .gallery_slider .swiper-pagination-bullet {
@@ -845,9 +852,6 @@ ons-splitter-side .page__content .list{
 .gallery_slider .swiper-pagination-bullet-active {
     opacity: 1;
     background: #d92cbd;
-}
-.header_jobs{
-    margin-top:42px;
 }
 .gallery_slider .swiper-slide1 {
     width: 100% !important;
@@ -871,6 +875,19 @@ ons-splitter-side .page__content .list{
     object-fit: cover;
     object-position: center;
     display: block;
+}
+#gallery_nav .ion-android-share-alt{
+    
+     color: white;
+    font-size: 25px;
+    padding: 10px 5px;
+}
+#gallery_nav .ion-android-close{
+   
+    
+    color: white; 
+    font-size: 26px;
+    padding: 10px 5px;
 }
 /*========  ========*/
 /*========  ========*/
