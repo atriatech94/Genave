@@ -14,6 +14,11 @@
                     <img img-cache ic-src="{{logo_pic + banner}}">
                  </ons-carousel-item>
             </ons-carousel>
+            <ons-carousel ng-if="place.banner.length == 0 || place.banner == '' " id="home_slider" style="height:220px;"  swipeable auto-scroll auto-scroll-ratio="0"  auto-refresh initial-index="{{place.banner.length}}">
+                <ons-carousel-item  style="height:220px;">
+                    <img src="file/img/no.jpg">
+                 </ons-carousel-item>
+            </ons-carousel>
         </div> 
         <!--=========end logo================-->
         <div class="job_logo">
@@ -113,7 +118,7 @@
                 <div class="right"><ons-icon icon="ion-android-close" ng-click="dialog.hide();"  fixed-width="false"></ons-icon></div>
             </ons-toolbar>
         </div>
-
+        
         <ks-swiper-container  swiper="swiper" class="gallery_slider" on-ready="onReadySwiper(swiper)" initial-slide="gallery_active" override-parameters="{'effect':'slide', 'zoom': 'true', 'nextButton': '.swiper-button-next', 'prevButton': '.swiper-button-prev'}">
             <ks-swiper-slide class="swiper-slide1" ng-repeat="product in products1">
                 <div class="swiper-zoom-container">
