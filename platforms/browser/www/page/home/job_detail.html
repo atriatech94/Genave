@@ -83,21 +83,21 @@
                         <div class=""></div>
                     </div>
                     <ons-list>
-                       <ons-list-item ng-if="place.instagram" tappable>
+                       <ons-list-item ng-click="instagram(place.instagram)" ng-if="place.instagram" tappable>
                             <div class="left"><i class="fa fa-instagram" ></i></div>
                             <div class="center">{{place.instagram}}</div>
                         </ons-list-item>
-                         <ons-list-item  ng-if="place.telegram" tappable>
+                         <ons-list-item ng-click="telegram(place.telegram)"  ng-if="place.telegram" tappable>
                             <div class="left"><i class="fa fa-telegram"></i></div>
                             <div class="center">{{place.telegram}}</div>
                         </ons-list-item>
-                         <ons-list-item ng-if="place.website" tappable>
+                         <ons-list-item ng-click="website(place.website)" ng-if="place.website" tappable>
                             <div class="left"><i class="fa fa-globe" ></i></div>
                             <div class="center">{{place.website}}</div>
                         </ons-list-item>
                          <ons-list-item ng-if="place.email" tappable>
                             <div class="left"><i class="fa fa-envelope-o"></i></div>
-                            <div class="center">{{place.email}}</div>
+                            <a style="text-decoration: none; color: black;" href="mailto:{{place.email}}" class="center">{{place.email}}</a>
                         </ons-list-item>
                     </ons-list>
                 </div>
@@ -114,7 +114,7 @@
    
        <div class="close_page" id="gallery_nav">
             <ons-toolbar modifier="job_detail">
-                <div class="left"><ons-icon ng-click="share(product.pic_name)" icon="ion-android-share-alt"></ons-icon> <ons-icon ng-click="save()" icon="ion-android-download"></ons-icon></div>
+                <div class="left"><ons-icon ng-click="share()" icon="ion-android-share-alt"></ons-icon></ons-icon></div>
                 <div class="right"><ons-icon icon="ion-android-close" ng-click="dialog.hide();"  fixed-width="false"></ons-icon></div>
             </ons-toolbar> 
         </div>

@@ -1,25 +1,27 @@
 app.controller('jobdetail', function($scope,$http) { 
     
+    $scope.telegram = function(telegram){
+       window.open('https://t.me/'+telegram, '_system');
+       
+    };
+
+     $scope.instagram = function(instagram){
+       window.open('https://instagram.com/'+instagram, '_system');
+       
+    };
+    
+    $scope.website = function(website){
+       window.open(website, '_system');
+       
+    };
+
      $scope.share = function(pic){
          let a = $scope.swiper.activeIndex;
          let src = $scope.swiper.slides[a].querySelector("img[src]").getAttribute("src");
          window.plugins.socialsharing.share('نرم افزار بازار گناوه', $scope.place.title, src , null)
      };
-
-     $scope.save = function(){
-         let a = $scope.swiper.activeIndex;
-         let src = $scope.swiper.slides[a].querySelector("img[src]").getAttribute("src");
-         window.plugins.socialsharing.saveToPhotoAlbum(
-            [src],
-            onSuccess  // optional error function
-          );
-
-           const onSuccess = function(result) {
-              alert(saved);
-           }
-     };
-
-     $scope.tel = function(tel){
+ 
+   $scope.tel = function(tel){
         ons.notification.confirm({
                     title : "پیام",
                     message: 'تماس با '+tel,

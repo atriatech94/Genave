@@ -89,8 +89,8 @@
                         <p>بازار گناوه</p>
                     </div>
                     <!--==========================-->
-                    <ons-list-item  tappable><i class="ion-paper-airplane"></i> تلگرام</ons-list-item>
-                    <ons-list-item ng-click="go('search')" tappable><i class="ion-social-instagram-outline"></i> اینستاگرام </ons-list-item>
+                    <ons-list-item ng-click="telegram()"  tappable><i class="ion-paper-airplane"></i> تلگرام</ons-list-item>
+                    <ons-list-item ng-click="instagram()" tappable><i class="ion-social-instagram-outline"></i> اینستاگرام </ons-list-item>
                     <ons-list-item ng-if="is_login == 1" ng-click="conf('sepicaladds')" tappable><i class="ion-flag"></i> درخواست تبلیغات ویژه</ons-list-item>
                     <ons-list-item ng-if="is_login == 0" ng-click="go('members/login');specilal();" tappable><i class="ion-flag"></i> درخواست تبلیغات ویژه</ons-list-item>
                     <ons-list-item ng-click="footerTab.loadPage('contactus.html');menu.toggleMenu();" tappable><i class="ion-iphone"></i> تماس با ما</ons-list-item>

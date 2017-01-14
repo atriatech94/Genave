@@ -1,6 +1,16 @@
  angular.module('myapp')
  .controller('indexController', function($scope,$location,$rootScope,$http,$httpParamSerializer) { 
-     
+
+    $scope.telegram = function(){
+       window.open('https://t.me/bazargnv', '_system');
+       $scope.menu.toggleMenu();
+    };
+
+     $scope.instagram = function(){
+       window.open('https://instagram.com/bazar.gnv', '_system');
+       $scope.menu.toggleMenu();
+    };
+
      $scope.go = function(data){
          $location.path(data);
          if($scope.menu.isMenuOpened()){
@@ -84,7 +94,7 @@
            });
             
         };
-     
+      
  })
  .controller('homeController', function($scope,$http,$timeout) { 
       

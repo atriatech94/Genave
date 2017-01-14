@@ -1,8 +1,14 @@
 app.controller('contactController', function($scope,$http) { 
      
-     $scope.mailto = function(mail){
-       window.location.href = "mailto:"+mail;
-     };
+      $scope.telegram = function(){
+       window.open('https://t.me/bazargnv', '_system');
+       
+    };
+
+     $scope.instagram = function(){
+       window.open('https://instagram.com/bazar.gnv', '_system');
+       
+    };
 
      $scope.base_img = uploads_pic;
       if(localStorage.getItem('contact_us') != null){

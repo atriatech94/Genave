@@ -4,7 +4,7 @@
     <div class="center">تماس با ما</div>
   </ons-toolbar>
     <!--========-->
-    <div class="main ">
+    <div class="main "> 
         <div class="contact_info " >
              <img class="contact-image" img-cache ic-src="file/img/logo_2.png">
             <div class="address" style="margin-top:0px;padding-top:0px;">
@@ -18,17 +18,17 @@
                 <div class=""></div>
             </div>
             <ons-list>
-                 <ons-list-item tappable>
+                 <ons-list-item ng-click="instagram()" tappable>
                     <div class="left"><i class="fa fa-instagram" ></i></div>
                     <div class="center">{{contact_us.instagram}}</div>
                 </ons-list-item>
-                 <ons-list-item tappable>
+                 <ons-list-item ng-click="telegram()" tappable>
                     <div class="left"><i class="fa fa-telegram"></i></div>
                     <div class="center">{{contact_us.telegram}}</div>
                 </ons-list-item>
-                 <ons-list-item ng-click="mailto(contact_us.email)" tappable>
+                 <ons-list-item  tappable>
                     <div class="left"><i class="fa fa-envelope-o"></i></div>
-                    <div class="center">{{contact_us.email}}</div>
+                    <a style="text-decoration: none; color: black;" href="mailto:{{contact_us.email}}" class="center">{{contact_us.email}}</a>
                 </ons-list-item>
             </ons-list>
         </div>
