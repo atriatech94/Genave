@@ -8,7 +8,7 @@
         </ons-toolbar>
         <div class="main">  
             <ons-row>
-                <ons-col ng-repeat="category in categories"  width="33.334%">
+                <ons-col ng-repeat="category in categories"  width="33.333%">
                     <div ng-click="searchone.pushPage('searchdetailone.html', {data: {id:1, cat_id:category.id, title1:category.cat}})" class="job_cat"><img img-cache ic-src="{{image_url + category.pic_name}}"><p>{{category.cat}}</p></div>
                 </ons-col>
             </ons-row>
