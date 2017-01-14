@@ -7,7 +7,9 @@ app.controller('jobdetail', function($scope,$http) {
      };
 
      $scope.save = function(){
-        alert(2);
+         let a = $scope.swiper.activeIndex;
+         let src = $scope.swiper.slides[a].querySelector("img[src]").getAttribute("src");
+         
      };
 
      $scope.tel = function(tel){
