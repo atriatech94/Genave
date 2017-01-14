@@ -881,20 +881,14 @@ ons-splitter-side .page__content .list{
     
      color: white;
     font-size: 28px;
-    padding: 20px 7px;
+    padding: 23px 5px;
 }
-#gallery_nav .ion-android-download{
-    
-     color: white;
-    font-size: 28px;
-    padding: 20px 7px;
-}
+
 #gallery_nav .ion-android-close{
    
-    
     color: white; 
     font-size: 28px;
-    padding: 20px 5px;
+    padding: 23px 5px;
 }
 .nojob{
     display: -webkit-box;
