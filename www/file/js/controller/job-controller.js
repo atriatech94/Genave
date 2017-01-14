@@ -39,14 +39,12 @@ app.controller('jobdetail', function($scope,$http) {
             $scope.products =  $scope.products1;
         }
      }
+     $scope.swiper = {};
      $scope.active_swiper =  function(gallery_active) {
-       
-         $scope.gallery_active = parseInt(gallery_active);
+         $scope.swiper.slideTo(parseInt(gallery_active));
+        
      }
-     $scope.onReadySwiper = function(swiper){
-         console.log($scope.gallery_active);
-         swiper.slideTo($scope.gallery_active);
-     }
+     
      $scope.showDialog = function(gallery_active) {
          if ($scope.dialog) {
              $scope.dialog.show();

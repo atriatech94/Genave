@@ -114,7 +114,7 @@
             </ons-toolbar>
         </div>
 
-        <ks-swiper-container class="gallery_slider" on-ready="onReadySwiper(swiper)" initial-slide="gallery_active" override-parameters="{'effect':'slide', 'zoom': 'true', 'nextButton': '.swiper-button-next', 'prevButton': '.swiper-button-prev'}">
+        <ks-swiper-container  swiper="swiper" class="gallery_slider" on-ready="onReadySwiper(swiper)" initial-slide="gallery_active" override-parameters="{'effect':'slide', 'zoom': 'true', 'nextButton': '.swiper-button-next', 'prevButton': '.swiper-button-prev'}">
             <ks-swiper-slide class="swiper-slide1" ng-repeat="product in products1">
                 <div class="swiper-zoom-container">
                     <img img-cache ic-src="{{ product_thumb + product.pic_name}}" />
