@@ -12,7 +12,7 @@
     <preference name="CameraUsesGeolocation" value="false" />
     <preference name="iosPersistentFileLocation" value="Library" />
     <preference name="orientation" value="portrait" />
-    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#000000" />
 
     <plugin name="cordova-plugin-camera" source="npm" spec="~2.1.1" />
