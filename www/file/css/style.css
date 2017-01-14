@@ -700,13 +700,15 @@ ons-splitter-side .page__content .list{
     margin: 0 auto;
     object-fit: contain;
     object-position: center;
+    margin-top:10px;
     
 }
 .job_cat p{
     text-align: center;
     margin: 0;
     font-size: 14px;
-    padding-bottom: 10px
+    padding-bottom: 10px;
+    margin-top: 10px;
 }
 
 /*======== msg ========*/
