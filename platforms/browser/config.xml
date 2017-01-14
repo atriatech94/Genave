@@ -6,15 +6,14 @@
     <feature name="Device">
         <param name="browser-package" value="Device" />
     </feature>
-    <name>genave</name>
+    <name>بازار گناوه</name>
     <description>
-        Hello World sample application that responds to the deviceready event.
+        بازار گناوه
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="info@atriatech.ir" href="http://atriatech.ir">
+        Atriatech Team
     </author>
     <content src="index.html" />
-    <icon src="icon.png" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -25,4 +24,5 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="CameraUsesGeolocation" value="false" />
     <preference name="iosPersistentFileLocation" value="Library" />
+    <preference name="orientation" value="portrait" />
 </widget>
