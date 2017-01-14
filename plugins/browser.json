@@ -69,6 +69,9 @@
         },
         "call-number": {
             "PACKAGE_NAME": "ir.atriatech.genave"
+        },
+        "cordova-plugin-x-socialsharing": {
+            "PACKAGE_NAME": "ir.atriatech.genave"
         }
     },
     "dependent_plugins": {

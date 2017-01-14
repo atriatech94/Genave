@@ -1,6 +1,15 @@
 app.controller('jobdetail', function($scope,$http) { 
     
-     
+     $scope.share = function(pic){
+         let a = $scope.swiper.activeIndex;
+         let src = $scope.swiper.slides[a].querySelector("img[src]").getAttribute("src");
+         window.plugins.socialsharing.share('نرم افزار بازار گناوه', $scope.place.title, src , null)
+     };
+
+     $scope.save = function(){
+        alert(2);
+     };
+
      $scope.tel = function(tel){
         ons.notification.confirm({
                     title : "پیام",
@@ -8,7 +17,7 @@ app.controller('jobdetail', function($scope,$http) {
                     buttonLabels : ['لغو','تماس'],
                         callback: function(idx) {
                             switch (idx) {
-                                case 0:
+                                case 0: 
                                    break;
                                 case 1:
                                    $scope.tel1(tel);

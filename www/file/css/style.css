@@ -10,7 +10,7 @@ ons-splitter-mask {
 .page__background{
     background-color:#EFEFF4  ;
 }
-#dialog-3 .dialog{
+#dialog-3 .dialog{ 
     width: 100%;
 }
 /*======== menu - nav spliter ========*/
@@ -880,15 +880,21 @@ ons-splitter-side .page__content .list{
 #gallery_nav .ion-android-share-alt{
     
      color: white;
-    font-size: 25px;
-    padding: 10px 5px;
+    font-size: 28px;
+    padding: 20px 7px;
+}
+#gallery_nav .ion-android-download{
+    
+     color: white;
+    font-size: 28px;
+    padding: 20px 7px;
 }
 #gallery_nav .ion-android-close{
    
     
     color: white; 
-    font-size: 26px;
-    padding: 10px 5px;
+    font-size: 28px;
+    padding: 20px 5px;
 }
 .nojob{
     display: -webkit-box;

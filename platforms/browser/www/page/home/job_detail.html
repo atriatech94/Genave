@@ -104,7 +104,7 @@
 
             </div>
         </div>
-<!--=========end main================-->
+<!--=========end main================--> 
     </div>
 </ons-page>
 </ons-template>
@@ -114,20 +114,20 @@
    
        <div class="close_page" id="gallery_nav">
             <ons-toolbar modifier="job_detail">
-                <div class="left"><ons-icon icon="ion-android-share-alt"></ons-icon></div>
+                <div class="left"><ons-icon ng-click="share(product.pic_name)" icon="ion-android-share-alt"></ons-icon> <ons-icon ng-click="save()" icon="ion-android-download"></ons-icon></div>
                 <div class="right"><ons-icon icon="ion-android-close" ng-click="dialog.hide();"  fixed-width="false"></ons-icon></div>
-            </ons-toolbar>
+            </ons-toolbar> 
         </div>
         
         <ks-swiper-container  swiper="swiper" class="gallery_slider" on-ready="onReadySwiper(swiper)" initial-slide="gallery_active" override-parameters="{'effect':'slide', 'zoom': 'true', 'nextButton': '.swiper-button-next', 'prevButton': '.swiper-button-prev'}">
-            <ks-swiper-slide class="swiper-slide1" ng-repeat="product in products1">
+            <ks-swiper-slide class="swiper-slide1" ng-repeat="product in products">
                 <div class="swiper-zoom-container">
-                    <img img-cache ic-src="{{ product_thumb + product.pic_name}}" />
+                    <img img-cache ic-src="{{ logo_pic + product.pic_name}}" />
                 </div>
                 <div class="gallery_info">
                     <h4 class="name">{{product.title}}</h4>
                     <p class="desc">{{product.description}}</p>
-                    <p class="cost">{{product.price}} تومان</p>
+                    <p ng-if="product.price != '' && product.price != 0" class="cost">{{product.price | currency : '' : 0 }} تومان</p>
                 </div>
             </ks-swiper-slide>
         </ks-swiper-container>
