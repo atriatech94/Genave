@@ -257,7 +257,7 @@
      }     
   };
 })
-.controller('panelController', function($scope,$location,$rootScope,$http) { 
+.controller('panelController', function($scope,$location,$rootScope,$http,$httpParamSerializer) { 
      if(localStorage.getItem('member_info') == null){
          $rootScope.is_login = 0;
          footerTab.setActiveTab(0);
@@ -297,6 +297,7 @@
 
        $scope.logout = function(){
            $scope.info = JSON.parse(localStorage.getItem('member_info'));
+           alert($scope.info.id);
            $rootScope.is_login = 0;
            localStorage.removeItem('member_info');
            localStorage.removeItem('job_info');
@@ -307,7 +308,11 @@
                  url: base_url+'remove_token',
                  data: $httpParamSerializer({id:$scope.info.id}),
                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-           });
+           }).then(function successCallback(response) {
+              
+            }, function errorCallback(response) {
+          
+         });
       };
 
         $scope.pop = function(){

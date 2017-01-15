@@ -59,8 +59,7 @@ var app = {
             // e.message
         });
 
-        StatusBar.backgroundColorByName("red");
-        StatusBar.hide();
+      
     },
     // Update DOM on a Received Event
 };
