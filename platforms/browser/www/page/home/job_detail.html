@@ -35,7 +35,7 @@
         <!--=========end main================-->
         <!-- segment control -->
         <div class="tabs">
-            <div class="button-bar"  >
+            <div class="button-bar"  > 
                 <div class="button-bar__item" ng-click="change(1)">
                     <input  type="radio" name="navi-segment-a" checked>
                     <div class="button-bar__button">توضیحات</div>
@@ -119,10 +119,11 @@
             </ons-toolbar> 
         </div>
         
-        <ks-swiper-container  swiper="swiper" class="gallery_slider" on-ready="onReadySwiper(swiper)" initial-slide="gallery_active" override-parameters="{'effect':'slide', 'zoom': 'true', 'nextButton': '.swiper-button-next', 'prevButton': '.swiper-button-prev'}">
+        <ks-swiper-container  swiper="swiper" class="gallery_slider" on-ready="onReadySwiper(swiper)" initial-slide="gallery_active" override-parameters="{'preloadImages': 'false', 'lazyLoading': 'true','effect':'slide', 'zoom': 'true', 'nextButton': '.swiper-button-next', 'prevButton': '.swiper-button-prev','lazyLoadingInPrevNext' : 'true'}">
             <ks-swiper-slide class="swiper-slide1" ng-repeat="product in products">
                 <div class="swiper-zoom-container">
-                    <img img-cache ic-src="{{ logo_pic + product.pic_name}}" />
+                    <img img-cache ic-src="{{ logo_pic + product.pic_name}}" class="swiper-lazy" />
+                    <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
                 </div>
                 <div class="gallery_info">
                     <h4 class="name">{{product.title}}</h4>

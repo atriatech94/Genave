@@ -18,7 +18,7 @@
   
       <ons-toolbar>
             <div class="right"><ons-toolbar-button><ons-icon icon="ion-arrow-right-c" ng-click="searchNav.popPage();" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
-            <div class="center">{{subcategory_t}}</div>
+            <div class="center">{{searchNav.topPage.data.title1}}</div>
         </ons-toolbar>
     <div ng-controller="search2ControllerCat"> 
         <div class="main"> 
@@ -34,5 +34,5 @@
     <div ng-include="'page/search2/detail.html'" ng-controller="search2detail" ></div>
 </ons-template>
 <ons-template id="search2detailjob.html">
-    <div ng-include="'page/search2/detailjob.html'" ng-controller="search2detailjob" ></div>
+    <div ng-include="'page/home/job_detail_search2.html'" ng-controller="search2detailjob" ></div>
 </ons-template>

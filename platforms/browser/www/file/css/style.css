@@ -248,6 +248,13 @@ ons-splitter-side .page__content .list{
     box-sizing: border-box;
     box-shadow: 0 1px 8px 0px #000;
     border-radius: 8px;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d1d1d1+35,848484+100 */
+    background: #d1d1d1; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover,  #d1d1d1 35%, #848484 100%); /* FF3.6-15 */
+    background: -webkit-radial-gradient(center, ellipse cover,  #d1d1d1 35%,#848484 100%); /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(ellipse at center,  #d1d1d1 35%,#848484 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1d1d1', endColorstr='#848484',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
 }
 .job_logo .shr_des{
     display: block;
@@ -299,6 +306,9 @@ ons-splitter-side .page__content .list{
 .job_gallery {
     margin-top:15px;
 }
+.tabbar{
+    min-height: 250px;
+}
 .job_gallery{
     column-count: 2;
     column-gap: .5em;
@@ -320,7 +330,8 @@ ons-splitter-side .page__content .list{
 .job_gallery span p{
     border-top:1px solid #E1E1E1;
     color: #007aff;
-    padding: 8px ;
+    padding: 8px;
+    color: #1192e0;
 }
 
 .job_gallery span img{
@@ -580,30 +591,23 @@ ons-splitter-side .page__content .list{
 }
 .job_img_file{
     width: 100%;
-    height: auto;
+    height: 100px;
+    object-position: center;
+    object-fit: cover;
     display: block;
+    margin: 0px;
 }
+
 /*======== upload_logo ========*/
 .upload_logo label{
     display: block;
-    max-width: 150px;
+    max-width: 200px;
+    width: 200px;
     margin: 0 auto;
     background-color: #fff;
     text-align: center;
-    height: 150px;
-    display:-webkit-box;
-	display:-ms-flexbox;
-	display:-webkit-flex;
-	display:flex;
-	-webkit-box-pack:center;
-	-ms-flex-pack:center;
-	-webkit-justify-content:center;
-	justify-content:center;
-	-webkit-box-align:center;
-	-ms-flex-align:center;
-	-webkit-align-items:center;
-	align-items:center;
-    flex-direction: column;
+    height: auto;
+  
     
 }
 .upload_logo label i{
@@ -880,15 +884,16 @@ ons-splitter-side .page__content .list{
 #gallery_nav .ion-android-share-alt{
     
      color: white;
-    font-size: 28px;
-    padding: 23px 5px;
+    font-size: 25px;
+    padding: 12px 10px;
+    margin-left: 8px;
 }
 
 #gallery_nav .ion-android-close{
    
     color: white; 
-    font-size: 28px;
-    padding: 23px 5px;
+    font-size: 25px;
+    padding: 12px 10px;
 }
 .nojob{
     display: -webkit-box;

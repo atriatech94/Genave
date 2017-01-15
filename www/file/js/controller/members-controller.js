@@ -235,7 +235,7 @@
      }     
   };
 })
-.controller('panelController', function($scope,$location,$rootScope) { 
+.controller('panelController', function($scope,$location,$rootScope,$http) { 
      if(localStorage.getItem('member_info') == null){
          $rootScope.is_login = 0;
          footerTab.setActiveTab(0);
@@ -244,14 +244,41 @@
       {
          $scope.info = JSON.parse(localStorage.getItem('member_info'));
          $rootScope.jobStatus1 = localStorage.getItem('has_job');
+          
+         $http({
+                method: 'GET',
+                url: base_url+'validate_account/'+$scope.info.id, 
+                headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+            }).then(function successCallback(response) {
+                 
+                 if(response.data.done == 1)
+                 {
+                        $rootScope.is_login = 0;
+                        localStorage.removeItem('member_info');
+                        localStorage.removeItem('job_info');
+                        localStorage.removeItem('has_job');
+                        footerTab.setActiveTab(0);
+                        ons.notification.alert({
+                           title: 'پیام',
+                           buttonLabel:"بستن " ,
+                           message: response.data.msg
+                        }); 
+                 }
+           
+         }, function errorCallback(response) {
+                 
+            }); 
+
+
+
       }
 
        $scope.logout = function(){
            $rootScope.is_login = 0;
-          localStorage.removeItem('member_info');
-          localStorage.removeItem('job_info');
-          localStorage.removeItem('has_job');
-          footerTab.setActiveTab(0);
+           localStorage.removeItem('member_info');
+           localStorage.removeItem('job_info');
+           localStorage.removeItem('has_job');
+           footerTab.setActiveTab(0);
       };
 
         $scope.pop = function(){
@@ -276,6 +303,20 @@
            
       if($rootScope.jobStatus1 == 1){
           panelnav.pushPage('page6.html');
+       }
+       else{
+            ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'ابتدا اطلاعات اولیه شغلی خود را ثبت کنید'
+              }); 
+          }
+        };
+
+        $scope.push_work = function(){
+           
+      if($rootScope.jobStatus1 == 1){
+          panelnav.pushPage('page7.html');
        }
        else{
             ons.notification.alert({

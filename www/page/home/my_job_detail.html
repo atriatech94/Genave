@@ -3,8 +3,8 @@
 <ons-page>
     
         <ons-toolbar modifier="job_detail"> 
-            <div class="right"><ons-toolbar-button><ons-icon icon="ion-arrow-right-c" ng-click="searchone.popPage();menu.setSwipeable(true);" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
-            <div  class="center"><span ng-if="searchone.topPage.data.title">{{searchone.topPage.data.title | limitTo : 32}}</span ><span ng-if="!searchone.topPage.data.title">{{place.title | limitTo : 32}}</span></div>
+            <div class="right"><ons-toolbar-button><ons-icon icon="ion-arrow-right-c" ng-click="panelnav.popPage();menu.setSwipeable(true);" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
+            <div  class="center"><span>{{place.title | limitTo : 32}}</span></div>
         </ons-toolbar>
     <div class="main">
        
@@ -13,8 +13,8 @@
                 <ons-carousel-item ng-repeat="banner in place.banner" style="height:220px;">
                     <img img-cache ic-src="{{logo_pic + banner}}">
                  </ons-carousel-item>
-            </ons-carousel>
-            <ons-carousel ng-if="place.banner.length == 0 || place.banner == '' " id="home_slider" style="height:220px;"  swipeable auto-scroll auto-scroll-ratio="0"  auto-refresh initial-index="{{place.banner.length}}">
+            </ons-carousel> 
+            <ons-carousel ng-if="place.banner.length == 0 || place.banner == '' " id="home_slider" style="height:220px;"  swipeable auto-scroll auto-scroll-ratio="0"  auto-refresh initial-index="0">
                 <ons-carousel-item  style="height:220px;">
                     <img src="file/img/no.jpg">
                  </ons-carousel-item>
@@ -24,12 +24,9 @@
         <div class="job_logo">
             <div ng-if="place.logo" class="logo_job_image"><img img-cache ic-src="{{logo_pic + place.logo}}"></div>
             <div class="shr_des">
-                <h3 ng-if="searchone.topPage.data.title">{{searchone.topPage.data.title}}</h3>
-                <p ng-if="searchone.topPage.data.cat" class="cat fa-bookmark">{{searchone.topPage.data.cat}}</p>
-                <h3 ng-if="!searchone.topPage.data.title">{{place.title}}</h3>
-               
+               <h3>{{place.title}}</h3>
             </div>
-            <div class="clearfix"></div>
+            <div class="clearfix"></div> 
         </div>
             <div class="clearfix"></div>
         <!--=========end main================-->
@@ -41,7 +38,7 @@
                     <div class="button-bar__button">توضیحات</div>
                 </div>
                 <div class="button-bar__item"  ng-click="change(2)">
-                    <input  type="radio" name="navi-segment-a" >
+                    <input  type="radio" name="navi-segment-a" > 
                     <div class="button-bar__button">محصولات</div>
                 </div>
                 <div class="button-bar__item" ng-click="change(3)">
@@ -128,7 +125,7 @@
                 <div class="gallery_info">
                     <h4 class="name">{{product.title}}</h4>
                     <p class="desc">{{product.description}}</p>
-                    <p ng-if="product.price != '' && product.price != 0" class="cost">{{product.price | currency : '' : 0 }} تومان</p>
+                    <p ng-if="product.price != '' && product.price != 0" class="cost">{{product.price | currency : '' : 0 }} تومان</p> 
                 </div>
             </ks-swiper-slide>
         </ks-swiper-container>

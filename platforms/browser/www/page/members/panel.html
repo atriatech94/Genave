@@ -32,7 +32,7 @@
                             </ons-col>
                             <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
                         </ons-row>
-                    </ons-list-item>
+                    </ons-list-item> 
                     <ons-list-item ng-click="panelnav.pushPage('page4.html')" tappable modifier="longdivider">
                         <ons-row >
                             <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-settings"></ons-icon></ons-col>
@@ -59,6 +59,16 @@
                             <ons-col >
                                 <h5 >آرشیو کالاها و خدمات</h5>
                                 <p>لیست ، ویرایش و حذف کالا ها یا خدمات</p>
+                            </ons-col>
+                            <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                     <ons-list-item tappable ng-click="push_work()"  modifier="longdivider">
+                        <ons-row>
+                            <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-eye"></ons-icon></ons-col>
+                            <ons-col >
+                                <h5 >مشاهده کسب و کار من</h5>
+                                <p>مشاهده کسب و کار با تمام جزئیات</p>
                             </ons-col>
                             <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
                         </ons-row>
@@ -111,6 +121,10 @@
 <!--=======product archive===========-->
 <ons-template id="page6.html" > 
     <div ng-include="'page/members/product_archive.html'" ng-controller="productarchive" ></div>
+</ons-template>
+<!--=======job detail===========-->
+<ons-template id="page7.html" > 
+    <div ng-include="'page/home/my_job_detail.html'" ng-controller="myjobcontroller2" ></div>
 </ons-template>
 <!--=======admin ticket===========-->
 <ons-template id="admintiket.html" > 
