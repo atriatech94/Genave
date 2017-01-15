@@ -61,7 +61,18 @@
                             url: base_url+'token',
                             data: $httpParamSerializer({token:localStorage.getItem('registrationId'),id:response.data.member_info.id}),
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                         });
+                         }).then(function successCallback(response) {
+                                   
+                                alert(JSON.stringify(response.data));
+
+                         } , function errorCallback(response) {
+                                   
+                                    ons.notification.alert({
+                                    title: 'خطا',
+                                    buttonLabel:"بستن " ,
+                                    message: 'خطا در برقراری ارتباط با سرور'
+                            }); 
+                        });
 
                     }
                         
