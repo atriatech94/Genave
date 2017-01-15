@@ -58,8 +58,7 @@ var app = {
         push.on('error', function(e) {
             // e.message
         });
-
-      
+       StatusBar.backgroundColorByHexString("#333");
     },
     // Update DOM on a Received Event
 };
