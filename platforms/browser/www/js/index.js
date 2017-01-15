@@ -36,10 +36,8 @@ var app = {
     onDeviceReady: function() {
          push = PushNotification.init({
             "sound": "true",
-            "alert": "true",
-            "badge": "true",
-            "clearBadge": "true"
-        });
+            "alert": "true"
+         });
 
         push.on('registration', function(data) {
             localStorage.setItem("registrationId",data.registrationId);
