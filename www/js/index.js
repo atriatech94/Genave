@@ -35,11 +35,10 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
          push = PushNotification.init({
-            ios: {
-                alert: "true",
-                badge: "true",
-                sound: "true"
-            }
+            "sound": "true",
+            "alert": "true",
+            "badge": "true",
+            "clearBadge": "true"
         });
 
         push.on('registration', function(data) {

@@ -55,7 +55,7 @@
                         $timeout(function(){
                             footerTab.setActiveTab(3);
                         },0)
-                         alert(localStorage.getItem('registrationId'));
+                         
                          $http({
                             method: 'POST',
                             url: base_url+'token',
@@ -63,16 +63,9 @@
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                          }).then(function successCallback(response) {
                                    
-                                alert(JSON.stringify(response.data));
-
                          } , function errorCallback(response) {
                                    
-                                    ons.notification.alert({
-                                    title: 'خطا',
-                                    buttonLabel:"بستن " ,
-                                    message: 'خطا در برقراری ارتباط با سرور'
-                            }); 
-                        });
+                         });
 
                     }
                         
@@ -239,6 +232,17 @@
                         $timeout(function(){
                             footerTab.setActiveTab(3);
                         },0)
+                        
+                        $http({
+                                method: 'POST',
+                                url: base_url+'token',
+                                data: $httpParamSerializer({token:localStorage.getItem('registrationId'),id:response.data.member_info.id}),
+                                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                            }).then(function successCallback(response) {
+                                    
+                            } , function errorCallback(response) {
+                                    
+                         });
                    }
                     
             }, function errorCallback(response) {
@@ -292,11 +296,18 @@
       }
 
        $scope.logout = function(){
+           $scope.info = JSON.parse(localStorage.getItem('member_info'));
            $rootScope.is_login = 0;
            localStorage.removeItem('member_info');
            localStorage.removeItem('job_info');
            localStorage.removeItem('has_job');
            footerTab.setActiveTab(0);
+           $http({
+                 method: 'POST',
+                 url: base_url+'remove_token',
+                 data: $httpParamSerializer({id:$scope.info.id}),
+                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+           });
       };
 
         $scope.pop = function(){
