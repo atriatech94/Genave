@@ -151,6 +151,9 @@ ons-splitter-side .page__content .list{
 .special_adds{
     direction: rtl;
 }
+.special_adds .list{
+    border-bottom: none !important;
+}
 .special_adds .list__item{
     padding: 0px;
 }
@@ -591,7 +594,7 @@ ons-splitter-side .page__content .list{
 }
 .job_img_file{
     width: 100%;
-    height: 100px;
+    height: 200px;
     object-position: center;
     object-fit: cover;
     display: block;
@@ -917,6 +920,9 @@ ons-splitter-side .page__content .list{
     font-size: 24px;
     color: #7b7878;
 
+}
+input{
+    line-height: inherit !important;
 }
 /*========  ========*/
 /*========  ========*/

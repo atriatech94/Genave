@@ -56,6 +56,13 @@
                             footerTab.setActiveTab(3);
                         },0)
 
+                         $http({
+                            method: 'POST',
+                            url: base_url+'token',
+                            data: $httpParamSerializer({token:localStorage.getItem('registrationId'),id:response.data.member_info.id}),
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                         });
+
                     }
                         
                 }, function errorCallback(response) {

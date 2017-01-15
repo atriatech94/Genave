@@ -34,7 +34,9 @@
     <plugin name="cordova-plugin-splashscreen" source="npm" spec="~3.2.1" />
     <plugin name="cordova-plugin-whitelist" source="npm" spec="~1.2.1" />
     <plugin name="cordova-plugin-x-socialsharing" source="npm" />
-    
+    <plugin name="phonegap-plugin-push" spec="1.6.0">
+         <param name="SENDER_ID" value="6777889" />
+    </plugin>
     <feature name="Device">
           <param name="ios-package" value="CDVDevice" />
     </feature>

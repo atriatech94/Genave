@@ -13,9 +13,9 @@
             <!--======== برای حالتی که لگو موجود است ===============-->
             <label  ng-if="job_info[0].logo != '' " class="card logo-upload" >
                     <img class="job_img_file" ng-src="{{base_img + job_info[0].logo}}" >
-                    <div class="card-footer mt20">
-                          <a ng-click="showModal()" class="link ml20 " ><ons-icon  icon="ion-edit"></ons-icon>ویرایش</a>
-                          <a ng-click="remove()" class="link" ><ons-icon  icon="ion-trash-a"></ons-icon>حذف</a>
+                    <div class="card-footer">
+                          <a ng-click="showModal()" class="link ml20 " ><ons-icon icon="ion-edit"></ons-icon> ویرایش </a>
+                          <a ng-click="remove()" class="link" ><ons-icon icon="ion-trash-a"></ons-icon> حذف </a>
                      </div>
             </label>
         </form>

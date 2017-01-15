@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+var push;
 var app = {
     // Application Constructor
     initialize: function() {
@@ -33,7 +34,30 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        ImgCache.$init();
+         push = PushNotification.init({
+            ios: {
+                alert: "true",
+                badge: "true",
+                sound: "true"
+            }
+        });
+
+        push.on('registration', function(data) {
+            localStorage.setItem("registrationId",data.registrationId);
+        });
+
+        push.on('notification', function(data) {
+            // data.message,
+            // data.title,
+            // data.count,
+            // data.sound,
+            // data.image,
+            // data.additionalData
+        });
+
+        push.on('error', function(e) {
+            // e.message
+        });
     },
     // Update DOM on a Received Event
 };

@@ -6,7 +6,7 @@
     <div class="main"> 
         <div class="special_adds">
            <ons-list ng-if="jobs.length != 0 && jobs!='' ">
-               <ons-list-item  ng-repeat="job in jobs" ng-click="searchNav.pushPage('search2detailjob.html',{data: {id:4,title: job.title,cat :job.cat,job_id:job.id}})" modifier="chevron" class="list-item-container">
+               <ons-list-item  ng-repeat="job in jobs" tappable ng-click="searchNav.pushPage('search2detailjob.html',{data: {id:4,title: job.title,cat :job.cat,job_id:job.id}})" modifier="chevron" class="list-item-container">
                    <ons-row>
                        <ons-col width="110px">
                             <img ng-if="job.logo" src="processing.gif" lazy-img="{{img_url + job.logo}}" class="thumbnail">
