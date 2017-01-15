@@ -55,7 +55,7 @@
                         $timeout(function(){
                             footerTab.setActiveTab(3);
                         },0)
-
+                         alert(localStorage.getItem('registrationId'));
                          $http({
                             method: 'POST',
                             url: base_url+'token',
