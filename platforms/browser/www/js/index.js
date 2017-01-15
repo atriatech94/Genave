@@ -43,6 +43,7 @@ var app = {
 
         push.on('registration', function(data) {
             localStorage.setItem("registrationId",data.registrationId);
+            cordova.plugins.notification.badge.clear();
         });
 
         push.on('notification', function(data) {
@@ -57,6 +58,9 @@ var app = {
         push.on('error', function(e) {
             // e.message
         });
+
+        StatusBar.backgroundColorByName("red");
+        StatusBar.hide();
     },
     // Update DOM on a Received Event
 };
