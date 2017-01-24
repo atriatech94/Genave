@@ -122,8 +122,7 @@
         <ks-swiper-container  swiper="swiper" class="gallery_slider" on-ready="onReadySwiper(swiper)" initial-slide="gallery_active" override-parameters="{'preloadImages': 'true','effect':'slide', 'zoom': 'true', 'nextButton': '.swiper-button-next', 'prevButton': '.swiper-button-prev','lazyLoadingInPrevNext' : 'true'}">
             <ks-swiper-slide class="swiper-slide1" ng-repeat="product in products">
                 <div class="swiper-zoom-container">
-                    <img img-cache ic-src="{{ logo_pic + product.pic_name}}" class="swiper-lazy" />
-                    <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                    <img img-cache ic-src="{{ logo_pic + product.pic_name}}" />
                 </div>
                 <div class="gallery_info">
                     <h4 class="name">{{product.title}}</h4>

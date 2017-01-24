@@ -92,7 +92,15 @@ app.controller('jobdetail', function($scope,$http) {
     $scope.logo_pic = uploads_pic;
     $scope.product_thumb = product_thumb;
     let id = homenav.topPage.data.id; 
-    document.getElementById('loading').removeAttribute('style'); 
+    
+      if(localStorage.getItem('place'+id) != null){
+        $scope.place = JSON.parse(localStorage.getItem('place'+id));
+        $scope.products1 = JSON.parse(localStorage.getItem('products'+id)); 
+      }
+      else
+      {
+          document.getElementById('loading').removeAttribute('style'); 
+      }
     $http({
         method: 'GET', 
         url: base_url+'banner_ios/'+id, 
@@ -101,6 +109,8 @@ app.controller('jobdetail', function($scope,$http) {
         document.getElementById('loading').setAttribute('style','display:none;'); 
         $scope.place = response.data.place; 
         $scope.products1 = response.data.products;  
+        localStorage.setItem('place'+id,JSON.stringify($scope.place)); 
+        localStorage.setItem('products'+id,JSON.stringify($scope.products1));   
             
            }, function errorCallback(response) {
                     document.getElementById('loading').setAttribute('style','display:none;'); 
