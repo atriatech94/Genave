@@ -2,7 +2,6 @@
  .controller('indexController', function($scope,$location,$rootScope,$http,$httpParamSerializer) { 
      ons.ready(function() {
            ImgCache.$init();
-           alert();
         });
     $scope.telegram = function(){
        window.open('https://t.me/bazargnv', '_system');
