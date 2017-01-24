@@ -1,0 +1,24 @@
+<ons-page>
+  <ons-toolbar>
+    <div class="right"><ons-toolbar-button><ons-icon icon="ion-arrow-right-c" ng-click="panelnav.popPage()" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
+      <div class="center">آرشیو محصولات</div>
+    </ons-toolbar>
+    <div class="main">
+        <p class="h7 p15bs" >آرشیو محصولات</p> 
+        <div class="product_arc">
+         <div class="card product_archive">
+            <ons-list-item modifier="chevron"
+                ng-click="panelnav.pushPage('product_detail.html',{data: {pic_name : product.pic_name, title: product.title,price: product.price, id: product.id, description: product.discription}})"
+                tappable ng-repeat="product in products">
+                <div class="left"><img class="list__item__thumbnail" img-cache ic-src="{{product_thumb + product.pic_name}}"></div>
+                <div class="center">
+                    <span class="list__item__title">{{product.title}}</span>
+                    <span class="list__item__subtitle">{{product.price | currency : '' : 0 }} تومان</span>
+                </div>
+             </ons-list-item>
+         </div>
+      </div>
+</ons-page>
+
+
+

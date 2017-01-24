@@ -1,0 +1,3 @@
+app.controller('settingController', function() { 
+
+})

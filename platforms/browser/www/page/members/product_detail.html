@@ -1,0 +1,43 @@
+<ons-page>
+    <ons-toolbar>
+      <div class="right"><ons-toolbar-button><ons-icon icon="ion-arrow-right-c" ng-click="panelnav.popPage()" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
+      <div class="center">{{ product.title }}</div>
+    </ons-toolbar>
+    <div class="main">
+        <div class="p15bs mt15">
+            <form class="add_product">
+                <label class="card img_product" >
+                    <img class="img-responsive" ng-src="{{img_url + product.photo}}">
+                    <div ng-click="showModal()" class="card-footer">
+                        <a class="h6"><ons-icon class="ml5" icon="ion-edit"></ons-icon> ویرایش</a>
+                    </div> 
+                </label>
+                <div class="form-row mt30"><input type="text" class="text-input--underbar " ng-model="product.title"  placeholder="عنوان" ></div>            
+                <div class="form-row mt30"><input type="number" class="text-input--underbar" ng-model="product.price"  placeholder="قیمت " ></div>
+                <div class="form-row"><textarea type="text" class="text-input--underbar" ng-model="product.description" placeholder="توضیحات" ></textarea>
+                </div>
+                <div class="vspc form-row">
+                    <ons-button ng-click="submit()" modifier="large--cta"><ons-icon class="ml5" icon="ion-archive"></ons-icon> ویرایش مشخصات </ons-button>
+                </div>
+                <div class="vspc form-row">
+                    <ons-button ng-click="romove_product(product.id)" style="background-color: red;" modifier="large--cta"><ons-icon class="ml5" icon="ion-trash-a"></ons-icon> حذف محصول</ons-button>
+                </div>
+                <!--=====image upload input =========-->
+            </form>
+        </div>
+    </div>
+</ons-page> 
+<div ng-show="modalshow" class="mymodal" var="myModal" direction="up" align="bottom" >
+    <div class="modal_content">
+        <div class="box-animation">
+            <div class="modal-box">
+                <p class="header">انتخاب تصویر</p>
+                <ons-button modifier="large--quiet" class="border-top red" ng-click="gallery()">آپلود از گالری</ons-button>
+                <ons-button  class="border-top" ng-click="camera()" modifier="large--quiet">گرفتن تصویر جدید با دوربین</ons-button>
+            </div>
+            <div class="modal-box">
+                <ons-button ng-click="hideModal();"  modifier="large--quiet">بی خیال شو</ons-button>
+            </div>
+        </div>
+    </div>
+</div> 

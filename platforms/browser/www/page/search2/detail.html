@@ -1,0 +1,30 @@
+<ons-page>
+    <ons-toolbar>
+        <div class="right"><ons-toolbar-button><ons-icon icon="ion-arrow-right-c" ng-click="searchNav.popPage();sub_cat();" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
+        <div class="center">{{ subcategory_t }}</div>
+    </ons-toolbar>
+    <div class="main"> 
+        <div class="special_adds">
+           <ons-list ng-if="jobs.length != 0 && jobs!='' ">
+               <ons-list-item  ng-repeat="job in jobs" tappable ng-click="searchNav.pushPage('search2detailjob.html',{data: {id:4,title: job.title,cat :job.cat,job_id:job.id}})" modifier="chevron" class="list-item-container">
+                   <ons-row>
+                       <ons-col width="110px">
+                            <img ng-if="job.logo" src="processing.gif" lazy-img="{{img_url + job.logo}}" class="thumbnail">
+                            <img ng-if="!job.logo" ng-src="file/img/no_image.jpg" class="thumbnail">
+                       </ons-col>
+                       <ons-col>
+                           <div class="name">{{job.title}}</div>
+                           <div class="cat">{{job.cat}}</div>
+                           <div class="location"><i class="fa fa-map-marker"></i>{{job.address | limitTo : 28}} ...</div>
+                           <div class="phone"><i class="fa fa-phone" aria-hidden="true"></i>{{job.tel}}</div>
+                       </ons-col>
+                       <ons-col width="40px"></ons-col> 
+                   </ons-row>
+               </ons-list-item>
+            </ons-list>
+             <div ng-if="jobs.length == 0 || jobs =='' ">
+                 <div class="nojob"><p>کسب و کاری پیدا نشد .</p></div>
+            </div>
+        </div>
+    </div>
+</ons-page>

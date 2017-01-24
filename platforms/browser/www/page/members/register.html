@@ -1,0 +1,63 @@
+<ons-navigator animation="lift" var="register" page="loginview.html"></ons-navigator>
+
+<ons-template id="regview.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="right"><ons-toolbar-button ng-click="toggle()"><ons-icon icon="md-menu"></ons-icon></ons-toolbar-button></div>
+        <div class="center">عضویت</div>
+      </ons-toolbar>  
+        
+            <form autocomplete="off" >
+                <div class="register-form">
+                    <input style="display:none" type="text" name="username">
+                    <input style="display:none" type="password" name="password">
+                    <!--====-->
+                    <p><ons-input id="fname" modifier="underbar" placeholder="نام"  ng-model="member.fname"></ons-input></p>
+                    <p><ons-input id="lname" modifier="underbar" placeholder="نام خانوادگی"  ng-model="member.lname"></ons-input></p>
+                    <p><ons-input id="phone" type="number" modifier="underbar" placeholder="شماره تماس"  ng-model="member.phone"></ons-input></p>
+                    <p><ons-input id="pass" type="password" modifier="underbar" placeholder="رمز عبور"  ng-model="member.pass"></ons-input></p>
+                    <p><ons-input id="repass" type="password" modifier="underbar" placeholder="تکرار رمز عبور"  ng-model="member.repass"></ons-input></p>
+                    <p><ons-input id="visitor_code" type="password" modifier="underbar" placeholder="کد ویزیتور"  ng-model="member.visitor_code"></ons-input></p>
+
+                </div>
+                <ons-list-header>نوع اکانت </ons-list-header>
+                <ons-list-item tappable>
+                  <label class="left"><ons-input name="color" type="radio" input-id="radio-1" ng-model="member.type" value="3"></ons-input></label>
+                  <label for="radio-1" class="center"> اکانت 3 ماهه </label>
+                </ons-list-item>
+                <ons-list-item tappable>
+                  <label class="left"><ons-input name="color" type="radio" input-id="radio-2" ng-model="member.type" value="6"></ons-input></label>
+                  <label for="radio-2" class="center">اکانت 6 ماهه</label>
+                </ons-list-item>
+                 <ons-list-item tappable>
+                  <label class="left"><ons-input name="color" type="radio" input-id="radio-2" ng-model="member.type" value="12"></ons-input></label>
+                  <label for="radio-2" class="center">اکانت 12 ماهه</label>
+                </ons-list-item>
+                <div class="register-form">
+                    <ons-button modifier="large" ng-click="submit()" class="login-button">عضویت</ons-button>
+                </div>
+                <ons-button ng-click="register.popPage()"  modifier="large--quiet">قبلا ثبت نام کرده ام ، ورود</ons-button>
+               
+            </form>
+        </div>
+        <div class="p15bs">
+            <div class="register-form">
+                 <p>شماره های تماس جهت ثبت نام</p>
+                    <span ng-click="tel('09171860324')" class="block text-center">
+                        <i class="fa fa-whatsapp green"></i>
+                        <i class="fa fa-telegram blue"></i>
+                        09171860324
+                    </span>
+                    <span ng-click="tel('09365658455')" class="block text-center">
+                        <i class="fa fa-whatsapp green"></i>
+                        <i class="fa fa-telegram blue"></i>
+                        09365658455
+                    </span>
+                </div>
+        </div>
+        <br>
+    </ons-page>
+</ons-template>
+<ons-template id="loginview.html" >
+    <div ng-include="'page/members/login.html'" ng-controller="loginController"></div>
+</ons-template>

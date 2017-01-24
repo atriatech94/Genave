@@ -1,0 +1,53 @@
+<ons-page >
+    <ons-toolbar>
+        <div class="right"><ons-toolbar-button><ons-icon icon="ion-arrow-right-c" ng-click="panelnav.popPage()" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
+      <div class="center">اطلاعات کسب و کار</div>
+    </ons-toolbar>
+    <div class="main">
+         <div class="setting"> 
+                <ons-list>
+                    <ons-list-item ng-click="panelnav.pushPage('job1.html')"  tappable modifier="longdivider">
+                        <ons-row >
+                            <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-stats-bars"></ons-icon></ons-col>
+                            <ons-col >
+                                <h5 >تعریف اطلاعات اولیه کسب و کار</h5>
+                                <p>عنوان , توضیحات , خدمات , آدرس و ...</p>
+                            </ons-col>
+                            <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item   ng-click="job2()"  tappable modifier="longdivider">
+                        <ons-row >
+                            <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-navigate"></ons-icon></ons-col>
+                            <ons-col >
+                                <h5 >موقعیت مکانی کسب و کار</h5>
+                                <p>مشخص کردن مکان شما بر روی  نقشه  </p>
+                            </ons-col>
+                            <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item  ng-click="job3()" tappable modifier="longdivider">
+                        <ons-row >
+                            <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-images"></ons-icon></ons-col>
+                            <ons-col >
+                                <h5 >تصاویر پس زمینه</h5>
+                                <p>تصاویر پس زمینه مربوط به کسب و کار شما</p>
+                            </ons-col>
+                            <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
+                        </ons-row>
+                    </ons-list-item>
+                    <ons-list-item  ng-click="job4()" tappable modifier="longdivider">
+                        <ons-row >
+                            <ons-col width="35px" vertical-align="center"><ons-icon size="25px" icon="ion-social-sass"></ons-icon></ons-col>
+                            <ons-col >
+                                <h5 >لوگو مربوط به کسب و کار شما</h5>
+                                <p>نشانه , آرم یا لوگو برند شما</p>
+                            </ons-col>
+                            <ons-col vertical-align="center" width="10px" ><ons-icon size="15px" icon="fa-chevron-left"></ons-icon></ons-col>
+                        </ons-row>
+                    </ons-list-item>
+
+                </ons-list>
+            </div>
+    </div>
+</ons-page>

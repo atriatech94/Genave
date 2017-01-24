@@ -1,0 +1,24 @@
+<ons-page>
+    <ons-toolbar>
+        <div class="right"><ons-toolbar-button><ons-icon icon="ion-arrow-right-c" ng-click="panelnav.popPage()" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
+      <div class="center">تغییر کلمه ی عبور</div>
+    </ons-toolbar>
+    <div class="main">
+        <div class="formarea">
+            <div class="form-row mt30">
+                <input type="password" class="text-input--underbar " ng-model="password.last"  placeholder="کلمه ی عبور فعلی">
+            </div>
+            
+            <div class="form-row mt30">
+                <input type="password" class="text-input--underbar" ng-model="password.newpass"  placeholder="کلمه ی عبور جدید" >
+            </div>
+            <div class="form-row mt30">
+                <input type="password" class="text-input--underbar width-full" ng-model="password.confirmPass"   placeholder="تکرار کلمه  عبور جدید">
+            </div>
+            <br>
+            <div class="vspc form-row">
+                <ons-button ng-click="submit()" modifier="large--cta"><ons-icon class="ml5" icon="ion-edit"></ons-icon>  تغییر کلمه ی عبور</ons-button>
+            </div>
+      </div>
+    </div>
+</ons-page>

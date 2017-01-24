@@ -1,0 +1,136 @@
+<ons-navigator var="jobdetails"  animation="lift" page="jobs_detail.html"></ons-navigator>
+<ons-template id="jobs_detail.html">
+<ons-page>
+    
+        <ons-toolbar modifier="job_detail"> 
+            <div class="right"><ons-toolbar-button><ons-icon icon="ion-arrow-right-c" ng-click="searchNav.popPage();menu.setSwipeable(true);" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button></div>
+            <div  class="center"><span ng-if="searchNav.topPage.data.title">{{searchNav.topPage.data.title | limitTo : 32}}</span ><span ng-if="!searchNav.topPage.data.title">{{place.title | limitTo : 32}}</span></div>
+        </ons-toolbar>
+    <div class="main">
+       
+        <div class="header_jobs" >
+            <ons-carousel ng-if="place.banner.length != 0 && place.banner != '' " id="home_slider" style="height:220px;"  swipeable auto-scroll auto-scroll-ratio="0"  auto-refresh initial-index="{{place.banner.length}}">
+                <ons-carousel-item ng-repeat="banner in place.banner" style="height:220px;">
+                    <img img-cache ic-src="{{logo_pic + banner}}">
+                 </ons-carousel-item>
+            </ons-carousel> 
+            <ons-carousel ng-if="place.banner.length == 0 || place.banner == '' " id="home_slider" style="height:220px;"  swipeable auto-scroll auto-scroll-ratio="0"  auto-refresh initial-index="{{place.banner.length}}">
+                <ons-carousel-item  style="height:220px;">
+                    <img src="file/img/no.jpg">
+                 </ons-carousel-item>
+            </ons-carousel>
+        </div> 
+        <!--=========end logo================-->
+        <div class="job_logo">
+            <div ng-if="place.logo" class="logo_job_image"><img img-cache ic-src="{{logo_pic + place.logo}}"></div>
+            <div class="shr_des">
+                <h3 ng-if="searchNav.topPage.data.title">{{searchNav.topPage.data.title}}</h3>
+                <p ng-if="searchNav.topPage.data.cat" class="cat fa-bookmark">{{searchNav.topPage.data.cat}}</p>
+                <h3 ng-if="!searchNav.topPage.data.title">{{place.title}}</h3>
+               
+            </div>
+            <div class="clearfix"></div>
+        </div>
+            <div class="clearfix"></div>
+        <!--=========end main================-->
+        <!-- segment control -->
+        <div class="tabs">
+            <div class="button-bar"  > 
+                <div class="button-bar__item" ng-click="change(1)">
+                    <input  type="radio" name="navi-segment-a" checked>
+                    <div class="button-bar__button">توضیحات</div>
+                </div>
+                <div class="button-bar__item"  ng-click="change(2)">
+                    <input  type="radio" name="navi-segment-a" > 
+                    <div class="button-bar__button">محصولات</div>
+                </div>
+                <div class="button-bar__item" ng-click="change(3)">
+                    <input  type="radio" name="navi-segment-a" >
+                    <div class="button-bar__button">اطلاعات تماس</div>
+                </div>
+            </div>
+        </div>
+        <div class="tabbar">
+            <div class="sub_tab p15bs" ng-show="tab === 1">
+                <h4> خدمات </h4>
+                <p> {{place.short_discription}} <i ng-if="!place.short_discription" class="fa fa-spinner fa-spin" aria-hidden="true"></i> </p>
+                <h4> توضیحات </h4>
+                <p> {{place.discription}} <i ng-if="!place.discription" class="fa fa-spinner fa-spin" aria-hidden="true"></i> </p>
+            </div>
+            <div class="sub_tab p15bs" ng-show="tab === 2">
+                <div class="job_gallery">
+                    <span  ng-repeat="(key, product) in products"  ng-click="showDialog();active_swiper(key);" >
+                        <img src="processing.gif" lazy-img="{{ product_thumb + product.pic_name}}" >
+                        <p>{{product.title}}</p>
+                    </span>
+                </div>
+                <!--==========================================-->
+                
+                <!--======================-->
+            </div>
+            <div class="sub_tab " ng-show="tab === 3">
+                <div class="contact_info">
+                    <div class="address">
+                        <p>{{place.address}}</p>
+                        <a ng-click="tel(place.tel)" >{{place.tel}}</a>
+                    </div>
+                    <div class="googlemap">
+                        <a target="_blank" href="https://www.google.com/maps/dir//{{place.latitude}},+{{place.longitude}}/">
+                            <img ng-src="http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyAgsQ1ds-j3GBd4Yz07dHlMiiD33h1r1Jk&center={{place.latitude}},+{{place.longitude}}&zoom=16&scale=false&size=600x300&maptype=roadmap&format=jpg&visual_refresh=true&markers=size:mid%7Ccolor:0xf40b6f%7Clabel:%7C{{place.latitude}},+{{place.longitude}}" alt="Google Map of {{place.latitude}},+{{place.longitude}}">
+                        </a>
+                    </div>
+                    <div class="social_media">
+                        <div class=""></div>
+                    </div>
+                    <ons-list>
+                       <ons-list-item ng-click="instagram(place.instagram)" ng-if="place.instagram" tappable>
+                            <div class="left"><i class="fa fa-instagram" ></i></div>
+                            <div class="center">{{place.instagram}}</div>
+                        </ons-list-item>
+                         <ons-list-item ng-click="telegram(place.telegram)"  ng-if="place.telegram" tappable>
+                            <div class="left"><i class="fa fa-telegram"></i></div>
+                            <div class="center">{{place.telegram}}</div>
+                        </ons-list-item>
+                         <ons-list-item ng-click="website(place.website)" ng-if="place.website" tappable>
+                            <div class="left"><i class="fa fa-globe" ></i></div>
+                            <div class="center">{{place.website}}</div>
+                        </ons-list-item>
+                         <ons-list-item ng-if="place.email" tappable>
+                            <div class="left"><i class="fa fa-envelope-o"></i></div>
+                            <a style="text-decoration: none; color: black;" href="mailto:{{place.email}}" class="center">{{place.email}}</a>
+                        </ons-list-item>
+                    </ons-list>
+                </div>
+
+            </div>
+        </div>
+<!--=========end main================--> 
+    </div>
+</ons-page>
+</ons-template>
+<ons-template id="jobs_gallery.html">
+    
+    <ons-dialog id="dialog-3">
+   
+       <div class="close_page" id="gallery_nav">
+            <ons-toolbar modifier="job_detail">
+                <div class="left"><ons-icon ng-click="share()" icon="ion-android-share-alt"></ons-icon></ons-icon></div>
+                <div class="right"><ons-icon icon="ion-android-close" ng-click="dialog.hide();"  fixed-width="false"></ons-icon></div>
+            </ons-toolbar> 
+        </div>
+        
+        <ks-swiper-container  swiper="swiper" class="gallery_slider" on-ready="onReadySwiper(swiper)" initial-slide="gallery_active" override-parameters="{'preloadImages': 'false', 'lazyLoading': 'true','effect':'slide', 'zoom': 'true', 'nextButton': '.swiper-button-next', 'prevButton': '.swiper-button-prev','lazyLoadingInPrevNext' : 'true'}">
+            <ks-swiper-slide class="swiper-slide1" ng-repeat="product in products">
+                <div class="swiper-zoom-container">
+                    <img img-cache ic-src="{{ logo_pic + product.pic_name}}" class="swiper-lazy" />
+                    <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                </div>
+                <div class="gallery_info">
+                    <h4 class="name">{{product.title}}</h4>
+                    <p class="desc">{{product.description}}</p>
+                    <p ng-if="product.price != '' && product.price != 0" class="cost">{{product.price | currency : '' : 0 }} تومان</p>
+                </div>
+            </ks-swiper-slide>
+        </ks-swiper-container>
+    </ons-dialog>
+</ons-template>
