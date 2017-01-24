@@ -36,8 +36,7 @@ var app = {
     onDeviceReady: function() {
        ons.ready(function() {
          ImgCache.$init();
-         alert();
-       });
+        });
        push = PushNotification.init({
              alert: "true",
              badge: "true",

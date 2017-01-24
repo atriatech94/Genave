@@ -25,7 +25,7 @@
                <ons-list ng-repeat="job in jobs">
                    <ons-list-item tappable ng-click="homenav.pushPage('home_job_detail.html',{data: {title: job.title,cat :job.cat,id:job.id}})" modifier="chevron" class="list-item-container">
                        <ons-row>
-                           <ons-col width="110px"><img src="processing.gif" lazy-img="{{job_url + job.image_address}}" class="thumbnail"></ons-col>
+                           <ons-col width="110px"><img img-cache ic-src="{{job_url + job.image_address}}" class="thumbnail"></ons-col>
                            <ons-col>
                                <div class="name">{{job.title}}</div>
                                <div class="cat">{{job.cat}}</div>
