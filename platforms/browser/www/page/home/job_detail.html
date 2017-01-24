@@ -119,7 +119,7 @@
             </ons-toolbar> 
         </div>
         
-        <ks-swiper-container  swiper="swiper" class="gallery_slider" on-ready="onReadySwiper(swiper)" initial-slide="gallery_active" override-parameters="{'preloadImages': 'false', 'lazyLoading': 'true','effect':'slide', 'zoom': 'true', 'nextButton': '.swiper-button-next', 'prevButton': '.swiper-button-prev','lazyLoadingInPrevNext' : 'true'}">
+        <ks-swiper-container  swiper="swiper" class="gallery_slider" on-ready="onReadySwiper(swiper)" initial-slide="gallery_active" override-parameters="{'preloadImages': 'true', 'lazyLoading': 'true','effect':'slide', 'zoom': 'true', 'nextButton': '.swiper-button-next', 'prevButton': '.swiper-button-prev','lazyLoadingInPrevNext' : 'true'}">
             <ks-swiper-slide class="swiper-slide1" ng-repeat="product in products">
                 <div class="swiper-zoom-container">
                     <img img-cache ic-src="{{ logo_pic + product.pic_name}}" class="swiper-lazy" />

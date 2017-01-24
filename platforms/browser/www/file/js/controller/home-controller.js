@@ -102,38 +102,69 @@
       $scope.job_url = baner_thumb_pic;
       if(localStorage.getItem('jobs') != null){
         $scope.jobs = JSON.parse(localStorage.getItem('jobs'));
+        $scope.sliders = JSON.parse(localStorage.getItem('sliders')); 
+        $timeout(function(){
+             $http({
+                method: 'GET',
+                url: base_url+'home', 
+                headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+             }).then(function successCallback(response) {
+                document.getElementById('loading').setAttribute('style','display:none;'); 
+                $scope.sliders = response.data.slider; 
+                $scope.jobs = response.data.bottom;
+                $scope.slider_change();
+                localStorage.setItem('jobs',JSON.stringify($scope.jobs)); 
+                localStorage.setItem('sliders',JSON.stringify($scope.sliders));   
+                    $http({
+                            method: 'GET',
+                            url: base_url+'update_visit', 
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+                        }); 
+             }, function errorCallback(response) {
+                        document.getElementById('loading').setAttribute('style','display:none;'); 
+                        ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'خطا در برقراری ارتباط با سرور'
+                    }); 
+            });
+   
+
+        },2000);
+
       }
       else
       {
-        document.getElementById('loading').removeAttribute('style'); 
-      }
-      if(localStorage.getItem('sliders') != null){
-        $scope.sliders = JSON.parse(localStorage.getItem('sliders')); 
-      }
-      $http({
-            method: 'GET',
-            url: base_url+'home', 
-            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
-        }).then(function successCallback(response) {
-               document.getElementById('loading').setAttribute('style','display:none;'); 
-               $scope.sliders = response.data.slider; 
-               $scope.jobs = response.data.bottom;
-               $scope.slider_change();
-               localStorage.setItem('jobs',JSON.stringify($scope.jobs)); 
-               localStorage.setItem('sliders',JSON.stringify($scope.sliders));   
-                $http({
-                        method: 'GET',
-                        url: base_url+'update_visit', 
-                        headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+            document.getElementById('loading').removeAttribute('style'); 
+            $http({
+                method: 'GET',
+                url: base_url+'home', 
+                headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+            }).then(function successCallback(response) {
+                document.getElementById('loading').setAttribute('style','display:none;'); 
+                $scope.sliders = response.data.slider; 
+                $scope.jobs = response.data.bottom;
+                $scope.slider_change();
+                localStorage.setItem('jobs',JSON.stringify($scope.jobs)); 
+                localStorage.setItem('sliders',JSON.stringify($scope.sliders));   
+                    $http({
+                            method: 'GET',
+                            url: base_url+'update_visit', 
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+                        }); 
+            }, function errorCallback(response) {
+                        document.getElementById('loading').setAttribute('style','display:none;'); 
+                        ons.notification.alert({
+                        title: 'خطا',
+                        buttonLabel:"بستن " ,
+                        message: 'خطا در برقراری ارتباط با سرور'
                     }); 
-        }, function errorCallback(response) {
-                     document.getElementById('loading').setAttribute('style','display:none;'); 
-                    ons.notification.alert({
-                    title: 'خطا',
-                    buttonLabel:"بستن " ,
-                    message: 'خطا در برقراری ارتباط با سرور'
-                }); 
-       }); 
+        });
+        
+
+      }
+     
+       
 
   $scope.slider_change = function(){
     $timeout(function(){
