@@ -1,4 +1,4 @@
-app.controller('search2Controller', function($scope,$http) { 
+app.controller('search2Controller', function($scope,$http,$timeout) { 
     if(localStorage.getItem('categories')!= null){
         $scope.categories = JSON.parse(localStorage.getItem('categories'));
          $timeout(function(){ 
