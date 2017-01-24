@@ -872,8 +872,6 @@ ons-splitter-side .page__content .list{
 .header_jobs ons-carousel-item img{
     width: 100%;
     height:220px;
-    object-fit: cover;
-    object-position: center;
 }
 .contact-image{
     width: 100%;

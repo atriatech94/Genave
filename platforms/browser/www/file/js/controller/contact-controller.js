@@ -1,5 +1,5 @@
 app.controller('contactController', function($scope,$http) { 
-     
+     $scope.base_img = uploads_pic;
       $scope.telegram = function(){
        window.open('https://t.me/bazargnv', '_system');
        
@@ -26,7 +26,6 @@ app.controller('contactController', function($scope,$http) {
         }).then(function successCallback(response) {
                document.getElementById('loading').setAttribute('style','display:none;'); 
                $scope.contact_us = response.data.contact_us; 
-               console.log($scope.contact_us);
                localStorage.setItem('contact_us',JSON.stringify($scope.contact_us)); 
          }, function errorCallback(response) {
                     document.getElementById('loading').setAttribute('style','display:none;'); 

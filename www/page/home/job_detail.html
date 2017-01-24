@@ -60,7 +60,7 @@
             <div class="sub_tab p15bs" ng-show="tab === 2">
                 <div class="job_gallery">
                     <span  ng-repeat="(key, product) in products"  ng-click="showDialog();active_swiper(key);" >
-                        <img src="processing.gif" lazy-img="{{ product_thumb + product.pic_name}}" >
+                        <img img-cache ic-src="{{ product_thumb + product.pic_name}}" >
                         <p>{{product.title}}</p>
                     </span>
                 </div>
@@ -119,7 +119,7 @@
             </ons-toolbar> 
         </div>
         
-        <ks-swiper-container  swiper="swiper" class="gallery_slider" on-ready="onReadySwiper(swiper)" initial-slide="gallery_active" override-parameters="{'preloadImages': 'true', 'lazyLoading': 'true','effect':'slide', 'zoom': 'true', 'nextButton': '.swiper-button-next', 'prevButton': '.swiper-button-prev','lazyLoadingInPrevNext' : 'true'}">
+        <ks-swiper-container  swiper="swiper" class="gallery_slider" on-ready="onReadySwiper(swiper)" initial-slide="gallery_active" override-parameters="{'preloadImages': 'true','effect':'slide', 'zoom': 'true', 'nextButton': '.swiper-button-next', 'prevButton': '.swiper-button-prev','lazyLoadingInPrevNext' : 'true'}">
             <ks-swiper-slide class="swiper-slide1" ng-repeat="product in products">
                 <div class="swiper-zoom-container">
                     <img img-cache ic-src="{{ logo_pic + product.pic_name}}" class="swiper-lazy" />

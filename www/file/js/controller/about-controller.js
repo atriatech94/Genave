@@ -1,5 +1,5 @@
  app.controller('aboutController', function($scope,$http) { 
-      $scope.base_img = uploads_pic;
+       $scope.base_img = uploads_pic;
       if(localStorage.getItem('about_us') != null){
          $scope.about_us = JSON.parse(localStorage.getItem('about_us'));
       }
@@ -15,6 +15,7 @@
         }).then(function successCallback(response) {
                document.getElementById('loading').setAttribute('style','display:none;'); 
                $scope.about_us = response.data.about; 
+                console.log($scope.about_us);
                localStorage.setItem('about_us',JSON.stringify($scope.about_us)); 
          }, function errorCallback(response) {
                     document.getElementById('loading').setAttribute('style','display:none;'); 
