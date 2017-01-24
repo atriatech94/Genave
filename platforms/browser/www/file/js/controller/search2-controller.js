@@ -1,9 +1,29 @@
 app.controller('search2Controller', function($scope,$http) { 
-   if(localStorage.getItem('categories')!= null){
+    if(localStorage.getItem('categories')!= null){
         $scope.categories = JSON.parse(localStorage.getItem('categories'));
+         $timeout(function(){ 
+               $http({
+                    method: 'GET',
+                    url: base_url+'get_cat_ios/0', 
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+                }).then(function successCallback(response) {
+                    document.getElementById('loading').setAttribute('style','display:none;'); 
+                    $scope.categories = response.data.category; 
+                    localStorage.setItem('categories',JSON.stringify($scope.categories)); 
+                }, function errorCallback(response) {
+                            document.getElementById('loading').setAttribute('style','display:none;'); 
+                            ons.notification.alert({
+                            title: 'خطا',
+                            buttonLabel:"بستن " ,
+                            message: 'خطا در برقراری ارتباط با سرور'
+                    }); 
+                }); 
+         },3500);
       }
       else
-     $http({
+      {
+        document.getElementById('loading').removeAttribute('style'); 
+         $http({
             method: 'GET',
             url: base_url+'get_cat_ios/0', 
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
@@ -19,6 +39,7 @@ app.controller('search2Controller', function($scope,$http) {
                     message: 'خطا در برقراری ارتباط با سرور'
             }); 
           }); 
+      }
 })
 .controller('search2ControllerCat', function($scope,$http) { 
               let cat_id = searchNav.topPage.data.cat_id; 

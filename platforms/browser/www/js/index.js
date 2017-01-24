@@ -34,9 +34,7 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-       ons.ready(function() {
-         ImgCache.$init();
-        });
+      
        push = PushNotification.init({
              alert: "true",
              badge: "true",

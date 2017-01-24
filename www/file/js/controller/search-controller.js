@@ -1,13 +1,30 @@
-app.controller('searchController', function($http,$scope) { 
+app.controller('searchController', function($http,$scope,$timeout) { 
       $scope.image_url = thumb_pic;
       if(localStorage.getItem('categories')!= null){
         $scope.categories = JSON.parse(localStorage.getItem('categories'));
+         $timeout(function(){ 
+               $http({
+                    method: 'GET',
+                    url: base_url+'get_cat_ios/0', 
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+                }).then(function successCallback(response) {
+                    document.getElementById('loading').setAttribute('style','display:none;'); 
+                    $scope.categories = response.data.category; 
+                    localStorage.setItem('categories',JSON.stringify($scope.categories)); 
+                }, function errorCallback(response) {
+                            document.getElementById('loading').setAttribute('style','display:none;'); 
+                            ons.notification.alert({
+                            title: 'خطا',
+                            buttonLabel:"بستن " ,
+                            message: 'خطا در برقراری ارتباط با سرور'
+                    }); 
+                }); 
+         },3000);
       }
       else
       {
         document.getElementById('loading').removeAttribute('style'); 
-      }
-   $http({
+         $http({
             method: 'GET',
             url: base_url+'get_cat_ios/0', 
             headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
@@ -23,6 +40,8 @@ app.controller('searchController', function($http,$scope) {
                     message: 'خطا در برقراری ارتباط با سرور'
             }); 
           }); 
+      }
+  
 
 
 })
